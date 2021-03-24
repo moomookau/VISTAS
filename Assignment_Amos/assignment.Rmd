@@ -1,0 +1,61 @@
+---
+title: "Visual Analytics Assignment"
+author: "Amos Lau"
+date: "3/24/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Install and load packages
+```{r message=FALSE, warning=FALSE}
+packages = c('tidyverse', 'readxl', 'maps', 'geosphere')
+for (p in packages){
+  if(!require(p, character.only = TRUE)) {
+    install.packages(p)
+  }
+  library(p, character.only = TRUE)
+}
+```
+
+# Load the base files provided by the Linkedin-Worldbank dataset
+```{r}
+industryEmploymentGrowth <- read_excel("../data/public_use-industry-employment-growth.xlsx", sheet="Growth from Industry Transition")
+industrySkillsNeeds <- read_excel("../data/public_use-industry-skills-needs.xlsx", sheet="Industry Skills Needs")
+skillPenetration <- read_excel("../data/public_use-skill-penetration.xlsx", sheet="Skill Penetration")
+countryMigration <- read_excel("../data/public_use-talent-migration.xlsx", sheet="Country Migration")
+industryMigration <- read_excel("../data/public_use-talent-migration.xlsx", sheet="Industry Migration")
+skillMigration <- read_excel("../data/public_use-talent-migration.xlsx", sheet="Skill Migration")
+```
+
+# Trying migration flow map
+```{r}
+pal <- colorRampPalette(c("#333333", "white", "#1292db"))
+colors <- pal(100)
+
+singaporeMigration <- countryMigration %>%
+  filter(base_country_name == "Singapore")
+
+maxMigration <- max(singaporeMigration$net_per_10K_2019)
+
+xlim <- c(min(singaporeMigration$target_long), max(singaporeMigration$target_long))
+ylim <- c(min(singaporeMigration$target_lat), max(singaporeMigration$target_lat))
+
+map("world", col="#191919", fill=TRUE, bg="#000000", xlim=xlim, ylim=ylim)
+
+for (j in 1:length(singaporeMigration)) {
+    baseLat <- singaporeMigration[j,]$base_lat
+    baseLon <- singaporeMigration[j,]$base_long
+    targetLat <- singaporeMigration[j,]$target_lat
+    targetLon <- singaporeMigration[j,]$target_long
+
+    migration <- gcIntermediate(c(baseLon, baseLat), c(targetLon, targetLat), n=100, addStartEnd=TRUE)
+    colindex <- round((abs(singaporeMigration[j,]$net_per_10K_2019) / maxMigration) * length(colors) )
+
+    lines(migration, col=colors[colindex], lwd=0.6)
+}
+```
+
+
