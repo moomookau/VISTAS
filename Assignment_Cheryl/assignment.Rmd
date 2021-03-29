@@ -1,0 +1,233 @@
+---
+title: "Assignment"
+description: |
+  A short description of the post.
+author:
+  - name: Cheryl Pay
+    url: {}
+date: 03-27-2021
+output:
+  distill::distill_article:
+    self_contained: false 
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set()
+```
+
+Distill is a publication format for scientific and technical writing, native to the web.
+
+Learn more about using Distill at <https://rstudio.github.io/distill>.
+
+## install and load packages required
+
+```{r warning = FALSE, message = FALSE}
+packages = c('readr', 'tidyverse', 'dplyr', 'plotly', 'DT', 'formattable', 'scales', 'paletteer', 'crosstalk', 'shiny', 'reactable', 'knitr', 'RColorBrewer', 'scales', 'gt', 'GGally', 'RColorBrewer', 'readxl')
+
+for(p in packages){
+	if(!require(p, character.only = T)){
+		install.packages(p)
+	}
+	library(p, character.only = T)
+}
+
+```
+
+## set custom colors
+```{r}
+#Set a few color variables to make our table more visually appealing
+customGreen0 = "#DeF7E9"
+
+customGreen = "#71CA97"
+
+customRed = "#ff7f7f"
+```
+
+
+## load industry skill needs with read_csv
+
+```{r message=FALSE}
+industryskillsneeds <- read_excel("../data/public_use-industry-skills-needs.xlsx", sheet="Industry Skills Needs")
+#omit rows with NA values
+industryskillsneeds <- na.omit(industryskillsneeds)
+
+datatable(industryskillsneeds,
+          filter = list(position = 'top', clear = FALSE)
+          )
+```
+
+```{r}
+test <- industryskillsneeds %>%
+  select(`industry_name`, `year`, `skill_group_name`, `skill_group_rank`) %>%
+  pivot_wider(
+            names_from = year,
+            values_from = skill_group_rank,
+            values_fill = NULL
+            )
+
+datatable(test,
+          options = list(ordering = F, dom = 't'),
+          filter = list(position = 'top', clear = FALSE))
+```
+
+## select industry
+spread() from tidyr
+
+```{r message=FALSE}
+industryskillsneeds_industry <- industryskillsneeds %>%
+  #filter(industry_name == "Mining & Metals") %>%
+  select(`industry_name`, `year`, `skill_group_name`, `skill_group_rank`) %>%
+  pivot_wider(names_from = year, values_from = skill_group_name) %>%
+  select(`industry_name`, `skill_group_rank`, `2015`, `2016`, `2017`, `2018`, `2019`) %>%
+  arrange(industry_name, skill_group_rank)
+
+#omit rows with NA values
+industryskillsneeds_industry <- na.omit(industryskillsneeds_industry)
+
+datatable(industryskillsneeds_industry,
+              rownames = FALSE,
+              colnames = c('Industry' = 'industry_name', 'Skill Group Rank' = 'skill_group_rank'),
+              options = list(ordering=F, dom = 'ftps'),
+              #extensions = 'Buttons', 
+              #options = list(dom='Bfrtip', buttons = c('copy', 'csv', 'excel', 'pdf', 'print')),
+              caption = 'Top 10 Skills in each industry',
+              )
+```
+
+
+```{r}
+industryskillsneeds_mining <- industryskillsneeds_industry %>%
+  filter(industry_name == "Mining & Metals")
+
+formattable(industryskillsneeds_mining,
+            align =c("c","c","c","c","c", "c"),
+            pagination = TRUE,
+            defaultPageSize = 10
+            )
+            
+```
+
+```{r}
+reactable(industryskillsneeds_industry,
+          style = list(fontSize = "14px"),
+          filterable = TRUE,
+          columns = list(
+            industry_name = colDef(name = "Industry Name"),
+            skill_group_rank = colDef(name = "Skill Rank", align = "center", filterable = FALSE),
+            `2015` = colDef(filterable = FALSE),
+            `2016` = colDef(filterable = FALSE),
+            `2017` = colDef(filterable = FALSE),
+            `2018` = colDef(filterable = FALSE),
+            `2019` = colDef(filterable = FALSE)
+          )) 
+```
+
+## table to be filered by Crosstalk's filtering API filter_select()
+```{r}
+filter_industryskillsneeds_industry <- SharedData$new(industryskillsneeds_industry)
+
+bscols(
+  widths = c(6,12),
+  list(filter_select("industry_name", 
+                     "Industry Name", 
+                     filter_industryskillsneeds_industry, 
+                     ~industry_name, 
+                     multiple = FALSE, 
+                     )
+       ),
+  reactable(filter_industryskillsneeds_industry,
+            defaultColDef = colDef(
+    header = function(value) gsub(".", " ", value, fixed = TRUE),
+    align = "center",
+    minWidth = 70,
+    headerStyle = list(background = "#f7f7f8"),
+    style = list(fontSize = "12px")
+  ),
+            minRows = 10,
+            columns = list(
+              industry_name = colDef(name = "Industry Name", show = FALSE),
+              skill_group_rank = colDef(name = "Skill Rank", align = "center", maxWidth = 60)
+              )
+))
+```
+
+# plot histogram
+rcolorbrewer
+fig height and width is modified
+
+```{r fig.height = 6, fig.width=7}
+#render graph
+barplot1 <- industryskillsneeds %>%
+  filter(industry_name == "Accounting") %>%
+  ggplot(aes(year,
+             fill = skill_group_category)) +
+  geom_bar() +
+  scale_y_continuous(breaks=c(2,4,6,8,10)) +
+  theme_minimal() +
+  theme(legend.position = "right", legend.title = element_blank()) +
+  scale_fill_brewer(palette="Set2")
+
+barplot1
+```
+
+add labels to barplot1
+
+#rcharts
+https://rkabacoff.github.io/datavis/Interactive.html
+
+
+# plot geom_count
+```{r}
+acctg <- industryskillsneeds %>%
+  filter(industry_name == "Accounting")
+
+scatterplot1 <- industryskillsneeds %>%
+  filter(industry_name == "Accounting") %>%
+  ggplot(aes(x = year,
+             y = skill_group_category)
+         ) +
+  geom_count()
+
+scatterplot1
+```
+# plot geom_line
+```{r}
+acctg <- industryskillsneeds %>%
+  filter(industry_name == "Accounting")
+
+line1 <- industryskillsneeds %>%
+  filter(industry_name == "Accounting") %>%
+  ggplot(aes(x = year)
+         ) +
+  geom_line(stat = 'count') +
+  facet_grid(~skill_group_category)
+
+line1
+```
+#plot
+```{r}
+dotplot1 <- industryskillsneeds %>%
+  filter(industry_name == "Accounting") %>%
+  ggplot(aes(x = year,
+             fill = skill_group_category)
+         ) +
+  geom_dotplot(position=position_dodge(0.8)) +
+  scale_y_continuous(NULL,
+                     breaks = NULL,
+                     )
+
+dotplot1
+```
+
+# plot geom_dotplot with plotly
+```{r}
+dotplot2 <- industryskillsneeds %>%
+  filter(industry_name == "Accounting") %>%
+  ggplot(aes(x = year,
+             color = skill_group_category)
+         ) +
+  geom_dotplot(position=position_dodge(0.5))
+
+ggplotly(dotplot2)
+```
