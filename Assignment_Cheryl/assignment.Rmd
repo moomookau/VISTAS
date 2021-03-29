@@ -23,7 +23,7 @@ Learn more about using Distill at <https://rstudio.github.io/distill>.
 ## install and load packages required
 
 ```{r warning = FALSE, message = FALSE}
-packages = c('readr', 'tidyverse', 'dplyr', 'plotly', 'DT', 'formattable', 'scales', 'paletteer', 'crosstalk', 'shiny', 'reactable', 'knitr', 'RColorBrewer', 'scales', 'gt', 'GGally', 'RColorBrewer', 'readxl')
+packages = c('readr', 'tidyverse', 'dplyr', 'plotly', 'DT', 'formattable', 'scales', 'paletteer', 'crosstalk', 'shiny', 'reactable', 'knitr', 'RColorBrewer', 'scales', 'gt', 'GGally', 'RColorBrewer', 'readxl', 'randomcoloR')
 
 for(p in packages){
 	if(!require(p, character.only = T)){
@@ -127,6 +127,9 @@ reactable(industryskillsneeds_industry,
 ```{r}
 filter_industryskillsneeds_industry <- SharedData$new(industryskillsneeds_industry)
 
+skillFactor <- fct_shuffle(as.factor(unique(industryskillsneeds$skill_group_name)))
+colors <- distinctColorPalette(length(skillFactor))
+
 bscols(
   widths = c(6,12),
   list(filter_select("industry_name", 
@@ -142,7 +145,10 @@ bscols(
     align = "center",
     minWidth = 70,
     headerStyle = list(background = "#f7f7f8"),
-    style = list(fontSize = "12px")
+    style = function(value) {
+        color <- colors[match(value,levels(skillFactor))]
+        list(color = color, fontSize = "12px")
+      }
   ),
             minRows = 10,
             columns = list(
