@@ -1,0 +1,380 @@
+---
+title: "assignment"
+description: |
+  Assignment as part of Visual Analytics Project titled VISTAS - Visualising Industry Skill TAlent Shifts.
+author:
+  - name: Louis Chong Jia Jun (louis.chong.2019@mitb.smu.edu.sg)
+    url: https://www.linkedin.com/in/louis-chong-jia-jun
+date: 03-23-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Overview
+
+* Focus on regression and correlation
+
+# Download d3scatter Package
+
+* Run if not installed
+* Together with crosstalk package, interactive filters on static html document, only show scatter plot, not compatible with other packages to show regression and correlation
+* Interactive filters, regression and correlation can be done together on R Shiny app
+* In this assignment, use different filters, identify subsets with distinct distributions, manually adjust codes to filter datasets and show regression and correlation
+
+```{r}
+devtools::install_github("jcheng5/d3scatter")
+```
+
+# Install and Launch R Packages
+
+* Install R packages if not installed and launch
+
+```{r message=FALSE, warning=FALSE}
+packages = c('readxl', 'devtools', 'crosstalk', 'd3scatter', 'lazyeval', 'tidyverse', 'ggstatsplot', 'olsrr')
+
+for(p in packages){
+  if(!require(p, character.only = T)){
+    install.packages(p)
+  }
+  library(p, character.only = T)
+}
+```
+
+# Import Data
+
+* Import datasets
+
+```{r}
+industryEmploymentGrowth <- read_excel("data/public_use-industry-employment-growth.xlsx", sheet = "Growth from Industry Transition")
+industrySkillsNeeds <- read_excel("data/public_use-industry-skills-needs.xlsx", sheet = "Industry Skills Needs")
+skillPenetration <- read_excel("data/public_use-skill-penetration.xlsx", sheet = "Skill Penetration")
+countryMigration <- read_excel("data/public_use-talent-migration.xlsx", sheet = "Country Migration")
+industryMigration <- read_excel("data/public_use-talent-migration.xlsx", sheet = "Industry Migration")
+skillMigration <- read_excel("data/public_use-talent-migration.xlsx", sheet = "Skill Migration")
+gdpPerCapita <- read_csv("data/API_NY.GDP.PCAP.CD_DS2_en_csv_v2_2055804.csv")
+```
+
+# Data Wrangling
+
+* GDP per capita for various countries over many years
+* Change column name from "Country Name" to "country_name" to be consistent with other datasets
+* Change column names from "2019" to "gpc2019". Numerical labelling of columns may result in difficulties in data wrangling
+* Keep only relevant columns i.e. country, GDP per capita from 2014 to 2019
+* Calculate change in GDP per capita year on year for 2015 to 2019 by applying formulas
+* Keep only relevant columns i.e. country, GDP per capita growth for 2015 to 2019
+* Use pivot_longer to place GDP per capita growth in rows instead of columns, name of column storing original values of columns - "GDP_per_capita_growth", name of column storing original names of columns - "year" and edit to keep only values of year
+
+```{r}
+names(gdpPerCapita)[1] <- "country_name"
+names(gdpPerCapita)[59] <- "gpc2014"
+names(gdpPerCapita)[60] <- "gpc2015"
+names(gdpPerCapita)[61] <- "gpc2016"
+names(gdpPerCapita)[62] <- "gpc2017"
+names(gdpPerCapita)[63] <- "gpc2018"
+names(gdpPerCapita)[64] <- "gpc2019"
+gdpPerCapita <- gdpPerCapita[-c(2:58, 65)]
+gdpPerCapita$g2015 <- (gdpPerCapita$gpc2015/gdpPerCapita$gpc2014) - 1
+gdpPerCapita$g2016 <- (gdpPerCapita$gpc2016/gdpPerCapita$gpc2015) - 1
+gdpPerCapita$g2017 <- (gdpPerCapita$gpc2017/gdpPerCapita$gpc2016) - 1
+gdpPerCapita$g2018 <- (gdpPerCapita$gpc2018/gdpPerCapita$gpc2017) - 1
+gdpPerCapita$g2019 <- (gdpPerCapita$gpc2019/gdpPerCapita$gpc2018) - 1
+gdpPerCapita <- gdpPerCapita[-c(2:7)] %>%
+  pivot_longer(cols = c(`g2015`, `g2016`, `g2017`, `g2018`, `g2019`), names_to = "year", values_to = "GDP_per_capita_growth") %>%
+  mutate(year = str_sub(year, 2, -1))
+```
+
+* Employment growth rate for various industries in various countries from 2015 to 2019
+* Keep only relevant columns i.e. country, region, income, industry, employment growth for 2015 to 2019
+* Use pivot_longer to place industry employment growth in rows instead of columns, name of column storing original values of columns - "employment_growth", name of column storing original names of columns - "year" and edit to keep only values of year
+
+```{r}
+industryEmploymentGrowth <- industryEmploymentGrowth[-c(1, 5, 7)] %>%
+  pivot_longer(cols = c(`growth_rate_2015`, `growth_rate_2016`, `growth_rate_2017`, `growth_rate_2018`, `growth_rate_2019`), names_to = "year", values_to = "employment_growth") %>%
+  mutate(year = str_sub(year, 13, -1))
+```
+
+* Migration (net per 10k) for various industries in various countries from 2015 to 2019
+* Keep only relevant columns i.e. country, region, income, industry, migration for 2015 to 2019
+* Use pivot_longer to place industry migration in rows instead of columns, name of column storing original values of columns - "industry_migration", name of column storing original names of columns - "year" and edit to keep only values of year
+
+```{r}
+industryMigration <- industryMigration[-c(1, 5, 7)] %>%
+  pivot_longer(cols = c(`net_per_10K_2015`, `net_per_10K_2016`, `net_per_10K_2017`, `net_per_10K_2018`, `net_per_10K_2019`), names_to = "year", values_to = "industry_migration") %>%
+  mutate(year = str_sub(year, 13, -1))
+```
+
+* Migration (net per 10k) for various skills in various countries from 2015 to 2019
+* Keep only relevant columns i.e. country, region, income, skill, skill migration for 2015 to 2019
+* Use pivot_longer to place skill migration in rows instead of columns, name of column storing original values of columns - "skill_migration", name of column storing original names of columns - "year" and edit to keep only values of year
+
+```{r}
+skillMigration <- skillMigration[-c(1, 5)] %>%
+  pivot_longer(cols = c(`net_per_10K_2015`, `net_per_10K_2016`, `net_per_10K_2017`, `net_per_10K_2018`, `net_per_10K_2019`), names_to = "year", values_to = "skill_migration") %>%
+  mutate(year = str_sub(year, 13, -1))
+```
+
+* Top 10 skill needs for each industry from 2015 to 2019
+* industrySkillMigration: merge skill migration and industry skill need datasets to show the industries which the skills are needed in
+
+```{r}
+industrySkillsNeeds <- industrySkillsNeeds[-c(2, 7)]
+industrySkillMigration <- merge(skillMigration, industrySkillsNeeds, by = c("year", "skill_group_category", "skill_group_name"))
+```
+
+* Merge various datasets to have various visualisations of regression and correlation
+* master1: merge GDP per capita and industry employment growth datasets to compare GDP per capita growth with industry employment growth
+* master2: merge GDP per capita and industry migration datasets to compare GDP per capita growth with industry migration
+* master3: merge GDP per capita and skill migration datasets to compare GDP per capita growth with skill migration
+* master4: merge industry employment growth and industry migration datasets to compare industry employment growth and industry migration
+* master5: merge industry employment growth and industry skill migration datasets to compare industry employment growth and industry skill migration
+* master6: merge master2 and master5 to have a master dataset containing values of GDP per capita growth, industry employment growth, industry migration and skill migration
+
+```{r}
+master1 <- merge(industryEmploymentGrowth, gdpPerCapita, by = c("country_name", "year"))
+master2 <- merge(industryMigration, gdpPerCapita, by = c("country_name", "year"))
+master3 <- merge(skillMigration, gdpPerCapita, by = c("country_name", "year"))
+master4 <- merge(industryEmploymentGrowth, industryMigration, by = c("country_name", "year", "wb_region", "wb_income", "isic_section_name", "industry_name"))
+master5 <- merge(industryEmploymentGrowth, industrySkillMigration, by = c("country_name", "year", "wb_region", "wb_income", "isic_section_name", "industry_name"))
+master6 <- merge(master5, master2, by = c("country_name", "year", "wb_region", "wb_income", "isic_section_name", "industry_name"))
+```
+
+# Interactive Scatter Plot
+
+* For simplicity in this assignment, use master6 even though there are less observations when merged
+* R Shiny App will use master1 to master6 for results of higher accuracy
+* Use crosstalk and d3scatter packages, long processing time
+* Create 5 scatter plots: GDP per capita growth vs Employment growth / Industry migration / Skill migration, Employment growth vs Industry migration / Skill migration
+* Filter by country, year, region, income level, industry section, industry, skill category, skill
+* Coloured by year to show the change over the years
+* Limitation: Cannot adjust orientation of axes labels, cannot place reference lines at zero
+* More for exploratory purpose in this assignment
+
+```{r}
+shared_master <- SharedData$new(master6)
+
+bscols(widths = c(3,NA),
+       list(
+         filter_select("country_name", "Country Name", shared_master, ~country_name, allLevels = TRUE, multiple = TRUE),
+         filter_select("year", "Year", shared_master, ~year, allLevels = TRUE, multiple = TRUE),
+         filter_select("wb_region", "Region", shared_master, ~wb_region, allLevels = TRUE, multiple = TRUE),
+         filter_select("wb_income", "Income Level", shared_master, ~wb_income, allLevels = TRUE, multiple = TRUE),
+         filter_select("isic_section_name", "Industry Section", shared_master, ~isic_section_name, allLevels = TRUE, multiple = TRUE),
+         filter_select("industry_name", "Industry", shared_master, ~industry_name, allLevels = TRUE, multiple = TRUE),
+         filter_select("skill_group_category", "Skill Category", shared_master, ~skill_group_category, allLevels = TRUE, multiple = TRUE),
+         filter_select("skill_group_name", "Skill", shared_master, ~skill_group_name, allLevels = TRUE, multiple = TRUE)
+       ),
+       d3scatter(shared_master, ~employment_growth, ~GDP_per_capita_growth, ~year, x_label = "Employment Growth", y_label = "GDP Per Capita Growth", width = "100%", height = 500)
+)
+
+bscols(widths = c(3,NA),
+       list(
+         filter_select("country_name", "Country Name", shared_master, ~country_name, allLevels = TRUE, multiple = TRUE),
+         filter_select("year", "Year", shared_master, ~year, allLevels = TRUE, multiple = TRUE),
+         filter_select("wb_region", "Region", shared_master, ~wb_region, allLevels = TRUE, multiple = TRUE),
+         filter_select("wb_income", "Income Level", shared_master, ~wb_income, allLevels = TRUE, multiple = TRUE),
+         filter_select("isic_section_name", "Industry Section", shared_master, ~isic_section_name, allLevels = TRUE, multiple = TRUE),
+         filter_select("industry_name", "Industry", shared_master, ~industry_name, allLevels = TRUE, multiple = TRUE),
+         filter_select("skill_group_category", "Skill Category", shared_master, ~skill_group_category, allLevels = TRUE, multiple = TRUE),
+         filter_select("skill_group_name", "Skill", shared_master, ~skill_group_name, allLevels = TRUE, multiple = TRUE)
+       ),
+       d3scatter(shared_master, ~industry_migration, ~GDP_per_capita_growth, ~year, x_label = "Industry Migration (Net Per 10k)", y_label = "GDP Per Capita Growth", width = "100%", height = 500)
+)
+
+bscols(widths = c(3,NA),
+       list(
+         filter_select("country_name", "Country Name", shared_master, ~country_name, allLevels = TRUE, multiple = TRUE),
+         filter_select("year", "Year", shared_master, ~year, allLevels = TRUE, multiple = TRUE),
+         filter_select("wb_region", "Region", shared_master, ~wb_region, allLevels = TRUE, multiple = TRUE),
+         filter_select("wb_income", "Income Level", shared_master, ~wb_income, allLevels = TRUE, multiple = TRUE),
+         filter_select("isic_section_name", "Industry Section", shared_master, ~isic_section_name, allLevels = TRUE, multiple = TRUE),
+         filter_select("industry_name", "Industry", shared_master, ~industry_name, allLevels = TRUE, multiple = TRUE),
+         filter_select("skill_group_category", "Skill Category", shared_master, ~skill_group_category, allLevels = TRUE, multiple = TRUE),
+         filter_select("skill_group_name", "Skill", shared_master, ~skill_group_name, allLevels = TRUE, multiple = TRUE)
+       ),
+       d3scatter(shared_master, ~skill_migration, ~GDP_per_capita_growth, ~year, x_label = "Skill Migration (Net Per 10k)", y_label = "GDP Per Capita Growth", width = "100%", height = 500)
+)
+
+bscols(widths = c(3,NA),
+       list(
+         filter_select("country_name", "Country Name", shared_master, ~country_name, allLevels = TRUE, multiple = TRUE),
+         filter_select("year", "Year", shared_master, ~year, allLevels = TRUE, multiple = TRUE),
+         filter_select("wb_region", "Region", shared_master, ~wb_region, allLevels = TRUE, multiple = TRUE),
+         filter_select("wb_income", "Income Level", shared_master, ~wb_income, allLevels = TRUE, multiple = TRUE),
+         filter_select("isic_section_name", "Industry Section", shared_master, ~isic_section_name, allLevels = TRUE, multiple = TRUE),
+         filter_select("industry_name", "Industry", shared_master, ~industry_name, allLevels = TRUE, multiple = TRUE),
+         filter_select("skill_group_category", "Skill Category", shared_master, ~skill_group_category, allLevels = TRUE, multiple = TRUE),
+         filter_select("skill_group_name", "Skill", shared_master, ~skill_group_name, allLevels = TRUE, multiple = TRUE)
+       ),
+       d3scatter(shared_master, ~industry_migration, ~employment_growth, ~year, x_label = "Industry Migration (Net Per 10k)", y_label = "Employment Growth", width = "100%", height = 500)
+)
+
+bscols(widths = c(3,NA),
+       list(
+         filter_select("country_name", "Country Name", shared_master, ~country_name, allLevels = TRUE, multiple = TRUE),
+         filter_select("year", "Year", shared_master, ~year, allLevels = TRUE, multiple = TRUE),
+         filter_select("wb_region", "Region", shared_master, ~wb_region, allLevels = TRUE, multiple = TRUE),
+         filter_select("wb_income", "Income Level", shared_master, ~wb_income, allLevels = TRUE, multiple = TRUE),
+         filter_select("isic_section_name", "Industry Section", shared_master, ~isic_section_name, allLevels = TRUE, multiple = TRUE),
+         filter_select("industry_name", "Industry", shared_master, ~industry_name, allLevels = TRUE, multiple = TRUE),
+         filter_select("skill_group_category", "Skill Category", shared_master, ~skill_group_category, allLevels = TRUE, multiple = TRUE),
+         filter_select("skill_group_name", "Skill", shared_master, ~skill_group_name, allLevels = TRUE, multiple = TRUE)
+       ),
+       d3scatter(shared_master, ~skill_migration, ~employment_growth, ~year, x_label = "Skill Migration (Net Per 10k)", y_label = "Employment Growth", width = "100%", height = 500)
+)
+```
+
+# Filtered Dataset
+
+* Find specific results for regression and correlation
+* Filter by country, year, region, income level, industry section, industry, skill category, skill
+
+```{r}
+filtered_master <- master6 %>%
+  filter(isic_section_name == "Information and communication")
+```
+
+# Regression
+
+* Use filtered dataset
+* Create 5 regression plots: GDP per capita growth vs Employment growth / Industry migration / Skill migration, Employment growth vs Industry migration / Skill migration
+* Use ggstatsplot instead of ggplot, histograms plotted as marginal distributions, can analyse distributions of variables on top of regression
+* Default 95% confidence interval, results of statistical tests displayed, title and axes labelled, coloured by year, reference lines at zero
+* label.var, label.expression, caption
+
+```{r}
+ggscatterstats(filtered_master, employment_growth, GDP_per_capita_growth, title = "Relationship Between GDP Per Capita Growth & Employment Growth", ggplot.component = list(ggplot2::
+                        aes(employment_growth, GDP_per_capita_growth, colour = year),
+                        xlab("Employment Growth"),
+                        ylab("GDP Per\nCapita\nGrowth"),
+                        theme(axis.title.y = element_text(angle = 0)),
+                        geom_hline(yintercept = 0,
+                                   linetype = "dashed",
+                                   color = "grey60",
+                                   size = 1),
+                        geom_vline(xintercept = 0,
+                                   linetype = "dashed",
+                                   color = "grey60",
+                                   size = 1)))
+
+ggscatterstats(filtered_master, industry_migration, GDP_per_capita_growth, title = "Relationship Between GDP Per Capita Growth & Industry Migration", ggplot.component = list(ggplot2::
+                        aes(industry_migration, GDP_per_capita_growth, colour = year),
+                        xlab("Industry Migration"),
+                        ylab("GDP Per\nCapita\nGrowth"),
+                        theme(axis.title.y = element_text(angle = 0)),
+                        geom_hline(yintercept = 0,
+                                   linetype = "dashed",
+                                   color = "grey60",
+                                   size = 1),
+                        geom_vline(xintercept = 0,
+                                   linetype = "dashed",
+                                   color = "grey60",
+                                   size = 1)))
+
+ggscatterstats(filtered_master, skill_migration, GDP_per_capita_growth, title = "Relationship Between GDP Per Capita Growth & Skill Migration", ggplot.component = list(ggplot2::
+                        aes(skill_migration, GDP_per_capita_growth, colour = year),
+                        xlab("Skill Migration"),
+                        ylab("GDP Per\nCapita\nGrowth"),
+                        theme(axis.title.y = element_text(angle = 0)),
+                        geom_hline(yintercept = 0,
+                                   linetype = "dashed",
+                                   color = "grey60",
+                                   size = 1),
+                        geom_vline(xintercept = 0,
+                                   linetype = "dashed",
+                                   color = "grey60",
+                                   size = 1)))
+
+ggscatterstats(filtered_master, industry_migration, employment_growth, title = "Relationship Between Employment Growth & Industry Migration", ggplot.component = list(ggplot2::
+                        aes(industry_migration, employment_growth, colour = year),
+                        xlab("Industry Migration"),
+                        ylab("Employment\nGrowth"),
+                        theme(axis.title.y = element_text(angle = 0)),
+                        geom_hline(yintercept = 0,
+                                   linetype = "dashed",
+                                   color = "grey60",
+                                   size = 1),
+                        geom_vline(xintercept = 0,
+                                   linetype = "dashed",
+                                   color = "grey60",
+                                   size = 1)))
+
+ggscatterstats(filtered_master, skill_migration, employment_growth, title = "Relationship Between Employment Growth & Skill Migration", ggplot.component = list(ggplot2::
+                        aes(skill_migration, employment_growth, colour = year),
+                        xlab("Skill Migration"),
+                        ylab("Employment\nGrowth"),
+                        theme(axis.title.y = element_text(angle = 0)),
+                        geom_hline(yintercept = 0,
+                                   linetype = "dashed",
+                                   color = "grey60",
+                                   size = 1),
+                        geom_vline(xintercept = 0,
+                                   linetype = "dashed",
+                                   color = "grey60",
+                                   size = 1)))
+```
+
+* Show results of each regression model
+* Use olsrr package, as it's easier for users to understand
+
+```{r}
+ols_regress(GDP_per_capita_growth ~ employment_growth, filtered_master)
+```
+
+```{r}
+ols_regress(GDP_per_capita_growth ~ industry_migration, filtered_master)
+```
+
+```{r}
+ols_regress(GDP_per_capita_growth ~ skill_migration, filtered_master)
+```
+
+```{r}
+ols_regress(employment_growth ~ industry_migration, filtered_master)
+```
+
+```{r}
+ols_regress(employment_growth ~ skill_migration, filtered_master)
+```
+
+# Multiple Regression
+
+* Multiple regression model, GDP per capita growth vs Employment growth, Industry migration, Skill migration
+* Use olsrr package
+
+```{r}
+ols_regress(GDP_per_capita_growth ~ employment_growth + industry_migration + skill_migration, filtered_master)
+```
+
+# Stepwise Regression
+
+* Remove variables that are not important to regression model, based on p values
+* No variable removed, all contribute to GDP per capita growth
+
+```{r}
+ols_step_backward_aic(lm(GDP_per_capita_growth ~ employment_growth + industry_migration + skill_migration, filtered_master))
+```
+
+# Correlation
+
+* Correlation of variables in multiple regression model i.e. employment growth, industry migration, skill migration
+* Use ggcorrmat under ggstatsplot package instead of corrplot and other packages, simple due to few variables
+* Default upper triangular matrix, significance level of 0.05, palette/colours, cross if insignificant correlation coefficients
+
+```{r}
+ggcorrmat(filtered_master,
+          cor.vars = c(7, 10, 11),
+          pch = "cross")
+```
+
+
+
+
+
+
+
