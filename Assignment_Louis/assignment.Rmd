@@ -128,19 +128,19 @@ for(p in packages){
 Next, we will load the necessary datasets for this assignment, which include GDP per capita, industry employment growth, industry migration, skill migration and industry skills need.
 
 ```{r message=FALSE, warning=FALSE}
-industryEmploymentGrowth <- read_excel("data/public_use-industry-employment-growth.xlsx",
+industryEmploymentGrowth <- read_excel("../data/public_use-industry-employment-growth.xlsx",
                                        sheet = "Growth from Industry Transition")
 
-industrySkillsNeeds <- read_excel("data/public_use-industry-skills-needs.xlsx",
+industrySkillsNeeds <- read_excel("../data/public_use-industry-skills-needs.xlsx",
                                   sheet = "Industry Skills Needs")
 
-industryMigration <- read_excel("data/public_use-talent-migration.xlsx",
+industryMigration <- read_excel("../data/public_use-talent-migration.xlsx",
                                 sheet = "Industry Migration")
 
-skillMigration <- read_excel("data/public_use-talent-migration.xlsx",
+skillMigration <- read_excel("../data/public_use-talent-migration.xlsx",
                              sheet = "Skill Migration")
 
-gdpPerCapita <- read_csv("data/API_NY.GDP.PCAP.CD_DS2_en_csv_v2_2055804.csv")
+gdpPerCapita <- read_csv("../data/API_NY.GDP.PCAP.CD_DS2_en_csv_v2_2055804.csv")
 ```
 
 # 2.3 Data Wrangling
