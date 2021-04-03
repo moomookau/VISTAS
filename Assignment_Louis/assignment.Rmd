@@ -667,18 +667,9 @@ Subsequently, we will combine the interactive filters, regression plot and corre
 
 ![Figure 9: Final Data Visualisation](https://raw.githubusercontent.com/louischong1990/blog/master/Assignment/Images/Picture9.png)
 
-# 3.1 Key Observations
+# 3.1 Discussion of Results
 
-...
+Finally, we discuss the results for the filtered dataset, which is for year 2019, information and communication industry and tech skills.
 
-* [1A] Increasing employability - What are the highly sought-after skills to build up to increase employability in a particular country or a particular sector?
-* [1B] Employment opportunities - Which country holds better employment opportunities for certain skills or certain industry?
-* [2E] GDP per capita growth - How is GDP per capita growth impacted by migration and employment growth in our country?
-
-Relationship for GDP per capita growth vs employment growth / industry migration / skill migration not strong, surprising that more employment growth and migration lead to lower GDP per capita growth
-Relationship for employment growth vs industry migration / skill migration is decent, more migration leads to more employment growth
-
-It is noted that GDP per capita growth is weakly correlated with employment growth, industry and skill migration. Industry and skill migration are highly correlated (>0.8) for both plots.
-
-All the regression models show weak relationship (low R-squared values) between GDP per capita growth and the dependent variables.
-any other factors that influence GDP per capita growth
+* The relationship between GDP per capita growth vs industry employment growth, industry migration or skill migration is not strong. This is shown in the low R-squared values (below 0.02) in Section 2.6. Even when multiple variables are used to build a multiple regression model with GDP per capita growth and the less important variables (by p-value) as well as the correlated variables are removed in Section 2.8-2.9, the R-squared values are still low. Furthermore, in Section 2.7, we can see the weak correlation between GDP per capita growth and the other variables. Hence, even though we observe a slight negative relationship between GDP per capita growth and the other variables in Section 2.6 i.e. lower GDP per capita growth with higher employment growth and migration, we are unable to provide a firm conclusion on how GDP per capita growth is impacted by migration and employment growth in a country. Further study can be done to understand how GDP per capita growth is influenced by a combination of many other variables or how different filters used (e.g. year, industry) can change the results.
+* The relationship between industry employment growth vs industry or skill migration is stronger, as seen in the R-squared values in Section 2.6 i.e. 0.429 (industry employment growth vs industry migration) and 0.248 (industry employment growth vs skill migration). There is also moderate correlation between industry employment growth vs industry or skill migration, as seen in Section 2.7 i.e. ~0.6 (industry employment growth vs industry migration) and ~0.5 (industry employment growth vs skill migration). Even though the R-squared and correlation results are still not ideal, the results are able to give a glimpse of how much employment growth changes with industry or skill migration. Ideally, the employment growth to industry or skill migration ratio should be positive (i.e. higher employment growth with higher migration, as seen in Section 2.6) and high value to give job seekers confidence that they are more likely to find a job in certain industry and country if they have certain skill. Further study can be done to compare the ratio for different industries and skills. This will give job seekers knowledge of which industries and skills to focus on. 
