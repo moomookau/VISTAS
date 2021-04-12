@@ -2,18 +2,18 @@
 title: VISTAS - Visualising Industry Skill TAlent Shifts
 author:
   - name: Cheryl Pay Wei Lin
-    #email: alice@example.com
+    email: cheryl.pay.2019@mitb.smu.edu.sg
     affiliation: Singapore Management University
   - name: Chong Jia Jun Louis
-    #email: alice@example.com
+    email: louis.chong.2019@mitb.smu.edu.sg
     affiliation: Singapore Management University
   - name: Lau Wei Han Amos
     email: amos.lau.2019@mitb.smu.edu.sg
     affiliation: Singapore Management University
 abstract: |
-  This is the abstract.
+  The LinkedIn and World Bank Group have partnered and released data from 2015 to 2019 that focuses on 100+ countries with at least 100,000 LinkedIn members each, distributed across 148 industries and 50,000 skill categories. This data aims to help government and researchers understand rapidly evolving labor markets with detailed and dynamic data.
 
-  This is the second paragraph of the abstract.
+  Through our project, we want to provide individuals and countries with insights into various interest areas to benchmark themselves against the global landscape. As an extension, we will be including macroeconomic indicators of GDP growth from World Bank Organization to our data visualisations. We envision that our project will help individual and countries answer questions on employability, employment opportunities, and migration and skill trends.
 bibliography: sigproc.bib
 csl: acm-sig-proceedings.csl
 output: rticles::acm_article

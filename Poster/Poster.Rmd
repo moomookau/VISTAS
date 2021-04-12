@@ -43,6 +43,8 @@ output:
     number_sections: false
 bibliography: packages.bib
 link-citations: true
+poster_height: 66.22in
+poster_width: 46.78in
 ---
 
 ```{r, include=FALSE}
