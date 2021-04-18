@@ -5,21 +5,29 @@ library(shinythemes)
 library(dashboardthemes)
 library(tidyverse)
 library(readxl)
-
-loadData()
-regressionPreLoad()
-migrationPreLoad()
-industryskillPreLoad()
+library(leaflet)
 
 ui <- dashboardPage(
-    dashboardHeader(title="VISTAS"),
+    dashboardHeader(title = "VISTAS"),
     dashboardSidebar(
         sidebarMenu(
-            menuItem("Introduction", tabName = "intro", icon=icon("home")),
-            menuItem("Regression Analysis", tabName = "regression", icon=icon("chart-line")),
-            menuItem("Migration Analysis", tabName = "migration", icon=icon("exchange")),
-            menuItem("Industry/Skills Needs Analysis", tabName = "industryskill", icon=icon("briefcase")),
-            menuItem("Options", tabName = "options", icon=icon("tools"))
+            menuItem("Introduction", tabName = "intro", icon = icon("home")),
+            menuItem(
+                "Regression Analysis",
+                tabName = "regression",
+                icon = icon("chart-line")
+            ),
+            menuItem(
+                "Migration Analysis",
+                tabName = "migration",
+                icon = icon("exchange")
+            ),
+            menuItem(
+                "Industry/Skills Needs Analysis",
+                tabName = "industryskill",
+                icon = icon("briefcase")
+            ),
+            menuItem("Options", tabName = "options", icon = icon("tools"))
         )
     ),
     dashboardBody(
@@ -28,26 +36,35 @@ ui <- dashboardPage(
             tabItem(tabName = "regression",
                     regressionUI()),
             tabItem(tabName = "migration",
-                    migrationUI()
-                    ),
+                    migrationUI()),
             tabItem(tabName = "industryskill",
                     industryskillUI()),
-            tabItem(tabName = "options",
-                    themeSelector(),
-                    selectInput(
-                        inputId = "theme",
-                        label = 'Dashboard Theme',
-                        choices =  c('blue_gradient', 'flat_red', 'grey_light','grey_dark',
-                                     'onenote', 'poor_mans_flatly', 'purple_gradient'),
-                        selected = "grey_light")
-                    )
+            tabItem(
+                tabName = "options",
+                themeSelector(),
+                selectInput(
+                    inputId = "theme",
+                    label = 'Dashboard Theme',
+                    choices =  c(
+                        'blue_gradient',
+                        'flat_red',
+                        'grey_light',
+                        'grey_dark',
+                        'onenote',
+                        'poor_mans_flatly',
+                        'purple_gradient'
+                    ),
+                    selected = "grey_light"
+                )
+            )
         ),
         uiOutput("myTheme")
     )
 )
 
 server <- function(input, output) {
-    output$myTheme <- renderUI( shinyDashboardThemes(theme = input$theme))
+    output$myTheme <-
+        renderUI(shinyDashboardThemes(theme = input$theme))
     regressionServer()
     migrationServer()
     industryskillServer()
