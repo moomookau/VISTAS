@@ -57,7 +57,7 @@ migrationUI <- function(id = "migration") {
                      choices = countryVector
                    ),
                    sliderInput(
-                     inputId = ns("flowMapDate"),
+                     inputId = ns("flowMapYear"),
                      label = "Select year",
                      min = yearMin,
                      max = yearMax,
@@ -82,13 +82,16 @@ migrationUI <- function(id = "migration") {
                    selectInput(
                      inputId = ns("choroplethCountry"),
                      label = "Country:",
-                     choices = c("Singapore", "India"),
-                     selected = "Singapore"
+                     choices = countryVector
                    ),
-                   selectInput(
-                     inputId = ns("choroplethDate"),
+                   sliderInput(
+                     inputId = ns("choroplethYear"),
                      label = "Select year",
-                     choices = 2015:2019
+                     min = yearMin,
+                     max = yearMax,
+                     value = yearMax,
+                     step = 1,
+                     ticks = FALSE
                    )
                  ),
                  mainPanel("Choropleth",
@@ -107,13 +110,16 @@ migrationUI <- function(id = "migration") {
                    selectInput(
                      inputId = ns("sankeyCountry"),
                      label = "Country:",
-                     choices = c("Singapore", "India"),
-                     selected = "Singapore"
+                     choices = countryVector
                    ),
-                   selectInput(
-                     inputId = ns("sankeyDate"),
+                   sliderInput(
+                     inputId = ns("sankeyYear"),
                      label = "Select year",
-                     choices = 2015:2019
+                     min = yearMin,
+                     max = yearMax,
+                     value = yearMax,
+                     step = 1,
+                     ticks = FALSE
                    ),
                    selectInput(
                      inputId = ns("sankeyColour"),
@@ -140,10 +146,14 @@ migrationUI <- function(id = "migration") {
                      choices = c("East Asia & Pacific"),
                      selected = "East Asia & Pacific"
                    ),
-                   selectInput(
-                     inputId = ns("chordDate"),
+                   sliderInput(
+                     inputId = ns("chordYear"),
                      label = "Select year",
-                     choices = 2015:2019
+                     min = yearMin,
+                     max = yearMax,
+                     value = yearMax,
+                     step = 1,
+                     ticks = FALSE
                    )
                  ),
                  mainPanel("Chord Diagram")
@@ -161,10 +171,9 @@ migrationServer <- function(id = "migration") {
                  
                  output$flowMapOutput <- renderLeaflet({
                    
-                   # We set the variables we want to try out
-                   # In this case, we filter by Singapore and 2019
+                   # We read the filter variables from the shiny inputs
                    filterCountry <- input$flowMapCountry
-                   filterYear <- input$flowMapDate
+                   filterYear <- input$flowMapYear
                    
                    # We filter the migration data using the variables above
                    flowMapSf <- countryMigrationPivot %>%
