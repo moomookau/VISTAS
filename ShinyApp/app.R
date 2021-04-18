@@ -1,12 +1,5 @@
-# We load the libraries
-library(shiny) # Base Shiny library
-library(shinydashboard) # Used for Shiny Dashboard
-library(shinyWidgets) # Used for Shiny Widgets
-library(shinythemes) # Used for Shiny Themes
-library(dashboardthemes) # Used for Shiny Dashboard Themes
-library(tidyverse) # Tidy universe of libraries
-library(readxl) # Used to read excel files
-library(leaflet) # Used to draw interactive maps
+# Libraries and loading of data is defined in init.R
+# Other code to run before the Shiny App is started should be done in the individual module's R file
 
 # Define the UI
 ui <- dashboardPage(

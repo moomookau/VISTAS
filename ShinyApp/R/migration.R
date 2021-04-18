@@ -95,7 +95,7 @@ migrationUI <- function(id = "migration") {
                    )
                  ),
                  mainPanel("Choropleth",
-                           verbatimTextOutput(outputId = ns("test"))),
+                           leafletOutput(ns("choroplethOutput")))
                )),
       tabPanel("Sankey Diagram",
                sidebarLayout(
@@ -169,6 +169,7 @@ migrationServer <- function(id = "migration") {
                    input$choroplethDate
                  })
                  
+                 # Render Flow Map
                  output$flowMapOutput <- renderLeaflet({
                    
                    # We read the filter variables from the shiny inputs
@@ -213,6 +214,44 @@ migrationServer <- function(id = "migration") {
                      addPolylines(label = ~label,
                                   color = ~colour,
                                   weight = ~value)
+                 })
+                 
+                 output$choroplethOutput <- renderLeaflet({
+                   # We set the variables we want to try out
+                   # In this case, we filter by Singapore and 2019
+                   filterCountry <- input$choroplethCountry
+                   filterYear <- input$choroplethYear
+                   
+                   # We create the choropleth data using the variables above
+                   migrationChoropleth <- countryMigrationPivot %>%
+                     filter(base_country_name == filterCountry, year == filterYear) %>%
+                     select(target_country_name, net_per_10K) %>%
+                     mutate(label = lapply(paste0("Country: ",target_country_name,"<br/>Net migration: ",net_per_10K), htmltools::HTML))
+                   
+                   # We use joinCountryData2Map to join the data with the spatial data
+                   migrationChoroplethMap <- joinCountryData2Map(migrationChoropleth, joinCode = "NAME", nameJoinColumn = "target_country_name") %>%
+                     spatialEco::sp.na.omit(col.name = "net_per_10K")
+                   
+                   # We compute the max migration, rounding up to the nearest 5
+                   maxMigration = plyr::round_any(max(abs(migrationChoropleth$net_per_10K)),5, f=ceiling)
+                   
+                   # We create the bins and a diverging palette
+                   bins <- seq(-maxMigration, maxMigration, 5)
+                   pal <- colorBin("RdBu", bins = bins)
+                   
+                   # We plot the migration choropleth map
+                   migrationChoroplethMap %>%
+                     leaflet() %>%
+                     addTiles() %>%
+                     addPolygons(fillColor = ~pal(net_per_10K),
+                                 label = ~label,
+                                 weight = 2,
+                                 opacity = 1,
+                                 color = "white",
+                                 dashArray = "3",
+                                 fillOpacity = 0.7) %>%
+                     addLegend(pal = pal, values = ~net_per_10K, opacity = 0.7, title = NULL,
+                               position = "bottomright")
                  })
                  
                  
