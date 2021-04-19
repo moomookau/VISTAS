@@ -8,24 +8,31 @@
 # Data has already been loaded in dataload.R
 
 countryMigrationPivot <- countryMigration %>%
-  pivot_longer(col = starts_with("net_per_10K_"),
-               names_to = "year",
-               names_prefix = "net_per_10K_",
-               values_to = "net_per_10K")
+  pivot_longer(
+    col = starts_with("net_per_10K_"),
+    names_to = "year",
+    names_prefix = "net_per_10K_",
+    values_to = "net_per_10K"
+  )
 
 industryMigrationPivot <- industryMigration %>%
-  pivot_longer(col = starts_with("net_per_10K_"),
-               names_to = "year",
-               names_prefix = "net_per_10K_",
-               values_to = "net_per_10K")
+  pivot_longer(
+    col = starts_with("net_per_10K_"),
+    names_to = "year",
+    names_prefix = "net_per_10K_",
+    values_to = "net_per_10K"
+  )
 
 skillMigrationPivot <- skillMigration %>%
-  pivot_longer(col = starts_with("net_per_10K_"),
-               names_to = "year",
-               names_prefix = "net_per_10K_",
-               values_to = "net_per_10K")
+  pivot_longer(
+    col = starts_with("net_per_10K_"),
+    names_to = "year",
+    names_prefix = "net_per_10K_",
+    values_to = "net_per_10K"
+  )
 
-countryVector <- sort(unique(countryMigrationPivot$base_country_name))
+countryVector <-
+  sort(unique(countryMigrationPivot$base_country_name))
 yearMin <- as.integer(min(countryMigrationPivot$year))
 yearMax <- as.integer(max(countryMigrationPivot$year))
 
@@ -95,7 +102,9 @@ migrationUI <- function(id = "migration") {
                    )
                  ),
                  mainPanel("Choropleth",
-                           leafletOutput(ns("choroplethOutput")))
+                           leafletOutput(ns(
+                             "choroplethOutput"
+                           )))
                )),
       tabPanel("Sankey Diagram",
                sidebarLayout(
@@ -157,6 +166,26 @@ migrationUI <- function(id = "migration") {
                    )
                  ),
                  mainPanel("Chord Diagram")
+               )),
+      tabPanel("Slope Graph",
+               sidebarLayout(
+                 sidebarPanel(
+                   h3("Options"),
+                   selectInput(
+                     inputId = ns("slopeCountry"),
+                     label = "Country:",
+                     choices = countryVector
+                   ),
+                   selectInput(
+                     inputId = ns("slopeType"),
+                     label = "Type of Migration:",
+                     choices = c("Country", "Industry", "Skill"),
+                     selected = "Country"
+                   ),
+                   uiOutput(outputId = ns("slopeCategoryOutput"))
+                 ),
+                 mainPanel("Slope Graph",
+                           plotOutput(ns("slopeOutput")))
                ))
     )
   )
@@ -165,13 +194,14 @@ migrationUI <- function(id = "migration") {
 migrationServer <- function(id = "migration") {
   moduleServer(id,
                function(input, output, session) {
+                 ns <- NS(id)
+                 
                  output$test <- renderText({
                    input$choroplethDate
                  })
                  
                  # Render Flow Map
                  output$flowMapOutput <- renderLeaflet({
-                   
                    # We read the filter variables from the shiny inputs
                    filterCountry <- input$flowMapCountry
                    filterYear <- input$flowMapYear
@@ -180,10 +210,15 @@ migrationServer <- function(id = "migration") {
                    flowMapSf <- countryMigrationPivot %>%
                      filter(base_country_name == filterCountry, year == filterYear)
                    
-                   flowMapSfg <- vector(mode = "list", length = nrow(flowMapSf))
+                   flowMapSfg <-
+                     vector(mode = "list", length = nrow(flowMapSf))
                    
                    for (j in 1:nrow(flowMapSf)) {
-                     flowMapSfg[[j]] <- st_linestring(rbind(c(flowMapSf[j,]$base_long,flowMapSf[j,]$base_lat),c(flowMapSf[j,]$target_long,flowMapSf[j,]$target_lat)))
+                     flowMapSfg[[j]] <-
+                       st_linestring(rbind(
+                         c(flowMapSf[j, ]$base_long, flowMapSf[j, ]$base_lat),
+                         c(flowMapSf[j, ]$target_long, flowMapSf[j, ]$target_lat)
+                       ))
                    }
                    
                    maxMigration = max(abs(flowMapSf$net_per_10K))
@@ -192,28 +227,42 @@ migrationServer <- function(id = "migration") {
                      st_sfc(crs = 4326) %>%
                      st_sf(geometry = .) %>%
                      cbind(flowMapSf) %>%
-                     mutate(colour = ifelse(net_per_10K > 0, "green", "red"), value=log(abs(net_per_10K))*5) %>%
-                     mutate(label = lapply(paste0("Country: ",target_country_name,"<br/>Net migration: ",net_per_10K), htmltools::HTML)) %>%
+                     mutate(colour = ifelse(net_per_10K > 0, "green", "red"),
+                            value = log(abs(net_per_10K)) * 5) %>%
+                     mutate(label = lapply(
+                       paste0(
+                         "Country: ",
+                         target_country_name,
+                         "<br/>Net migration: ",
+                         net_per_10K
+                       ),
+                       htmltools::HTML
+                     )) %>%
                      filter(value != 0)
                    
                    flowMapSf %>%
                      st_segmentize(units::set_units(100, km)) %>%
-                     mutate(geometry = (geometry + c(180,90)) %% c(360) - c(180,90)) %>%
-                     st_wrap_dateline(options = c("WRAPDATELINE=YES",  "DATELINEOFFSET=180"), quiet = TRUE) %>% 
+                     mutate(geometry = (geometry + c(180, 90)) %% c(360) - c(180, 90)) %>%
+                     st_wrap_dateline(
+                       options = c("WRAPDATELINE=YES",  "DATELINEOFFSET=180"),
+                       quiet = TRUE
+                     ) %>%
                      leaflet() %>%
                      addTiles() %>%
                      addCircleMarkers(
-                       lng = ~target_long,
-                       lat = ~target_lat,
-                       label = ~label,
-                       color = ~colour,
-                       radius = ~value,
+                       lng = ~ target_long,
+                       lat = ~ target_lat,
+                       label = ~ label,
+                       color = ~ colour,
+                       radius = ~ value,
                        stroke = FALSE,
                        fillOpacity = 0.5
                      ) %>%
-                     addPolylines(label = ~label,
-                                  color = ~colour,
-                                  weight = ~value)
+                     addPolylines(
+                       label = ~ label,
+                       color = ~ colour,
+                       weight = ~ value
+                     )
                  })
                  
                  output$choroplethOutput <- renderLeaflet({
@@ -226,14 +275,26 @@ migrationServer <- function(id = "migration") {
                    migrationChoropleth <- countryMigrationPivot %>%
                      filter(base_country_name == filterCountry, year == filterYear) %>%
                      select(target_country_name, net_per_10K) %>%
-                     mutate(label = lapply(paste0("Country: ",target_country_name,"<br/>Net migration: ",net_per_10K), htmltools::HTML))
+                     mutate(label = lapply(
+                       paste0(
+                         "Country: ",
+                         target_country_name,
+                         "<br/>Net migration: ",
+                         net_per_10K
+                       ),
+                       htmltools::HTML
+                     ))
                    
                    # We use joinCountryData2Map to join the data with the spatial data
-                   migrationChoroplethMap <- joinCountryData2Map(migrationChoropleth, joinCode = "NAME", nameJoinColumn = "target_country_name") %>%
+                   migrationChoroplethMap <-
+                     joinCountryData2Map(migrationChoropleth,
+                                         joinCode = "NAME",
+                                         nameJoinColumn = "target_country_name") %>%
                      spatialEco::sp.na.omit(col.name = "net_per_10K")
                    
                    # We compute the max migration, rounding up to the nearest 5
-                   maxMigration = plyr::round_any(max(abs(migrationChoropleth$net_per_10K)),5, f=ceiling)
+                   maxMigration = plyr::round_any(max(abs(migrationChoropleth$net_per_10K)), 5, f =
+                                                    ceiling)
                    
                    # We create the bins and a diverging palette
                    bins <- seq(-maxMigration, maxMigration, 5)
@@ -243,17 +304,124 @@ migrationServer <- function(id = "migration") {
                    migrationChoroplethMap %>%
                      leaflet() %>%
                      addTiles() %>%
-                     addPolygons(fillColor = ~pal(net_per_10K),
-                                 label = ~label,
-                                 weight = 2,
-                                 opacity = 1,
-                                 color = "white",
-                                 dashArray = "3",
-                                 fillOpacity = 0.7) %>%
-                     addLegend(pal = pal, values = ~net_per_10K, opacity = 0.7, title = NULL,
-                               position = "bottomright")
+                     addPolygons(
+                       fillColor = ~ pal(net_per_10K),
+                       label = ~ label,
+                       weight = 2,
+                       opacity = 1,
+                       color = "white",
+                       dashArray = "3",
+                       fillOpacity = 0.7
+                     ) %>%
+                     addLegend(
+                       pal = pal,
+                       values = ~ net_per_10K,
+                       opacity = 0.7,
+                       title = NULL,
+                       position = "bottomright"
+                     )
                  })
                  
+                 # Slope Graph Dynamic Input
+                 observeEvent(c(input$slopeType,input$slopeCountry), {
+                   if (input$slopeType == 'Industry') {
+                     
+                     countryIndustryMigration <- industryMigrationPivot %>%
+                       filter(country_name == input$slopeCountry)
+                     
+                     industrySectionVector <-
+                       sort(unique(countryIndustryMigration$isic_section_name))
+                     
+                     output$slopeCategoryOutput <-
+                       renderUI(
+                         selectInput(
+                           inputId = ns('slopeGroup'),
+                           label = 'Industry:',
+                           choices = industrySectionVector
+                         )
+                       )
+                   }
+                   else if (input$slopeType == 'Skill') {
+                     
+                     countrySkillMigration <- skillMigrationPivot %>%
+                       filter(country_name == input$slopeCountry)
+                     
+                     skillGroupVector <-
+                       sort(unique(countrySkillMigration$skill_group_category))
+                     
+                     output$slopeCategoryOutput <-
+                       renderUI(
+                         selectInput(
+                           inputId = ns('slopeGroup'),
+                           label = 'Skill:',
+                           choices = skillGroupVector
+                         )
+                       )
+                   }
+                   else {
+                     output$slopeCategoryOutput <-
+                       renderUI(NULL)
+                   }
+                 })
+                 
+                 # Slope Graph Plotting
+                 output$slopeOutput <- renderPlot({
+                   slopeCountry <- input$slopeCountry
+                   slopeGroup <- input$slopeGroup
+                   
+                   slopeDf <- {
+                     if (input$slopeType == "Country") {
+                       countryMigrationPivot %>%
+                         filter(base_country_name == slopeCountry)
+                     }
+                     else if (input$slopeType == "Skill")
+                     {
+                       skillMigrationPivot %>%
+                         filter(country_name == slopeCountry, skill_group_category == slopeGroup)
+                     }
+                     else {
+                       industryMigrationPivot %>%
+                         filter(country_name == slopeCountry, isic_section_name == slopeGroup)
+                     }
+                   }
+
+                   if (input$slopeType == "Country") {
+                     newggslopegraph(
+                       dataframe = slopeDf,
+                       Times = year,
+                       Measurement = net_per_10K,
+                       Grouping = target_country_name,
+                       Title = paste("Net Country Migration for",slopeCountry),
+                       SubTitle = NULL,
+                       Caption = NULL
+                     )
+                   }
+                   else if (input$slopeType == "Industry")
+                   {
+                     newggslopegraph(
+                       dataframe = slopeDf,
+                       Times = year,
+                       Measurement = net_per_10K,
+                       Grouping = industry_name,
+                       Title = paste("Net Industry Migration for",slopeCountry,"for",slopeGroup,"Industry Section"),
+                       SubTitle = NULL,
+                       Caption = NULL
+                     )
+                   }
+                   else {
+                     newggslopegraph(
+                       dataframe = slopeDf,
+                       Times = year,
+                       Measurement = net_per_10K,
+                       Grouping = skill_group_name,
+                       Title = paste("Net Skill Migration for",slopeCountry,"for",slopeGroup,"Skill Group"),
+                       SubTitle = NULL,
+                       Caption = NULL
+                     )
+                   }
+                   
+
+                 })
                  
                })
 }
