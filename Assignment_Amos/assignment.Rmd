@@ -121,7 +121,7 @@ First, we install the packages that are required for our visualisations using th
 
 ```{r message=FALSE, warning=FALSE}
 # list of packages we want to install and/or load
-packages = c('tidyverse', 'readxl', 'maps', 'geosphere', 'sf', 'leaflet', 'rworldmap', 'networkD3', 'chorddiag', 'randomcoloR')
+packages = c('tidyverse', 'readxl', 'maps', 'geosphere', 'sf', 'leaflet', 'rworldmap', 'networkD3', 'chorddiag', 'randomcoloR', 'CGPfunctions')
 # loop through the packages
 for (p in packages){
   # try to load the package using require
@@ -549,3 +549,41 @@ Next, the user will be able to click on the various tabs on the top to show the 
 The proposed visualisations will allow users to visualise migration trends by Country, Industry and Skills. The migration flow map, choropleth map and sankey diagram allow the viewer to visualise which are the top countries, industries and skills a selected country is gaining from, while the chord diagram allows the viewer to visualise the movement individual regions or the whole world aggregated at regions.
 
 Based on the preliminary visualisations we have gotten for Singapore, we can see that Singapore imports more talent than exports them. Singapore imports most from India and exports most to Australia. However, this slightly differs from the following Straits Times report at <https://www.straitstimes.com/singapore/migrants-in-spore-mostly-from-malaysia> which shows that Malaysia has the biggest share of migrants in Singapore. The source of data for the Straits Times report is <https://www.un.org/en/development/desa/population/migration/data/estimates2/estimates19.asp>. This difference could be attributed to how LinkedIn data is not representative of the total workforce, but has better coverage of white-collar workers in knowledge-intensive sectors.
+
+```{r, fig.width=10,fig.height=11}
+
+industryCountry <- "Moldova"
+industrySection <- "Manufacturing"
+
+industrySlopeDf <- industryMigrationPivot %>%
+  filter(country_name == industryCountry, isic_section_name=="Manufacturing")
+
+newggslopegraph(dataframe = industrySlopeDf,
+                Times = year,
+                Measurement = net_per_10K,
+                Grouping = industry_name,
+                Title = paste("Net Industry Migration for",industryCountry,"for",industrySection,"section"),
+                #SubTitle = "Based on: Edward Tufte, Beautiful Evidence, 174, 176.",
+                Caption = NULL
+                )
+
+```
+
+```{r, fig.width=10,fig.height=11}
+
+skillCountry <- "Singapore"
+skillGroup <- "Tech Skills"
+
+skillSlopeDf <- skillMigrationPivot %>%
+  filter(country_name == skillCountry, skill_group_category==skillGroup)
+
+newggslopegraph(dataframe = skillSlopeDf,
+                Times = year,
+                Measurement = net_per_10K,
+                Grouping = skill_group_name,
+                Title = paste("Net Skill Migration for",skillCountry,"for",skillGroup,"category"),
+                #SubTitle = "Based on: Edward Tufte, Beautiful Evidence, 174, 176.",
+                Caption = NULL
+                )
+
+```
