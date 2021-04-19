@@ -18,27 +18,49 @@ output: rticles::acm_article
 ---
 
 
+# Abstract
+Describe dataset
+Highlight importance of project/analysis
+Explain aim of VISTA, dynamic, interactive visual analytics dashboard
 
 # Introduction 
 The LinkedIn and World Bank Group have partnered and released data from 2015 to 2019 that focuses on 100+ countries with at least 100,000 LinkedIn members each, distributed across 148 industries and 50,000 skill categories. This data aims to help government and researchers understand rapidly evolving labor markets with detailed and dynamic data.
 
+Briefly highlight limitations of current data visualisations
+
+Explain aim of VISTA, dynamic, interactive visual analytics dashboard
+
 Through our project, we want to provide individuals and countries with insights into various interest areas to benchmark themselves against the global landscape. As an extension, we will be including macroeconomic indicators of GDP growth from World Bank Organization to our data visualisations. We envision that our project will help individual and countries answer questions on employability, employment opportunities, and migration and skill trends.
 
-# Evaluation
+This paper reports on ...
+Section 1 (introduction), Section 2 (motivation/objectives), Section 3 (review of analytical techniques), Section 4 (user interface design), Section 5 (application), Section 6 (insights), Section 7 (conclusion)
+
+# Motivation and Objectives
+
+Explain motivation and objectives
+
+# Analytical Techniques
+
+Highlight examples of current data visualisations and their limitations
+
 Simple data visualisations are publicly available at <https://linkedindata.worldbank.org/data>.
 
 ### Talent Migration
 The available visualisation only shows top 10 countries on the map, and top 5 countries, industries and skills in the table. A user may want to know more than just the top N for these metrics.
 The visualisation of the map and table makes it difficult to visualise the inflow vs outflow of the selected country. A visualisation which allows for comparison between inflow and outflow could be useful to know if a country is gaining or losing talent.
 
-### Industry Skills Needs
+## Industry Skills Needs
 The interactive visualisation in **Industry Skills Needs panel** allows users to pick an industry group and industry, but only the skills valued in Year 2019 are shown. No option to change the year is provided.
 
 One is hence unable to see the change in skills over the years in an industry. By presenting the changes over the years, the user is able to review trends and gather insights to the industry skills shift and sought-after skills in a particular industry.
 
 <insert online visualisation here>
 
+Describe analytical techniques used and explain how they can help achieve objectives
+
 # User Interface Design
+Explain each component of VISTA and how the combination of components will provide users certain insights
+
 - create tabs for various topics (compartmentalization)
 - ensuring positioning is not compromised with reduced window size / visualisations are not distorted when window width is reduced
 - action buttons are added to delay reactions and minimize lag - eventReactive()
@@ -46,22 +68,20 @@ One is hence unable to see the change in skills over the years in an industry. B
 ## Theme
 A drop-down list is provided for users to choose their theme and preferred colour of the app.
 
-### Industry Skills Needs
+## Industry Skills Needs
 To illustrate changes in industry skill needs over the years, a barplot is created and complemented with a data table. A drop-down list is provided for users to choose their industry and upon clicking the "Go!" button, the visualisations will update.
 
-Duis nec purus sed neque porttitor tincidunt vitae quis augue. Donec porttitor aliquam ante, nec convallis nisl ornare eu. Morbi ut purus et justo commodo dignissim et nec nisl. Donec imperdiet tellus dolor, vel dignissim risus venenatis eu. Aliquam tempor imperdiet massa, nec fermentum tellus sollicitudin vulputate. Integer posuere porttitor pharetra. Praesent vehicula elementum diam a suscipit. Morbi viverra velit eget placerat pellentesque. Nunc congue augue non nisi ultrices tempor.
+# Application
+List and explain the packages used to create VISTA
 
 # Insights
 What has the audience learned from your work? What new insights or practices has your system enabled? A full blown user study is not expected, but informal observations of use that help evaluate your system are encouraged.
 
-Duis nec purus sed neque porttitor tincidunt vitae quis augue. Donec porttitor aliquam ante, nec convallis nisl ornare eu. Morbi ut purus et justo commodo dignissim et nec nisl. Donec imperdiet tellus dolor, vel digni.
-
-
 # Conclusion
 Future work - ....
-Duis nec purus sed neque porttitor tincidunt vitae quis augue. Donec porttitor aliquam ante, nec convallis nisl ornare eu. Morbi ut purus et justo commodo dignissim et nec nisl. Donec imperdiet tellus dolor, vel dignissim risus venenatis eu. Aliquam tempor imperdiet massa, nec fermentum tellus sollicitudin vulputate. Integer posuere porttitor pharetra. Praesent vehicula elementum diam a suscipit. Morbi viverra velit eget placerat pellentesque. Nunc congue augue non nisi ultrices tempor.
 
-
+# Acknowledgement
+Prof Kam
 
 # References
 
