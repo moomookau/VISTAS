@@ -12,6 +12,7 @@ library(rworldmap) # Get world map geospatial data and functions
 library(CGPfunctions)
 library(plotly)
 library(ggstatsplot)
+library(parameters)
 
 # Load of data files
 industryEmploymentGrowth <- read_excel("../data/public_use-industry-employment-growth.xlsx", sheet="Growth from Industry Transition")
