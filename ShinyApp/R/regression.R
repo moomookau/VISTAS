@@ -88,7 +88,8 @@ regressionUI <- function(id = "regression") {
                    )
                  ),
                  mainPanel("Regression",
-                           plotOutput(ns("RegressionOutput")))
+                           plotOutput(ns("RegressionOutput")),
+                           plotOutput(ns("RegResOutput"))) # (Print regression results)
                )),
       tabPanel("Scatter Plot",
                sidebarLayout(
@@ -220,13 +221,28 @@ regressionServer <- function(id = "regression") {
                    # (Add filter)
 
                    isolate({
-                     ggscatterstats(master, input$xVar1, input$yVar1,
-                                    xlab = NULL, ylab = NULL)
+                     ggstatsplot::ggscatterstats(master,
+                                                 x = x,
+                                                 y = y,
+                                                 xlab = NULL,
+                                                 ylab = NULL)
                      #ggplot(master, aes(x, y)) +
                       # geom_point(color="grey10",
                       #            size=1) +
                       # geom_smooth(method = "lm", se = FALSE)
                    })
+                 })
+                 
+                 output$RegResOutput <- renderPlot({ # (Print regression results)
+                   x <- unlist(master[,input$xVar1])
+                   y <- unlist(master[,input$yVar1])
+                   # (Add filter)
+                   
+                   isolate({
+                     lm(input$yVar1 ~ input$xVar1, master) %>%
+                       model_parameters()
+                   })
+                   
                  })
                  
                  output$ScatterPlotOutput <- renderPlotly({
@@ -255,7 +271,7 @@ regressionServer <- function(id = "regression") {
                                       textEG = paste("Employment Growth: ", employment_growth),
                                       textIM = paste("Industry Migration: ", industry_migration)))
                      # (Add colour legend)
-                     ggplotly(p, tooltips = c("textC", "textY", "textI", "textS", "textEG", "textIM")) # (Edit tooltip)
+                     ggplotly(p, tooltips = c(textC, textY, textI, textS, textEG, textIM)) # (Edit tooltip)
                    })
                  })
                  
