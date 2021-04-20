@@ -10,6 +10,7 @@ library(leaflet) # Used to draw interactive maps
 library(sf) # Load the simple feature package
 library(rworldmap) # Get world map geospatial data and functions
 library(CGPfunctions)
+library(plotly)
 
 # Load of data files
 industryEmploymentGrowth <- read_excel("../data/public_use-industry-employment-growth.xlsx", sheet="Growth from Industry Transition")
@@ -18,3 +19,4 @@ skillPenetration <- read_excel("../data/public_use-skill-penetration.xlsx", shee
 countryMigration <- read_excel("../data/public_use-talent-migration.xlsx", sheet="Country Migration")
 industryMigration <- read_excel("../data/public_use-talent-migration.xlsx", sheet="Industry Migration")
 skillMigration <- read_excel("../data/public_use-talent-migration.xlsx", sheet="Skill Migration")
+master <- read.csv("data/master.csv")
