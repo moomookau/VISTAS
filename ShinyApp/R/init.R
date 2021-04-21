@@ -14,8 +14,8 @@ library(shinycssloaders) # For loading animation of plots
 library(plotly)
 library(ggstatsplot)
 library(parameters)
-library(networkD3) # For plotting of Sankey Diagram
-
+library(treemap) # For plotting of treemap
+library(d3treeR) # For interactive treemaps
 
 # Load of data files
 industryEmploymentGrowth <- read_excel("data/public_use-industry-employment-growth.xlsx", sheet="Growth from Industry Transition")

@@ -22,12 +22,6 @@ ui <- dashboardPage(
                 tabName = "migration",
                 icon = icon("exchange")
             ),
-            # Create an Industry Skills Needs Menu
-            menuItem(
-                "Industry/Skills Needs Analysis",
-                tabName = "industryskill",
-                icon = icon("briefcase")
-            ),
             # Create an Options Menu
             menuItem("Options", tabName = "options", icon = icon("tools"))
         )
@@ -45,10 +39,6 @@ ui <- dashboardPage(
             tabItem(tabName = "migration",
                     # Load the Migration UI
                     migrationUI()),
-            # Create an Industry Skill Tab
-            tabItem(tabName = "industryskill",
-                    # Load the Industry Skill UI
-                    industryskillUI()),
             # Create an Options Tab
             tabItem(
                 tabName = "options",
@@ -87,9 +77,6 @@ server <- function(input, output) {
     
     # Load the Migration Server function
     migrationServer()
-    
-    # Load the Industry Skill Server function
-    industryskillServer()
 }
 
 # Run the Shiny App
