@@ -7,34 +7,7 @@
 # Insert any code that will be called before Shiny App is loaded specific to this module e.g. Data Wrangling
 # Data has already been loaded in dataload.R
 
-# We pivot the 3 migration files to transpose the year and values into 2 columns
-countryMigrationPivot <- countryMigration %>%
-  pivot_longer(
-    col = starts_with("net_per_10K_"),
-    names_to = "year",
-    names_prefix = "net_per_10K_",
-    values_to = "net_per_10K"
-  )
-
-industryMigrationPivot <- industryMigration %>%
-  pivot_longer(
-    col = starts_with("net_per_10K_"),
-    names_to = "year",
-    names_prefix = "net_per_10K_",
-    values_to = "net_per_10K"
-  )
-
-skillMigrationPivot <- skillMigration %>%
-  pivot_longer(
-    col = starts_with("net_per_10K_"),
-    names_to = "year",
-    names_prefix = "net_per_10K_",
-    values_to = "net_per_10K"
-  )
-
 # We prepare some variables to be used for the inputs
-countryVector <-
-  sort(unique(countryMigrationPivot$base_country_name))
 yearMin <- as.integer(min(countryMigrationPivot$year))
 yearMax <- as.integer(max(countryMigrationPivot$year))
 
@@ -57,7 +30,7 @@ migrationUI <- function(id = "migration") {
                    selectInput(
                      inputId = ns("choroplethCountry"),
                      label = "Country:",
-                     choices = countryVector
+                     choices = countriesGrouped
                    ),
                    sliderInput(
                      inputId = ns("choroplethYear"),
@@ -104,19 +77,19 @@ migrationUI <- function(id = "migration") {
       tabPanel("Slope Graph",
                sidebarLayout(
                  sidebarPanel(
-                   h3("Options"),
-                   selectInput(
-                     inputId = ns("slopeCountry"),
-                     label = "Country:",
-                     choices = countryVector
-                   ),
                    selectInput(
                      inputId = ns("slopeType"),
-                     label = "Type of Migration:",
-                     choices = c("Country", "Industry", "Skill"),
-                     selected = "Country"
+                     label = "Type of Migration to View:",
+                     choices = c("Country", "Industry", "Skill")
                    ),
-                   uiOutput(outputId = ns("slopeCategoryOutput"))
+                   uiOutput(outputId = ns("slopeSelectedOutput")),
+                   sliderInput(
+                     inputId = ns("slopeTop"),
+                     label = "Show Top N Countries:",
+                     min = 10,
+                     max = nrow(countriesUnique),
+                     value = 30
+                   )
                  ),
                  mainPanel(
                    plotOutput(ns("slopeOutput"), height = "calc(100vh - 160px)") %>% withSpinner(type =
@@ -126,25 +99,37 @@ migrationUI <- function(id = "migration") {
       tabPanel("Treemap",
                sidebarLayout(
                  sidebarPanel(
-                   h3("Options"),
                    selectInput(
-                     inputId = ns("treeIndustry"),
-                     label = "Industry",
-                     choices = sort(unique(industryMigrationPivot$industry_name))
+                     inputId = ns("treeType"),
+                     label = "Type of Migration to View:",
+                     choices = c("Country", "Industry", "Skill")
                    ),
+                   uiOutput(outputId = ns("treeSelectedOutput")),
                    sliderInput(
                      inputId = ns("treeYear"),
-                     label = "Select year",
+                     label = "Select year:",
                      min = yearMin,
                      max = yearMax,
                      value = yearMax,
                      step = 1,
                      ticks = FALSE
                    ),
-                   uiOutput(outputId = ns("treeCategoryOutput"))
+                   selectInput(
+                     inputId = ns("treeGroup"),
+                     label = "Group By:",
+                     choices = c("Income Group" = "wb_income", "Region" = "wb_region"),
+                     selected = "wb_region"
+                   ),
+                   selectInput(
+                     inputId = ns("treeSize"),
+                     label = "Size By:",
+                     choices = c("Population", "GDP Per Capita (2010 US$)")
+                   ),
                  ),
                  mainPanel(
-                   d3tree2Output(ns("treeOutput"), height = "calc(100vh - 160px)"))
+                   d3tree2Output(ns("treeOutput"), height = "calc(100vh - 160px)") %>% withSpinner(type =
+                                                                                                     8)
+                 )
                )),
       tabPanel("Geofacet Map")
     )
@@ -231,107 +216,104 @@ migrationServer <- function(id = "migration") {
                  #######################################
                  
                  # We create an observeEvent to have dynamic UI inputs
-                 observeEvent(c(input$slopeType, input$slopeCountry), {
-                   if (input$slopeType == 'Industry') {
-                     countryIndustryMigration <- industryMigrationPivot %>%
-                       filter(country_name == input$slopeCountry)
-                     
-                     industrySectionVector <-
-                       sort(unique(countryIndustryMigration$isic_section_name))
-                     
-                     output$slopeCategoryOutput <-
+                 observeEvent(c(input$slopeType), {
+                   if (input$slopeType == "Country") {
+                     output$slopeSelectedOutput <-
                        renderUI(
                          selectInput(
-                           inputId = ns('slopeGroup'),
-                           label = 'Industry:',
-                           choices = industrySectionVector
+                           inputId = ns("slopeCountry"),
+                           label = "Choose the Base Country:",
+                           choices = countriesGrouped
                          )
                        )
                    }
-                   else if (input$slopeType == 'Skill') {
-                     countrySkillMigration <- skillMigrationPivot %>%
-                       filter(country_name == input$slopeCountry)
-                     
-                     skillGroupVector <-
-                       sort(unique(countrySkillMigration$skill_group_category))
-                     
-                     output$slopeCategoryOutput <-
-                       renderUI(selectInput(
-                         inputId = ns('slopeGroup'),
-                         label = 'Skill:',
-                         choices = skillGroupVector
-                       ))
+                   else if (input$slopeType == 'Industry') {
+                     output$slopeSelectedOutput <-
+                       renderUI(
+                         selectInput(
+                           inputId = ns("slopeIndustry"),
+                           label = "Choose the Industry:",
+                           choices = industriesGrouped
+                         )
+                       )
                    }
-                   # We hide the category input if "Country" is selected
                    else {
-                     output$slopeCategoryOutput <-
-                       renderUI(NULL)
+                     output$slopeSelectedOutput <-
+                       renderUI(selectInput(
+                         inputId = ns("slopeSkill"),
+                         label = "Choose the Skill:",
+                         choices = skillsGrouped
+                       ))
                    }
                  })
                  
                  # Plotting of the Slope Graph
                  output$slopeOutput <- renderPlot({
-                   # We get the variables from the various inputs
-                   slopeCountry <- input$slopeCountry
-                   slopeType <- input$slopeType
-                   slopeGroup <- input$slopeGroup
-                   
-                   # We check that the slopeGroup has been provided
-                   # If not, it may return an error
-                   if (slopeType != "Country") {
-                     req(slopeGroup)
-                   }
-                   
                    # We create a dataframe to be used for the plotting of the slope graph
                    slopeDf <- {
-                     if (slopeType == "Country") {
+                     if (input$slopeType == "Country") {
+                       req(input$slopeCountry)
+                       
+                       topNCountries <- countryMigrationPivot %>%
+                         filter(base_country_name == input$slopeCountry, year == 2019) %>%
+                         slice_max(net_per_10K, n = input$slopeTop) %>%
+                         pull(target_country_name)
+                       
                        countryMigrationPivot %>%
-                         filter(base_country_name == slopeCountry)
+                         filter(
+                           base_country_name == input$slopeCountry,
+                           target_country_name %in% topNCountries
+                         )
                      }
-                     else if (slopeType == "Skill")
+                     else if (input$slopeType == "Industry")
                      {
-                       skillMigrationPivot %>%
-                         filter(country_name == slopeCountry,
-                                skill_group_category == slopeGroup)
+                       req(input$slopeIndustry)
+                       
+                       topNCountries <- industryMigrationPivot %>%
+                         filter(industry_name == input$slopeIndustry, year == 2019) %>%
+                         slice_max(net_per_10K, n = input$slopeTop) %>%
+                         pull(country_name)
+                       
+                       industryMigrationPivot %>%
+                         filter(industry_name == input$slopeIndustry,
+                                country_name %in% topNCountries)
                      }
                      else {
-                       industryMigrationPivot %>%
-                         filter(country_name == slopeCountry,
-                                isic_section_name == slopeGroup)
+                       req(input$slopeSkill)
+                       
+                       topNCountries <- skillMigrationPivot %>%
+                         filter(skill_group_name == input$slopeSkill, year == 2019) %>%
+                         slice_max(net_per_10K, n = input$slopeTop) %>%
+                         pull(country_name)
+                       
+                       skillMigrationPivot %>%
+                         filter(skill_group_name == input$slopeSkill,
+                                country_name %in% topNCountries)
                      }
                    }
                    
-                   # We check that there are results for the dataframe
-                   req(nrow(slopeDf) > 0)
-                   
                    # We plot the slope graph
-                   if (slopeType == "Country") {
+                   if (input$slopeType == "Country") {
                      newggslopegraph(
                        dataframe = slopeDf,
                        Times = year,
                        Measurement = net_per_10K,
                        Grouping = target_country_name,
-                       Title = paste("Net Country Migration for", slopeCountry),
+                       Title = paste("Net Country Migration for", input$slopeCountry),
                        SubTitle = NULL,
                        Caption = NULL,
                        WiderLabels = TRUE,
                        XTextSize = 8
                      )
                    }
-                   else if (slopeType == "Industry")
+                   else if (input$slopeType == "Industry")
                    {
                      newggslopegraph(
                        dataframe = slopeDf,
                        Times = year,
                        Measurement = net_per_10K,
-                       Grouping = industry_name,
-                       Title = paste(
-                         "Net Industry Migration for",
-                         slopeCountry,
-                         "for",
-                         slopeGroup,
-                         "Industry Section"
-                       ),
+                       Grouping = country_name,
+                       Title = paste("Net Industry Migration for", input$slopeIndustry),
                        SubTitle = NULL,
                        Caption = NULL,
                        WiderLabels = TRUE,
@@ -343,14 +325,8 @@ migrationServer <- function(id = "migration") {
                        dataframe = slopeDf,
                        Times = year,
                        Measurement = net_per_10K,
-                       Grouping = skill_group_name,
-                       Title = paste(
-                         "Net Skill Migration for",
-                         slopeCountry,
-                         "for",
-                         slopeGroup,
-                         "Skill Group"
-                       ),
+                       Grouping = country_name,
+                       Title = paste("Net Skill Migration for", input$slopeSkill),
                        SubTitle = NULL,
                        Caption = NULL,
                        WiderLabels = TRUE,
@@ -369,23 +345,92 @@ migrationServer <- function(id = "migration") {
                  #######################################
                  
                  # Using d3treeR
+                 # We create an observeEvent to have dynamic UI inputs
+                 observeEvent(c(input$treeType), {
+                   if (input$treeType == "Country") {
+                     output$treeSelectedOutput <-
+                       renderUI(
+                         selectInput(
+                           inputId = ns("treeCountry"),
+                           label = "Choose the Base Country:",
+                           choices = countriesGrouped
+                         )
+                       )
+                   }
+                   else if (input$treeType == 'Industry') {
+                     output$treeSelectedOutput <-
+                       renderUI(
+                         selectInput(
+                           inputId = ns("treeIndustry"),
+                           label = "Choose the Industry:",
+                           choices = industriesGrouped
+                         )
+                       )
+                   }
+                   else {
+                     output$treeSelectedOutput <-
+                       renderUI(selectInput(
+                         inputId = ns("treeSkill"),
+                         label = "Choose the Skill:",
+                         choices = skillsGrouped
+                       ))
+                   }
+                 })
+                 
                  output$treeOutput <- renderD3tree2({
+                   if (input$treeSize == "Population") {
+                     sizeDf <- populationDf %>%
+                       filter(year == input$treeYear)
+                   }
+                   else {
+                     sizeDf <- gdpPerCapitaDf %>%
+                       filter(year == input$treeYear)
+                   }
                    
-                   treemapDf <- industryMigrationPivot %>%
-                     filter(year == input$treeYear,
-                            industry_name == input$treeIndustry)
+                   if (input$treeType == "Country") {
+                     req(input$treeCountry)
+                     
+                     treemapDf <- countryMigrationPivot %>%
+                       filter(year == input$treeYear,
+                              base_country_name == input$treeCountry) %>%
+                       left_join(sizeDf,
+                                 by = c("target_country_name" = "Country Name")) %>%
+                       rename(
+                         country_name = target_country_name,
+                         wb_region = target_country_wb_region,
+                         wb_income = target_country_wb_income
+                       )
+                   }
+                   else if (input$treeType == "Industry") {
+                     req(input$treeIndustry)
+                     
+                     treemapDf <- industryMigrationPivot %>%
+                       filter(year == input$treeYear,
+                              industry_name == input$treeIndustry) %>%
+                       left_join(sizeDf,
+                                 by = c("country_name" = "Country Name"))
+                   }
+                   else {
+                     req(input$treeSkill)
+                     
+                     treemapDf <- skillMigrationPivot %>%
+                       filter(year == input$treeYear,
+                              skill_group_name == input$treeSkill) %>%
+                       left_join(sizeDf,
+                                 by = c("country_name" = "Country Name"))
+                   }
                    
-                   treemapDf <- treemapDf %>% mutate(wb_region = str_replace_all(wb_region, "&", "and"))
-                   treemapDf$abs_net_per_10K <- abs(treemapDf$net_per_10K)
+                   treemapDf <-
+                     treemapDf %>% mutate(wb_region = str_replace_all(wb_region, "&", "and"))
                    
                    tm <- treemap(
                      treemapDf,
-                     index=c("wb_region","country_name"),
-                     vSize="abs_net_per_10K",
-                     vColor="net_per_10K",
-                     type="value"
-                     )
-                   d3tree2(tm, rootname="World")
+                     index = c(input$treeGroup, "country_name"),
+                     vSize = "value",
+                     vColor = "net_per_10K",
+                     type = "value"
+                   )
+                   d3tree2(tm, rootname = "World")
                    
                  })
                  

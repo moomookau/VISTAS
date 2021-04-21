@@ -70,23 +70,43 @@ skillMigrationPivot <- skillMigration %>%
 populationDf <- popAndGdpData %>%
   na_if("..") %>%
   filter(`Series Code` == "SP.POP.TOTL") %>%
-  pivot_longer(
-    col = starts_with("201"),
-    names_to = "year_text",
-    values_to = "population"
-  ) %>%
-  mutate(year = substr(year_text,1,4)) %>%
-  select(`Country Name`, year, population) %>%
-  mutate(population = as.numeric(population))
+  pivot_longer(col = starts_with("201"),
+               names_to = "year_text",
+               values_to = "value") %>%
+  mutate(year = substr(year_text, 1, 4)) %>%
+  select(`Country Name`, year, value) %>%
+  mutate(value = as.numeric(value))
 
 gdpPerCapitaDf <- popAndGdpData %>%
   na_if("..") %>%
   filter(`Series Code` == "NY.GDP.PCAP.KD") %>%
-  pivot_longer(
-    col = starts_with("201"),
-    names_to = "year_text",
-    values_to = "gdp_per_cap"
-  ) %>%
-  mutate(year = substr(year_text,1,4)) %>%
-  select(`Country Name`, year, gdp_per_cap) %>%
-  mutate(gdp_per_cap = as.numeric(gdp_per_cap))
+  pivot_longer(col = starts_with("201"),
+               names_to = "year_text",
+               values_to = "value") %>%
+  mutate(year = substr(year_text, 1, 4)) %>%
+  select(`Country Name`, year, value) %>%
+  mutate(value = as.numeric(value))
+
+countriesUnique <- countryMigrationPivot %>%
+  select(base_country_name, base_country_wb_region) %>%
+  unique()
+
+countriesGrouped <-
+  split(countriesUnique$base_country_name,
+        countriesUnique$base_country_wb_region)
+
+industriesUnique <- industryMigrationPivot %>%
+  select(isic_section_name, industry_name) %>%
+  unique()
+
+industriesGrouped <-
+  split(industriesUnique$industry_name,
+        industriesUnique$isic_section_name)
+
+skillsUnique <- skillMigrationPivot %>%
+  select(skill_group_name, skill_group_category) %>%
+  unique()
+
+skillsGrouped <-
+  split(skillsUnique$skill_group_name,
+        skillsUnique$skill_group_category)

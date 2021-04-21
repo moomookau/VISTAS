@@ -29,41 +29,39 @@ ui <- dashboardPage(
         )
     ),
     # Create a Dashboard Body
-    dashboardBody(
-        tabItems(
-            # Create an Intro Tab
-            tabItem(tabName = "intro"),
-            # Create a Regression Tab
-            tabItem(tabName = "regression",
-                    # Load the Regression UI
-                    regressionUI()),
-            # Create a Migration Tab
-            tabItem(tabName = "migration",
-                    # Load the Migration UI
-                    migrationUI()),
-            # Create an Options Tab
-            tabItem(
-                tabName = "options",
-                # Create a shiny theme selector
-                themeSelector(),
-                # Create a shiny dashboard theme selector
-                selectInput(
-                    inputId = "theme",
-                    label = 'Dashboard Theme',
-                    choices =  c(
-                        'blue_gradient',
-                        'flat_red',
-                        'grey_light',
-                        'grey_dark',
-                        'onenote',
-                        'poor_mans_flatly',
-                        'purple_gradient'
-                    ),
-                    selected = "grey_light"
-                )
+    dashboardBody(tabItems(
+        # Create an Intro Tab
+        tabItem(tabName = "intro"),
+        # Create a Regression Tab
+        tabItem(tabName = "regression",
+                # Load the Regression UI
+                regressionUI()),
+        # Create a Migration Tab
+        tabItem(tabName = "migration",
+                # Load the Migration UI
+                migrationUI()),
+        # Create an Options Tab
+        tabItem(
+            tabName = "options",
+            # Create a shiny theme selector
+            themeSelector(),
+            # Create a shiny dashboard theme selector
+            selectInput(
+                inputId = "theme",
+                label = 'Dashboard Theme',
+                choices =  c(
+                    'blue_gradient',
+                    'flat_red',
+                    'grey_light',
+                    'grey_dark',
+                    'onenote',
+                    'poor_mans_flatly',
+                    'purple_gradient'
+                ),
+                selected = "grey_light"
             )
-        ),
-    )
+        )
+    ))
 )
 
 # Define the Server
