@@ -11,9 +11,10 @@ library(sf) # Load the simple feature package
 library(rworldmap) # Get world map geospatial data and functions
 library(CGPfunctions) # For plotting of slope graph
 library(shinycssloaders) # For loading animation of plots
-library(plotly)
-library(ggstatsplot)
-library(parameters)
+library(plotly) # Interactive scatter plot
+library(ggExtra) # Marginal distribution on regression plot
+library(ggpubr) # Regression formula
+library(ggstatsplot) # Correlation matrix analysis
 library(treemap) # For plotting of treemap
 library(d3treeR) # For interactive treemaps
 
