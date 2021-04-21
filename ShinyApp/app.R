@@ -7,6 +7,8 @@ ui <- dashboardPage(
     dashboardHeader(title = "VISTAS"),
     # Create a Dashboard Sidebar
     dashboardSidebar(
+        # Create an output for the dashboard theme
+        uiOutput("dashboardTheme"),
         sidebarMenu(
             # Create an Intro Menu
             menuItem("Introduction", tabName = "intro", icon = icon("home")),
@@ -61,8 +63,6 @@ ui <- dashboardPage(
                 )
             )
         ),
-        # Create an output for the dashboard theme
-        uiOutput("dashboardTheme")
     )
 )
 

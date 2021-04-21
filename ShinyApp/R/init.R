@@ -18,10 +18,75 @@ library(treemap) # For plotting of treemap
 library(d3treeR) # For interactive treemaps
 
 # Load of data files
-industryEmploymentGrowth <- read_excel("data/public_use-industry-employment-growth.xlsx", sheet="Growth from Industry Transition")
-industrySkillsNeeds <- read_excel("data/public_use-industry-skills-needs.xlsx", sheet="Industry Skills Needs")
-skillPenetration <- read_excel("data/public_use-skill-penetration.xlsx", sheet="Skill Penetration")
-countryMigration <- read_excel("data/public_use-talent-migration.xlsx", sheet="Country Migration")
-industryMigration <- read_excel("data/public_use-talent-migration.xlsx", sheet="Industry Migration")
-skillMigration <- read_excel("data/public_use-talent-migration.xlsx", sheet="Skill Migration")
+industryEmploymentGrowth <-
+  read_excel("data/public_use-industry-employment-growth.xlsx", sheet = "Growth from Industry Transition")
+industrySkillsNeeds <-
+  read_excel("data/public_use-industry-skills-needs.xlsx", sheet = "Industry Skills Needs")
+skillPenetration <-
+  read_excel("data/public_use-skill-penetration.xlsx", sheet = "Skill Penetration")
+countryMigration <-
+  read_excel("data/public_use-talent-migration.xlsx", sheet = "Country Migration")
+industryMigration <-
+  read_excel("data/public_use-talent-migration.xlsx", sheet = "Industry Migration")
+skillMigration <-
+  read_excel("data/public_use-talent-migration.xlsx", sheet = "Skill Migration")
+popAndGdpData <-
+  read_excel("data/Population-GDPPerCapita-2015-2019.xlsx")
 master <- read.csv("data/master.csv")
+
+# Pivoting of data files
+industryEmploymentGrowthPivot <- industryEmploymentGrowth %>%
+  pivot_longer(
+    col = starts_with("growth_rate_"),
+    names_to = "year",
+    names_prefix = "growth_rate_",
+    values_to = "growth_rate"
+  )
+
+countryMigrationPivot <- countryMigration %>%
+  pivot_longer(
+    col = starts_with("net_per_10K_"),
+    names_to = "year",
+    names_prefix = "net_per_10K_",
+    values_to = "net_per_10K"
+  )
+
+industryMigrationPivot <- industryMigration %>%
+  pivot_longer(
+    col = starts_with("net_per_10K_"),
+    names_to = "year",
+    names_prefix = "net_per_10K_",
+    values_to = "net_per_10K"
+  )
+
+skillMigrationPivot <- skillMigration %>%
+  pivot_longer(
+    col = starts_with("net_per_10K_"),
+    names_to = "year",
+    names_prefix = "net_per_10K_",
+    values_to = "net_per_10K"
+  )
+
+populationDf <- popAndGdpData %>%
+  na_if("..") %>%
+  filter(`Series Code` == "SP.POP.TOTL") %>%
+  pivot_longer(
+    col = starts_with("201"),
+    names_to = "year_text",
+    values_to = "population"
+  ) %>%
+  mutate(year = substr(year_text,1,4)) %>%
+  select(`Country Name`, year, population) %>%
+  mutate(population = as.numeric(population))
+
+gdpPerCapitaDf <- popAndGdpData %>%
+  na_if("..") %>%
+  filter(`Series Code` == "NY.GDP.PCAP.KD") %>%
+  pivot_longer(
+    col = starts_with("201"),
+    names_to = "year_text",
+    values_to = "gdp_per_cap"
+  ) %>%
+  mutate(year = substr(year_text,1,4)) %>%
+  select(`Country Name`, year, gdp_per_cap) %>%
+  mutate(gdp_per_cap = as.numeric(gdp_per_cap))
