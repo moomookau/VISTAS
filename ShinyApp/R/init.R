@@ -18,6 +18,7 @@ library(ggpubr) # Regression formula
 library(olsrr) # Regression results
 library(parameters) # Regression results
 library(ggstatsplot) # Correlation matrix analysis
+library(shinyWidgets)
 library(treemap) # For plotting of treemap
 library(d3treeR) # For interactive treemaps
 # We use a forked version of d3treeR @ github.com/moomookau/d3treeR
