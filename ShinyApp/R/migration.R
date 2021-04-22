@@ -17,123 +17,169 @@ yearMax <- as.integer(max(countryMigrationPivot$year))
 
 # Function for UI
 # Make sure to wrap all input and output ids with the ns() function
-migrationUI <- function(id = "migration") {
+migrationUsageUI <- function(id = "migration") {
   ns <- NS(id)
-  tagList(
-    navbarPage(
-      "Migration Analysis",
-      tabPanel("Usage Guide"),
-      tabPanel("Choropleth",
-               sidebarLayout(
-                 sidebarPanel(
-                   h3("Options"),
-                   selectInput(
-                     inputId = ns("choroplethCountry"),
-                     label = "Country:",
-                     choices = countriesGrouped
-                   ),
-                   sliderInput(
-                     inputId = ns("choroplethYear"),
-                     label = "Select year",
-                     min = yearMin,
-                     max = yearMax,
-                     value = yearMax,
-                     step = 1,
-                     ticks = FALSE
-                   )
-                 ),
-                 mainPanel(leafletOutput(ns(
-                   "choroplethOutput"
-                 ), height = "calc(100vh - 160px)"))
-               )),
-      tabPanel("Chord Diagram",
-               sidebarLayout(
-                 sidebarPanel(
-                   h3("Options"),
-                   selectInput(
-                     inputId = ns("chordType"),
-                     label = "Type of Chord Diagram",
-                     choices = c("Single Region", "Aggregate"),
-                     selected = "Single Region"
-                   ),
-                   selectInput(
-                     inputId = ns("chordRegion"),
-                     label = "Region:",
-                     choices = c("East Asia & Pacific"),
-                     selected = "East Asia & Pacific"
-                   ),
-                   sliderInput(
-                     inputId = ns("chordYear"),
-                     label = "Select year",
-                     min = yearMin,
-                     max = yearMax,
-                     value = yearMax,
-                     step = 1,
-                     ticks = FALSE
-                   )
-                 ),
-                 mainPanel("Chord Diagram")
-               )),
-      tabPanel("Slope Graph",
-               sidebarLayout(
-                 sidebarPanel(
-                   selectInput(
-                     inputId = ns("slopeType"),
-                     label = "Type of Migration to View:",
-                     choices = c("Country", "Industry", "Skill")
-                   ),
-                   uiOutput(outputId = ns("slopeSelectedOutput")),
-                   sliderInput(
-                     inputId = ns("slopeTop"),
-                     label = "Show Top N Countries:",
-                     min = 10,
-                     max = nrow(countriesUnique),
-                     value = 30
-                   )
-                 ),
-                 mainPanel(
-                   plotOutput(ns("slopeOutput"), height = "calc(100vh - 160px)") %>% withSpinner(type =
-                                                                                                   8)
-                 )
-               )),
-      tabPanel("Treemap",
-               sidebarLayout(
-                 sidebarPanel(
-                   selectInput(
-                     inputId = ns("treeType"),
-                     label = "Type of Migration to View:",
-                     choices = c("Country", "Industry", "Skill")
-                   ),
-                   uiOutput(outputId = ns("treeSelectedOutput")),
-                   sliderInput(
-                     inputId = ns("treeYear"),
-                     label = "Select year:",
-                     min = yearMin,
-                     max = yearMax,
-                     value = yearMax,
-                     step = 1,
-                     ticks = FALSE
-                   ),
-                   selectInput(
-                     inputId = ns("treeGroup"),
-                     label = "Group By:",
-                     choices = c("Income Group" = "wb_income", "Region" = "wb_region"),
-                     selected = "wb_region"
-                   ),
-                   selectInput(
-                     inputId = ns("treeSize"),
-                     label = "Size By:",
-                     choices = c("Population", "GDP Per Capita (2010 US$)")
-                   ),
-                 ),
-                 mainPanel(
-                   d3tree2Output(ns("treeOutput"), height = "calc(100vh - 160px)") %>% withSpinner(type =
-                                                                                                     8)
-                 )
-               )),
-      tabPanel("Geofacet Map")
+  tagList(fluidRow(
+    box(plotOutput("plot1"), width = 8, height = "100%"),
+    
+    box(
+      width = 4,
+      "Box content here",
+      br(),
+      "More box content",
+      sliderInput("slider", "Slider input:", 1, 100, 50),
+      textInput("text", "Text input:")
     )
-  )
+  ))
+}
+
+migrationChoroplethUI <- function(id = "migration") {
+  ns <- NS(id)
+  tagList(fluidRow(
+    box(
+      title = "Inputs",
+      status = "warning",
+      width = 3,
+      solidHeader = TRUE,
+      selectInput(
+        inputId = ns("choroplethCountry"),
+        label = "Country:",
+        choices = countriesGrouped
+      ),
+      sliderInput(
+        inputId = ns("choroplethYear"),
+        label = "Select year",
+        min = yearMin,
+        max = yearMax,
+        value = yearMax,
+        step = 1,
+        ticks = FALSE
+      )
+    ),
+    box(
+      width = 9,
+      solidHeader = TRUE,
+      leafletOutput(ns("choroplethOutput"), height = "calc(100vh - 120px)")
+    )
+  ))
+}
+
+migrationChordUI <- function(id = "migration") {
+  ns <- NS(id)
+  tagList(fluidRow(
+    box(
+      title = "Inputs",
+      status = "warning",
+      width = 3,
+      solidHeader = TRUE,
+      selectInput(
+        inputId = ns("chordType"),
+        label = "Type of Chord Diagram",
+        choices = c("Single Region", "Aggregate"),
+        selected = "Single Region"
+      ),
+      selectInput(
+        inputId = ns("chordRegion"),
+        label = "Region:",
+        choices = c("East Asia & Pacific"),
+        selected = "East Asia & Pacific"
+      ),
+      sliderInput(
+        inputId = ns("chordYear"),
+        label = "Select year",
+        min = yearMin,
+        max = yearMax,
+        value = yearMax,
+        step = 1,
+        ticks = FALSE
+      )
+    ),
+    box(
+      width = 9,
+      solidHeader = TRUE,
+      chorddiagOutput(ns("chorddiagOutput"), height = "calc(100vh - 120px)") %>% withSpinner(type = 8)
+    )
+  ))
+}
+
+migrationSlopeUI <- function(id = "migration") {
+  ns <- NS(id)
+  tagList(fluidRow(
+    box(
+      title = "Inputs",
+      status = "warning",
+      width = 3,
+      solidHeader = TRUE,
+      selectInput(
+        inputId = ns("slopeType"),
+        label = "Type of Migration to View:",
+        choices = c("Country", "Industry", "Skill")
+      ),
+      uiOutput(outputId = ns("slopeSelectedOutput")),
+      sliderInput(
+        inputId = ns("slopeTop"),
+        label = "Show Top N Countries:",
+        min = 10,
+        max = nrow(countriesUnique),
+        value = 30
+      )
+    ),
+    box(
+      width = 9,
+      solidHeader = TRUE,
+      plotOutput(ns("slopeOutput"), height = "calc(100vh - 120px)") %>% withSpinner(type =
+                                                                                      8)
+    )
+  ))
+}
+
+migrationTreeUI <- function(id = "migration") {
+  ns <- NS(id)
+  tagList(fluidRow(
+    box(
+      title = "Inputs",
+      status = "warning",
+      width = 3,
+      solidHeader = TRUE,
+      selectInput(
+        inputId = ns("treeType"),
+        label = "Type of Migration to View:",
+        choices = c("Country", "Industry", "Skill")
+      ),
+      uiOutput(outputId = ns("treeSelectedOutput")),
+      sliderInput(
+        inputId = ns("treeYear"),
+        label = "Select year:",
+        min = yearMin,
+        max = yearMax,
+        value = yearMax,
+        step = 1,
+        ticks = FALSE
+      ),
+      selectInput(
+        inputId = ns("treeGroup"),
+        label = "Group By:",
+        choices = c("Income Group" = "wb_income", "Region" = "wb_region"),
+        selected = "wb_region"
+      ),
+      selectInput(
+        inputId = ns("treeSize"),
+        label = "Size By:",
+        choices = c("Population", "GDP Per Capita (2010 US$)")
+      )
+    ),
+    box(
+      width = 9,
+      solidHeader = TRUE,
+      d3tree2Output(ns("treeOutput"), height = "calc(100vh - 120px)") %>% withSpinner(type =
+                                                                                        8)
+    )
+  ))
+}
+
+migrationGeofacetUI <- function(id = "migration") {
+  ns <- NS(id)
+  tagList()
 }
 
 migrationServer <- function(id = "migration") {
@@ -206,6 +252,57 @@ migrationServer <- function(id = "migration") {
                  #######################################
                  # Chord Diagram - Start
                  #######################################
+                 
+                 output$chorddiagOutput <- renderChorddiag({
+                   # We set the variables we want to try out
+                   # In this case, we filter by the year 2019
+                   filterYear <- 2019
+                   
+                   # In order to use the chorddiag package, we create a matrix of the countries
+                   chordDf <- countryMigrationPivot %>%
+                     filter(year == filterYear) %>%
+                     select(base_country_name, target_country_name, net_per_10K) %>%
+                     pivot_wider(
+                       names_from = target_country_name,
+                       values_from = net_per_10K,
+                       values_fill = 0,
+                       names_sort = TRUE
+                     ) %>%
+                     arrange(base_country_name) %>%
+                     column_to_rownames("base_country_name")
+                   
+                   countryNames <- row.names(chordDf)
+                   
+                   # We create separate dataframes with positive and negative values
+                   chordPosDf <- chordDf
+                   chordPosDf[chordPosDf < 0] <- 0.0
+                   chordNegDf <- chordDf
+                   chordNegDf[chordNegDf >= 0] <- 0.0
+                   chordNegDf <- abs(chordNegDf)
+                   
+                   # We convert the dataframes into matrices to be used with the chorddiag function
+                   chordPosMatrix <- as.matrix(chordPosDf)
+                   chordNegMatrix <- as.matrix(chordNegDf)
+                   
+                   # We create a palette
+                   colours <-
+                     distinctColorPalette(length(countryNames))
+                   
+                   # We plot the chord diagram
+                   p <-
+                     chorddiag(
+                       chordPosMatrix,
+                       height = 1000,
+                       width = 1000,
+                       groupnamePadding = 20,
+                       showTicks = FALSE,
+                       groupThickness = 0.01,
+                       groupColors = colours,
+                       precision = 3,
+                       showZeroTooltips = FALSE
+                     )
+                   p
+                 })
                  
                  #######################################
                  # Chord Diagram - End

@@ -20,213 +20,231 @@ skill <- sort(unique(master$skill_group_category))
 
 # Function for UI
 # Make sure to wrap all input and output ids with the ns() function
-regressionUI <- function(id = "regression") {
+regressionUsageUI <- function(id = "regression") {
   ns <- NS(id)
-  tagList(# Add your UI here
-    navbarPage(
-      tabPanel("Usage Guide"),
-      tabPanel("Regression",
-               sidebarLayout(
-                 sidebarPanel(
-                   h4("Variables"),
-                   selectInput(
-                     inputId = ns("yVar1"),
-                     label = "Y Variable:",
-                     choices = c(
-                       "GDP Per Capita Growth" = "GDP_per_capita_growth",
-                       "Employment Growth" = "employment_growth",
-                       "Industry Migration" = "industry_migration",
-                       "Skill Migration" = "skill_migration"
-                     ),
-                     selected = "employment_growth"
-                   ),
-                   selectInput(
-                     inputId = ns("xVar1"),
-                     label = "X Variable:",
-                     choices = c(
-                       "GDP Per Capita Growth" = "GDP_per_capita_growth",
-                       "Employment Growth" = "employment_growth",
-                       "Industry Migration" = "industry_migration",
-                       "Skill Migration" = "skill_migration"
-                     ),
-                     selected = "industry_migration"
-                   ),
-                   h4("Filters"),
-                   selectInput(
-                     inputId = ns("year1"),
-                     label = "Year:",
-                     choices = year,
-                     multiple = TRUE
-                   ),
-                   selectInput(
-                     inputId = ns("country1"),
-                     label = "Country:",
-                     choices = country,
-                     multiple = TRUE
-                   ),
-                   selectInput(
-                     inputId = ns("region1"),
-                     label = "Region:",
-                     choices = region,
-                     multiple = TRUE
-                   ),
-                   selectInput(
-                     inputId = ns("income1"),
-                     label = "Income Level:",
-                     choices = income,
-                     multiple = TRUE
-                   ),
-                   selectInput(
-                     inputId = ns("industry1"),
-                     label = "Industry Section:",
-                     choices = industry,
-                     multiple = TRUE
-                   ),
-                   selectInput(
-                     inputId = ns("skill1"),
-                     label = "Skill Group:",
-                     choices = skill,
-                     multiple = TRUE
-                   ),
-                   actionButton(inputId = ns("apply1"), "Apply changes")
-                 ),
-                 mainPanel("Regression",
-                           plotOutput(ns(
-                             "RegressionOutput"
-                           )) %>% withSpinner(type =
-                                                8))
-               )),
-      tabPanel("Scatter Plot",
-               sidebarLayout(
-                 sidebarPanel(
-                   h4("Variables"),
-                   selectInput(
-                     inputId = ns("yVar2"),
-                     label = "Y Variable:",
-                     choices = c(
-                       "GDP Per Capita Growth" = "GDP_per_capita_growth",
-                       "Employment Growth" = "employment_growth",
-                       "Industry Migration" = "industry_migration",
-                       "Skill Migration" = "skill_migration"
-                     ),
-                     selected = "employment_growth"
-                   ),
-                   selectInput(
-                     inputId = ns("xVar2"),
-                     label = "X Variable:",
-                     choices = c(
-                       "GDP Per Capita Growth" = "GDP_per_capita_growth",
-                       "Employment Growth" = "employment_growth",
-                       "Industry Migration" = "industry_migration",
-                       "Skill Migration" = "skill_migration"
-                     ),
-                     selected = "industry_migration"
-                   ),
-                   h4("Filters"),
-                   selectInput(
-                     inputId = ns("year2"),
-                     label = "Year:",
-                     choices = year,
-                     multiple = TRUE
-                   ),
-                   selectInput(
-                     inputId = ns("country2"),
-                     label = "Country:",
-                     choices = country,
-                     multiple = TRUE
-                   ),
-                   selectInput(
-                     inputId = ns("region2"),
-                     label = "Region:",
-                     choices = region,
-                     multiple = TRUE
-                   ),
-                   selectInput(
-                     inputId = ns("income2"),
-                     label = "Income Level:",
-                     choices = income,
-                     multiple = TRUE
-                   ),
-                   selectInput(
-                     inputId = ns("industry2"),
-                     label = "Industry Section:",
-                     choices = industry,
-                     multiple = TRUE
-                   ),
-                   selectInput(
-                     inputId = ns("skill2"),
-                     label = "Skill Group:",
-                     choices = skill,
-                     multiple = TRUE
-                   ),
-                   actionButton(inputId = ns("apply2"), "Apply changes")
-                 ),
-                 mainPanel("Scatter Plot",
-                           plotlyOutput(ns(
-                             "ScatterPlotOutput"
-                           )) %>% withSpinner(type =
-                                                8))
-               )),
-      tabPanel(
-        "Correlation Matrix Analysis",
-        sidebarLayout(
-          sidebarPanel(
-            h4("Variables"),
-            h5("- GDP per capita growth"),
-            h5("- Employment growth"),
-            h5("- Industry migration"),
-            h5("- Skill migration"),
-            h4("Filters"),
-            selectInput(
-              inputId = ns("year3"),
-              label = "Year:",
-              choices = year,
-              multiple = TRUE
-            ),
-            selectInput(
-              inputId = ns("country3"),
-              label = "Country:",
-              choices = country,
-              multiple = TRUE
-            ),
-            selectInput(
-              inputId = ns("region3"),
-              label = "Region:",
-              choices = region,
-              multiple = TRUE
-            ),
-            selectInput(
-              inputId = ns("income3"),
-              label = "Income Level:",
-              choices = income,
-              multiple = TRUE
-            ),
-            selectInput(
-              inputId = ns("industry3"),
-              label = "Industry Section:",
-              choices = industry,
-              multiple = TRUE
-            ),
-            selectInput(
-              inputId = ns("skill3"),
-              label = "Skill Group:",
-              choices = skill,
-              multiple = TRUE
-            ),
-            actionButton(inputId = ns("apply3"), "Apply changes")
-          ),
-          mainPanel(
-            "Correlation Matrix Analysis",
-            plotOutput(ns("CorrelationOutput")) %>% withSpinner(type =
-                                                                  8)
-          )
-        )
-      )
-      
-      
-      # End UI here
-    ))
+  tagList()
 }
+
+regressionRegressionUI <- function(id = "regression") {
+  ns <- NS(id)
+  tagList(fluidRow(
+    box(
+      title = "Inputs",
+      status = "warning",
+      width = 3,
+      solidHeader = TRUE,
+      h4("Variables"),
+      selectInput(
+        inputId = ns("yVar1"),
+        label = "Y Variable:",
+        choices = c(
+          "GDP Per Capita Growth" = "GDP_per_capita_growth",
+          "Employment Growth" = "employment_growth",
+          "Industry Migration" = "industry_migration",
+          "Skill Migration" = "skill_migration"
+        ),
+        selected = "employment_growth"
+      ),
+      selectInput(
+        inputId = ns("xVar1"),
+        label = "X Variable:",
+        choices = c(
+          "GDP Per Capita Growth" = "GDP_per_capita_growth",
+          "Employment Growth" = "employment_growth",
+          "Industry Migration" = "industry_migration",
+          "Skill Migration" = "skill_migration"
+        ),
+        selected = "industry_migration"
+      ),
+      h4("Filters"),
+      selectInput(
+        inputId = ns("year1"),
+        label = "Year:",
+        choices = year,
+        multiple = TRUE
+      ),
+      selectInput(
+        inputId = ns("country1"),
+        label = "Country:",
+        choices = country,
+        multiple = TRUE
+      ),
+      selectInput(
+        inputId = ns("region1"),
+        label = "Region:",
+        choices = region,
+        multiple = TRUE
+      ),
+      selectInput(
+        inputId = ns("income1"),
+        label = "Income Level:",
+        choices = income,
+        multiple = TRUE
+      ),
+      selectInput(
+        inputId = ns("industry1"),
+        label = "Industry Section:",
+        choices = industry,
+        multiple = TRUE
+      ),
+      selectInput(
+        inputId = ns("skill1"),
+        label = "Skill Group:",
+        choices = skill,
+        multiple = TRUE
+      ),
+      actionButton(inputId = ns("apply1"), "Apply changes")
+    ),
+    box(
+      width = 9,
+      solidHeader = TRUE,
+      plotOutput(ns("RegressionOutput")) %>% withSpinner(type =
+                                                           8)
+    )
+  ))
+}
+
+regressionScatterUI <- function(id = "regression") {
+  ns <- NS(id)
+  tagList(fluidRow(
+    box(
+      title = "Inputs",
+      status = "warning",
+      width = 3,
+      solidHeader = TRUE,
+      h4("Variables"),
+      selectInput(
+        inputId = ns("yVar2"),
+        label = "Y Variable:",
+        choices = c(
+          "GDP Per Capita Growth" = "GDP_per_capita_growth",
+          "Employment Growth" = "employment_growth",
+          "Industry Migration" = "industry_migration",
+          "Skill Migration" = "skill_migration"
+        ),
+        selected = "employment_growth"
+      ),
+      selectInput(
+        inputId = ns("xVar2"),
+        label = "X Variable:",
+        choices = c(
+          "GDP Per Capita Growth" = "GDP_per_capita_growth",
+          "Employment Growth" = "employment_growth",
+          "Industry Migration" = "industry_migration",
+          "Skill Migration" = "skill_migration"
+        ),
+        selected = "industry_migration"
+      ),
+      h4("Filters"),
+      selectInput(
+        inputId = ns("year2"),
+        label = "Year:",
+        choices = year,
+        multiple = TRUE
+      ),
+      selectInput(
+        inputId = ns("country2"),
+        label = "Country:",
+        choices = country,
+        multiple = TRUE
+      ),
+      selectInput(
+        inputId = ns("region2"),
+        label = "Region:",
+        choices = region,
+        multiple = TRUE
+      ),
+      selectInput(
+        inputId = ns("income2"),
+        label = "Income Level:",
+        choices = income,
+        multiple = TRUE
+      ),
+      selectInput(
+        inputId = ns("industry2"),
+        label = "Industry Section:",
+        choices = industry,
+        multiple = TRUE
+      ),
+      selectInput(
+        inputId = ns("skill2"),
+        label = "Skill Group:",
+        choices = skill,
+        multiple = TRUE
+      ),
+      actionButton(inputId = ns("apply2"), "Apply changes")
+    ),
+    box(
+      width = 9,
+      solidHeader = TRUE,
+      plotlyOutput(ns("ScatterPlotOutput")) %>% withSpinner(type = 8)
+    )
+  ))
+}
+
+regressionCorrelationUI <- function(id = "regression") {
+  ns <- NS(id)
+  tagList(fluidRow(
+    box(
+      title = "Inputs",
+      status = "warning",
+      width = 3,
+      solidHeader = TRUE,
+      h4("Variables"),
+      h5("- GDP per capita growth"),
+      h5("- Employment growth"),
+      h5("- Industry migration"),
+      h5("- Skill migration"),
+      h4("Filters"),
+      selectInput(
+        inputId = ns("year3"),
+        label = "Year:",
+        choices = year,
+        multiple = TRUE
+      ),
+      selectInput(
+        inputId = ns("country3"),
+        label = "Country:",
+        choices = country,
+        multiple = TRUE
+      ),
+      selectInput(
+        inputId = ns("region3"),
+        label = "Region:",
+        choices = region,
+        multiple = TRUE
+      ),
+      selectInput(
+        inputId = ns("income3"),
+        label = "Income Level:",
+        choices = income,
+        multiple = TRUE
+      ),
+      selectInput(
+        inputId = ns("industry3"),
+        label = "Industry Section:",
+        choices = industry,
+        multiple = TRUE
+      ),
+      selectInput(
+        inputId = ns("skill3"),
+        label = "Skill Group:",
+        choices = skill,
+        multiple = TRUE
+      ),
+      actionButton(inputId = ns("apply3"), "Apply changes")
+    ),
+    box(
+      width = 9,
+      solidHeader = TRUE,
+      plotOutput(ns("CorrelationOutput")) %>% withSpinner(type =
+                                                            8)
+    )
+  ))
+  
+}
+
+# End UI here
 
 regressionServer <- function(id = "regression") {
   moduleServer(id,

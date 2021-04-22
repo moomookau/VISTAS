@@ -1,8 +1,6 @@
 # We load the libraries
 library(shiny) # Base Shiny library
 library(shinydashboard) # Used for Shiny Dashboard
-library(shinyWidgets) # Used for Shiny Widgets
-library(shinythemes) # Used for Shiny Themes
 library(dashboardthemes) # Used for Shiny Dashboard Themes
 library(tidyverse) # Tidy universe of libraries
 library(readxl) # Used to read excel files
@@ -16,7 +14,9 @@ library(ggExtra) # Marginal distribution on regression plot
 library(ggpubr) # Regression formula
 library(ggstatsplot) # Correlation matrix analysis
 library(treemap) # For plotting of treemap
-library(d3treeR) # For interactive treemaps
+library(d3treeR) # For interactive treemaps - We use a forked version of d3treeR @ github.com/moomookau/d3treeR
+library(chorddiag) # For plotting of chord diagrams
+library(randomcoloR)
 
 # Load of data files
 industryEmploymentGrowth <-

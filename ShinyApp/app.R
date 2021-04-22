@@ -6,70 +6,101 @@ ui <- dashboardPage(
     # Set the Dashboard Header
     dashboardHeader(title = "VISTAS"),
     # Create a Dashboard Sidebar
-    dashboardSidebar(
-        # Create an output for the dashboard theme
-        uiOutput("dashboardTheme"),
-        sidebarMenu(
-            # Create an Intro Menu
-            menuItem("Introduction", tabName = "intro", icon = icon("home")),
-            # Create a Regression Menu
-            menuItem(
-                "Regression Analysis",
-                tabName = "regression",
+    dashboardSidebar(sidebarMenu(
+        # Create an Intro Menu
+        menuItem("Introduction", tabName = "intro", icon = icon("home")),
+        # Create a Regression Menu
+        menuItem(
+            "Regression Analysis",
+            tabName = "regression",
+            icon = icon("chart-line"),
+            menuSubItem("Usage Guide",
+                        tabName = "regressionUsage",
+                        icon = icon("info")),
+            menuSubItem(
+                "Regression",
+                tabName = "regressionRegression",
                 icon = icon("chart-line")
             ),
-            # Create a Migration Menu
-            menuItem(
-                "Migration Analysis",
-                tabName = "migration",
-                icon = icon("exchange")
+            menuSubItem(
+                "Scatter Plot",
+                tabName = "regressionScatter",
+                icon = icon("braille")
             ),
-            # Create an Options Menu
-            menuItem("Options", tabName = "options", icon = icon("tools"))
-        )
-    ),
-    # Create a Dashboard Body
-    dashboardBody(tabItems(
-        # Create an Intro Tab
-        tabItem(tabName = "intro"),
-        # Create a Regression Tab
-        tabItem(tabName = "regression",
-                # Load the Regression UI
-                regressionUI()),
-        # Create a Migration Tab
-        tabItem(tabName = "migration",
-                # Load the Migration UI
-                migrationUI()),
-        # Create an Options Tab
-        tabItem(
-            tabName = "options",
-            # Create a shiny theme selector
-            themeSelector(),
-            # Create a shiny dashboard theme selector
-            selectInput(
-                inputId = "theme",
-                label = 'Dashboard Theme',
-                choices =  c(
-                    'blue_gradient',
-                    'flat_red',
-                    'grey_light',
-                    'grey_dark',
-                    'onenote',
-                    'poor_mans_flatly',
-                    'purple_gradient'
-                ),
-                selected = "grey_light"
+            menuSubItem(
+                "Correlation Matrix",
+                tabName = "regressionCorrelation",
+                icon = icon("border-all")
             )
+        ),
+        # Create a Migration Menu
+        menuItem(
+            "Migration Analysis",
+            tabName = "migration",
+            icon = icon("exchange"),
+            menuSubItem("Usage Guide",
+                        tabName = "migrationUsage",
+                        icon = icon("info")),
+            menuSubItem(
+                "Choropleth",
+                tabName = "migrationChoropleth",
+                icon = icon("globe-asia")
+            ),
+            menuSubItem(
+                "Chord Diagram",
+                tabName = "migrationChord",
+                icon = icon("exchange-alt")
+            ),
+            menuSubItem(
+                "Slope Graph",
+                tabName = "migrationSlope",
+                icon = icon("chart-line")
+            ),
+            menuSubItem("Treemap",
+                        tabName = "migrationTree",
+                        icon = icon("th")),
+            menuSubItem("Geofacet",
+                        tabName = "migrationGeofacet",
+                        icon = icon("map"))
         )
-    ))
+    )),
+    # Create a Dashboard Body
+    dashboardBody(
+        # Change the theme
+        shinyDashboardThemes(theme = "grey_light"),
+        tabItems(
+            # Create an Intro Tab
+            tabItem(tabName = "intro"),
+            
+            # Create tabs for Regression Analysis
+            tabItem(tabName = "regressionUsage",
+                    regressionUsageUI()),
+            tabItem(tabName = "regressionRegression",
+                    regressionRegressionUI()),
+            tabItem(tabName = "regressionScatter",
+                    regressionScatterUI()),
+            tabItem(tabName = "regressionCorrelation",
+                    regressionCorrelationUI()),
+            
+            # Create tabs for Migration Analysis
+            tabItem(tabName = "migrationUsage",
+                    migrationUsageUI()),
+            tabItem(tabName = "migrationChoropleth",
+                    migrationChoroplethUI()),
+            tabItem(tabName = "migrationChord",
+                    migrationChordUI()),
+            tabItem(tabName = "migrationSlope",
+                    migrationSlopeUI()),
+            tabItem(tabName = "migrationTree",
+                    migrationTreeUI()),
+            tabItem(tabName = "migrationGeofacet",
+                    migrationGeofacetUI())
+        )
+    )
 )
 
 # Define the Server
 server <- function(input, output) {
-    # Set the theme
-    output$dashboardTheme <-
-        renderUI(shinyDashboardThemes(theme = input$theme))
-    
     # Load the Regression Server function
     regressionServer()
     
