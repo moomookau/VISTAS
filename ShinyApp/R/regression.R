@@ -57,41 +57,47 @@ regressionRegressionUI <- function(id = "regression") {
         selected = "industry_migration"
       ),
       h4("Filters"),
-      selectInput(
+      pickerInput(
         inputId = ns("year1"),
         label = "Year:",
         choices = year,
-        multiple = TRUE
+        multiple = TRUE,
+        options = list(`actions-box` = TRUE)
       ),
-      selectInput(
+      pickerInput(
         inputId = ns("country1"),
         label = "Country:",
         choices = country,
-        multiple = TRUE
+        multiple = TRUE,
+        options = list(`actions-box` = TRUE)
       ),
-      selectInput(
+      pickerInput(
         inputId = ns("region1"),
         label = "Region:",
         choices = region,
-        multiple = TRUE
+        multiple = TRUE,
+        options = list(`actions-box` = TRUE)
       ),
-      selectInput(
+      pickerInput(
         inputId = ns("income1"),
         label = "Income Level:",
         choices = income,
-        multiple = TRUE
+        multiple = TRUE,
+        options = list(`actions-box` = TRUE)
       ),
-      selectInput(
+      pickerInput(
         inputId = ns("industry1"),
         label = "Industry Section:",
         choices = industry,
-        multiple = TRUE
+        multiple = TRUE,
+        options = list(`actions-box` = TRUE)
       ),
-      selectInput(
+      pickerInput(
         inputId = ns("skill1"),
         label = "Skill Group:",
         choices = skill,
-        multiple = TRUE
+        multiple = TRUE,
+        options = list(`actions-box` = TRUE)
       ),
       actionButton(inputId = ns("apply1"), "Apply changes")
     ),
@@ -138,41 +144,47 @@ regressionScatterUI <- function(id = "regression") {
         selected = "industry_migration"
       ),
       h4("Filters"),
-      selectInput(
+      pickerInput(
         inputId = ns("year2"),
         label = "Year:",
         choices = year,
-        multiple = TRUE
+        multiple = TRUE,
+        options = list(`actions-box` = TRUE)
       ),
-      selectInput(
+      pickerInput(
         inputId = ns("country2"),
         label = "Country:",
         choices = country,
-        multiple = TRUE
+        multiple = TRUE,
+        options = list(`actions-box` = TRUE)
       ),
-      selectInput(
+      pickerInput(
         inputId = ns("region2"),
         label = "Region:",
         choices = region,
-        multiple = TRUE
+        multiple = TRUE,
+        options = list(`actions-box` = TRUE)
       ),
-      selectInput(
+      pickerInput(
         inputId = ns("income2"),
         label = "Income Level:",
         choices = income,
-        multiple = TRUE
+        multiple = TRUE,
+        options = list(`actions-box` = TRUE)
       ),
-      selectInput(
+      pickerInput(
         inputId = ns("industry2"),
         label = "Industry Section:",
         choices = industry,
-        multiple = TRUE
+        multiple = TRUE,
+        options = list(`actions-box` = TRUE)
       ),
-      selectInput(
+      pickerInput(
         inputId = ns("skill2"),
         label = "Skill Group:",
         choices = skill,
-        multiple = TRUE
+        multiple = TRUE,
+        options = list(`actions-box` = TRUE)
       ),
       actionButton(inputId = ns("apply2"), "Apply changes")
     ),
@@ -198,41 +210,47 @@ regressionCorrelationUI <- function(id = "regression") {
       h5("- Industry migration"),
       h5("- Skill migration"),
       h4("Filters"),
-      selectInput(
+      pickerInput(
         inputId = ns("year3"),
         label = "Year:",
         choices = year,
-        multiple = TRUE
+        multiple = TRUE,
+        options = list(`actions-box` = TRUE)
       ),
-      selectInput(
+      pickerInput(
         inputId = ns("country3"),
         label = "Country:",
         choices = country,
-        multiple = TRUE
+        multiple = TRUE,
+        options = list(`actions-box` = TRUE)
       ),
-      selectInput(
+      pickerInput(
         inputId = ns("region3"),
         label = "Region:",
         choices = region,
-        multiple = TRUE
+        multiple = TRUE,
+        options = list(`actions-box` = TRUE)
       ),
-      selectInput(
+      pickerInput(
         inputId = ns("income3"),
         label = "Income Level:",
         choices = income,
-        multiple = TRUE
+        multiple = TRUE,
+        options = list(`actions-box` = TRUE)
       ),
-      selectInput(
+      pickerInput(
         inputId = ns("industry3"),
         label = "Industry Section:",
         choices = industry,
-        multiple = TRUE
+        multiple = TRUE,
+        options = list(`actions-box` = TRUE)
       ),
-      selectInput(
+      pickerInput(
         inputId = ns("skill3"),
         label = "Skill Group:",
         choices = skill,
-        multiple = TRUE
+        multiple = TRUE,
+        options = list(`actions-box` = TRUE)
       ),
       actionButton(inputId = ns("apply3"), "Apply changes")
     ),
