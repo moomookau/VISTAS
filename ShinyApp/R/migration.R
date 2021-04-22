@@ -122,7 +122,15 @@ migrationSlopeUI <- function(id = "migration") {
         min = 10,
         max = nrow(countriesUnique),
         value = 30
-      )
+      ),
+      selectInput(
+        inputId = ns("slopeColour"),
+        label = "Color By:",
+        choices = c("Income Group" = "wb_income", "Region" = "wb_region"),
+        selected = "wb_region"
+      ),
+      checkboxInput(inputId = ns("slopeLog"),
+                    label = "Pseudolog Y-Axis?")
     ),
     box(
       width = 9,
@@ -191,6 +199,37 @@ migrationServer <- function(id = "migration") {
                  # Choropleth Map - Start
                  #######################################
                  output$choroplethOutput <- renderLeaflet({
+                   leaflet(options = leafletOptions(zoomControl = FALSE,
+                                                    dragging = FALSE)) %>%
+                     addTiles() %>%
+                     fitBounds(-170, 85, 170,-75) %>%
+                     htmlwidgets::onRender(
+                       "
+    function(el, x) {
+    console.log(el);
+    console.log(x);
+      var map = $('#migration-choroplethOutput').data('leaflet-map');
+        function disableZoom(e) {map.scrollWheelZoom.disable();}
+
+        $(document).on('mousemove', '*', disableZoom);
+
+        map.on('click', function() {
+          $(document).off('mousemove', '*', disableZoom);
+          map.scrollWheelZoom.enable();
+        });
+    }
+  "
+                     )
+                 })
+                 
+                 observeEvent(c(
+                   input$choroplethCountry,
+                   input$choroplethYear,
+                   input$sidebar
+                 ),
+                 {
+                   req(input$sidebar == "migrationChoropleth")
+                   
                    # We set the variables based on the UI inputs
                    filterCountry <- input$choroplethCountry
                    filterYear <- input$choroplethYear
@@ -225,9 +264,9 @@ migrationServer <- function(id = "migration") {
                    pal <- colorBin("RdBu", bins = bins)
                    
                    # We plot the migration choropleth map
-                   migrationChoroplethMap %>%
-                     leaflet() %>%
-                     addTiles() %>%
+                   leafletProxy("choroplethOutput", data = migrationChoroplethMap) %>%
+                     clearShapes() %>%
+                     clearControls() %>%
                      addPolygons(
                        fillColor = ~ pal(net_per_10K),
                        label = ~ label,
@@ -243,7 +282,8 @@ migrationServer <- function(id = "migration") {
                        opacity = 0.7,
                        title = NULL,
                        position = "bottomright"
-                     )
+                     ) %>%
+                     fitBounds(-170, 85, 170,-75)
                  })
                  #######################################
                  # Choropleth Map - End
@@ -360,7 +400,11 @@ migrationServer <- function(id = "migration") {
                          filter(
                            base_country_name == input$slopeCountry,
                            target_country_name %in% topNCountries
-                         )
+                         ) %>%
+                         rename(wb_region = target_country_wb_region,
+                                wb_income = target_country_wb_income) %>%
+                         rename(country_name = target_country_name,
+                                colour_group = input$slopeColour)
                      }
                      else if (input$slopeType == "Industry")
                      {
@@ -373,7 +417,8 @@ migrationServer <- function(id = "migration") {
                        
                        industryMigrationPivot %>%
                          filter(industry_name == input$slopeIndustry,
-                                country_name %in% topNCountries)
+                                country_name %in% topNCountries) %>%
+                         rename(colour_group = input$slopeColour)
                      }
                      else {
                        req(input$slopeSkill)
@@ -385,7 +430,8 @@ migrationServer <- function(id = "migration") {
                        
                        skillMigrationPivot %>%
                          filter(skill_group_name == input$slopeSkill,
-                                country_name %in% topNCountries)
+                                country_name %in% topNCountries) %>%
+                         rename(colour_group = input$slopeColour)
                      }
                    }
                    
@@ -395,13 +441,25 @@ migrationServer <- function(id = "migration") {
                        dataframe = slopeDf,
                        Times = year,
                        Measurement = net_per_10K,
-                       Grouping = target_country_name,
+                       Grouping = country_name,
                        Title = paste("Net Country Migration for", input$slopeCountry),
                        SubTitle = NULL,
                        Caption = NULL,
                        WiderLabels = TRUE,
-                       XTextSize = 8
-                     )
+                       XTextSize = 8,
+                       ColorGroup = colour_group
+                     ) +
+                       theme(legend.position = "bottom") +
+                       scale_alpha(guide = 'none') +
+                       scale_color_discrete(name = ifelse(
+                         input$slopeColour == "wb_region",
+                         "Region",
+                         "Income Group"
+                       )) +
+                       {
+                         if (input$slopeLog)
+                           scale_y_continuous(trans = pseudolog10_trans)
+                       }
                    }
                    else if (input$slopeType == "Industry")
                    {
@@ -414,8 +472,20 @@ migrationServer <- function(id = "migration") {
                        SubTitle = NULL,
                        Caption = NULL,
                        WiderLabels = TRUE,
-                       XTextSize = 8
-                     )
+                       XTextSize = 8,
+                       ColorGroup = colour_group
+                     ) +
+                       theme(legend.position = "bottom") +
+                       scale_alpha(guide = 'none') +
+                       scale_color_discrete(name = ifelse(
+                         input$slopeColour == "wb_region",
+                         "Region",
+                         "Income Group"
+                       )) +
+                       {
+                         if (input$slopeLog)
+                           scale_y_continuous(trans = pseudolog10_trans)
+                       }
                    }
                    else {
                      newggslopegraph(
@@ -427,8 +497,20 @@ migrationServer <- function(id = "migration") {
                        SubTitle = NULL,
                        Caption = NULL,
                        WiderLabels = TRUE,
-                       XTextSize = 8
-                     )
+                       XTextSize = 8,
+                       ColorGroup = colour_group
+                     ) +
+                       theme(legend.position = "bottom") +
+                       scale_alpha(guide = 'none') +
+                       scale_color_discrete(name = ifelse(
+                         input$slopeColour == "wb_region",
+                         "Region",
+                         "Income Group"
+                       )) +
+                       {
+                         if (input$slopeLog)
+                           scale_y_continuous(trans = pseudolog10_trans)
+                       }
                    }
                    
                  })

@@ -8,15 +8,20 @@ library(leaflet) # Used to draw interactive maps
 library(sf) # Load the simple feature package
 library(rworldmap) # Get world map geospatial data and functions
 library(CGPfunctions) # For plotting of slope graph
+# We used a forked version @ github.com/moomookau/CGPfunctions
+# The forked version allows customisation to colour by another column of the dataframe
 library(shinycssloaders) # For loading animation of plots
 library(plotly) # Interactive scatter plot
 library(ggExtra) # Marginal distribution on regression plot
 library(ggpubr) # Regression formula
 library(ggstatsplot) # Correlation matrix analysis
 library(treemap) # For plotting of treemap
-library(d3treeR) # For interactive treemaps - We use a forked version of d3treeR @ github.com/moomookau/d3treeR
+library(d3treeR) # For interactive treemaps
+# We use a forked version of d3treeR @ github.com/moomookau/d3treeR
+# The forked version renames the d3 object to allow compatibility with other packages which use a diff version of d3
 library(chorddiag) # For plotting of chord diagrams
 library(randomcoloR)
+library(ggallin) # For pseudolog transformation
 
 # Load of data files
 industryEmploymentGrowth <-

@@ -7,6 +7,7 @@ ui <- dashboardPage(
     dashboardHeader(title = "VISTAS"),
     # Create a Dashboard Sidebar
     dashboardSidebar(sidebarMenu(
+        id = "migration-sidebar",
         # Create an Intro Menu
         menuItem("Introduction", tabName = "intro", icon = icon("home")),
         # Create a Regression Menu
