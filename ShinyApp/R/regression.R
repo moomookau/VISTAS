@@ -22,8 +22,7 @@ skill <- sort(unique(master$skill_group_category))
 # Make sure to wrap all input and output ids with the ns() function
 regressionUI <- function(id = "regression") {
   ns <- NS(id)
-  tagList(
-    # Add your UI here
+  tagList(# Add your UI here
     navbarPage(
       tabPanel("Usage Guide"),
       tabPanel("Regression",
@@ -33,19 +32,23 @@ regressionUI <- function(id = "regression") {
                    selectInput(
                      inputId = ns("yVar1"),
                      label = "Y Variable:",
-                     choices = c("GDP Per Capita Growth" = "GDP_per_capita_growth",
-                                 "Employment Growth" = "employment_growth",
-                                 "Industry Migration" = "industry_migration",
-                                 "Skill Migration" = "skill_migration"),
+                     choices = c(
+                       "GDP Per Capita Growth" = "GDP_per_capita_growth",
+                       "Employment Growth" = "employment_growth",
+                       "Industry Migration" = "industry_migration",
+                       "Skill Migration" = "skill_migration"
+                     ),
                      selected = "employment_growth"
                    ),
                    selectInput(
                      inputId = ns("xVar1"),
                      label = "X Variable:",
-                     choices = c("GDP Per Capita Growth" = "GDP_per_capita_growth",
-                                 "Employment Growth" = "employment_growth",
-                                 "Industry Migration" = "industry_migration",
-                                 "Skill Migration" = "skill_migration"),
+                     choices = c(
+                       "GDP Per Capita Growth" = "GDP_per_capita_growth",
+                       "Employment Growth" = "employment_growth",
+                       "Industry Migration" = "industry_migration",
+                       "Skill Migration" = "skill_migration"
+                     ),
                      selected = "industry_migration"
                    ),
                    h4("Filters"),
@@ -85,10 +88,13 @@ regressionUI <- function(id = "regression") {
                      choices = skill,
                      multiple = TRUE
                    ),
-                   submitButton("Apply changes")
+                   actionButton(inputId = ns("apply1"), "Apply changes")
                  ),
                  mainPanel("Regression",
-                           plotOutput(ns("RegressionOutput")) %>% withSpinner(type = 8))
+                           plotOutput(ns(
+                             "RegressionOutput"
+                           )) %>% withSpinner(type =
+                                                8))
                )),
       tabPanel("Scatter Plot",
                sidebarLayout(
@@ -97,19 +103,23 @@ regressionUI <- function(id = "regression") {
                    selectInput(
                      inputId = ns("yVar2"),
                      label = "Y Variable:",
-                     choices = c("GDP Per Capita Growth" = "GDP_per_capita_growth",
-                                 "Employment Growth" = "employment_growth",
-                                 "Industry Migration" = "industry_migration",
-                                 "Skill Migration" = "skill_migration"),
+                     choices = c(
+                       "GDP Per Capita Growth" = "GDP_per_capita_growth",
+                       "Employment Growth" = "employment_growth",
+                       "Industry Migration" = "industry_migration",
+                       "Skill Migration" = "skill_migration"
+                     ),
                      selected = "employment_growth"
                    ),
                    selectInput(
                      inputId = ns("xVar2"),
                      label = "X Variable:",
-                     choices = c("GDP Per Capita Growth" = "GDP_per_capita_growth",
-                                 "Employment Growth" = "employment_growth",
-                                 "Industry Migration" = "industry_migration",
-                                 "Skill Migration" = "skill_migration"),
+                     choices = c(
+                       "GDP Per Capita Growth" = "GDP_per_capita_growth",
+                       "Employment Growth" = "employment_growth",
+                       "Industry Migration" = "industry_migration",
+                       "Skill Migration" = "skill_migration"
+                     ),
                      selected = "industry_migration"
                    ),
                    h4("Filters"),
@@ -149,65 +159,73 @@ regressionUI <- function(id = "regression") {
                      choices = skill,
                      multiple = TRUE
                    ),
-                   submitButton("Apply changes")
-               ),
-               mainPanel("Scatter Plot",
-                         plotlyOutput(ns("ScatterPlotOutput")) %>% withSpinner(type = 8))
-               )),
-      tabPanel("Correlation Matrix Analysis",
-               sidebarLayout(
-                 sidebarPanel(
-                   h4("Variables"),
-                   h5("- GDP per capita growth"),
-                   h5("- Employment growth"),
-                   h5("- Industry migration"),
-                   h5("- Skill migration"),
-                   h4("Filters"),
-                   selectInput(
-                     inputId = ns("year3"),
-                     label = "Year:",
-                     choices = year,
-                     multiple = TRUE
-                   ),
-                   selectInput(
-                     inputId = ns("country3"),
-                     label = "Country:",
-                     choices = country,
-                     multiple = TRUE
-                   ),
-                   selectInput(
-                     inputId = ns("region3"),
-                     label = "Region:",
-                     choices = region,
-                     multiple = TRUE
-                   ),
-                   selectInput(
-                     inputId = ns("income3"),
-                     label = "Income Level:",
-                     choices = income,
-                     multiple = TRUE
-                   ),
-                   selectInput(
-                     inputId = ns("industry3"),
-                     label = "Industry Section:",
-                     choices = industry,
-                     multiple = TRUE
-                   ),
-                   selectInput(
-                     inputId = ns("skill3"),
-                     label = "Skill Group:",
-                     choices = skill,
-                     multiple = TRUE
-                   ),
-                   submitButton("Apply changes")
+                   actionButton(inputId = ns("apply2"), "Apply changes")
                  ),
-                 mainPanel("Correlation Matrix Analysis",
-                           plotOutput(ns("CorrelationOutput")) %>% withSpinner(type = 8))
-               ))
-    
-    
-    # End UI here
-  ))
+                 mainPanel("Scatter Plot",
+                           plotlyOutput(ns(
+                             "ScatterPlotOutput"
+                           )) %>% withSpinner(type =
+                                                8))
+               )),
+      tabPanel(
+        "Correlation Matrix Analysis",
+        sidebarLayout(
+          sidebarPanel(
+            h4("Variables"),
+            h5("- GDP per capita growth"),
+            h5("- Employment growth"),
+            h5("- Industry migration"),
+            h5("- Skill migration"),
+            h4("Filters"),
+            selectInput(
+              inputId = ns("year3"),
+              label = "Year:",
+              choices = year,
+              multiple = TRUE
+            ),
+            selectInput(
+              inputId = ns("country3"),
+              label = "Country:",
+              choices = country,
+              multiple = TRUE
+            ),
+            selectInput(
+              inputId = ns("region3"),
+              label = "Region:",
+              choices = region,
+              multiple = TRUE
+            ),
+            selectInput(
+              inputId = ns("income3"),
+              label = "Income Level:",
+              choices = income,
+              multiple = TRUE
+            ),
+            selectInput(
+              inputId = ns("industry3"),
+              label = "Industry Section:",
+              choices = industry,
+              multiple = TRUE
+            ),
+            selectInput(
+              inputId = ns("skill3"),
+              label = "Skill Group:",
+              choices = skill,
+              multiple = TRUE
+            ),
+            actionButton(inputId = ns("apply3"), "Apply changes")
+          ),
+          mainPanel(
+            "Correlation Matrix Analysis",
+            plotOutput(ns("CorrelationOutput")) %>% withSpinner(type =
+                                                                  8)
+          )
+        )
+      )
+      
+      
+      # End UI here
+    ))
 }
 
 regressionServer <- function(id = "regression") {
@@ -215,72 +233,89 @@ regressionServer <- function(id = "regression") {
                function(input, output, session) {
                  # Server code should start from there
                  output$RegressionOutput <- renderPlot({
+                   req(input$apply1 > 0) # Check that greater than 0 to ensure user has clicked the button once
                    
-                   x <- unlist(master[,input$xVar1])
-                   y <- unlist(master[,input$yVar1])
-                   #(Add filter)
-
                    isolate({
+                     x <- unlist(master[, input$xVar1])
+                     y <- unlist(master[, input$yVar1])
+                     #(Add filter)
+                     
                      #ggscatterstats(master, x, y) cannot work
                      p1 <- ggplot(master, aes(x, y)) +
                        labs(x = NULL, y = NULL) +
                        xlim(-2.00, 2.00) + ylim(-0.50, 0.50) +
-                       geom_point(color="grey10",
-                                  size=1,
-                                  alpha=0.5) +
-                       geom_vline(xintercept = 0,
-                                  linetype = "dashed",
-                                  color = "grey60",
-                                  size = 1) +
-                       geom_hline(yintercept = 0,
-                                  linetype = "dashed",
-                                  color = "grey60",
-                                  size = 1) +
+                       geom_point(color = "grey10",
+                                  size = 1,
+                                  alpha = 0.5) +
+                       geom_vline(
+                         xintercept = 0,
+                         linetype = "dashed",
+                         color = "grey60",
+                         size = 1
+                       ) +
+                       geom_hline(
+                         yintercept = 0,
+                         linetype = "dashed",
+                         color = "grey60",
+                         size = 1
+                       ) +
                        geom_smooth(method = "lm", color = "firebrick3") +
                        stat_regline_equation(label.x = -2, label.y = 0.45) +
                        stat_cor(label.x = -2, label.y = 0.4) #(No model parameters - coef, CI, p)
-                     ggMarginal(p1, type="histogram", fill="darkseagreen")
+                     ggMarginal(p1, type = "histogram", fill = "darkseagreen")
                    })
                  })
                  
                  output$ScatterPlotOutput <- renderPlotly({
+                   req(input$apply2 > 0)
                    
-                   x <- unlist(master[,input$xVar2])
-                   y <- unlist(master[,input$yVar2])
-                   #(Add filter)
-
                    isolate({
+                     x <- unlist(master[, input$xVar2])
+                     y <- unlist(master[, input$yVar2])
+                     #(Add filter)
+                     
                      p2 <- ggplot(master, aes(x, y)) +
                        labs(x = NULL, y = NULL) +
                        xlim(-2.00, 2.00) + ylim(-0.50, 0.50) +
-                       geom_vline(xintercept = 0,
-                                  linetype = "dashed",
-                                  color = "grey60",
-                                  size = 1) +
-                       geom_hline(yintercept = 0,
-                                  linetype = "dashed",
-                                  color = "grey60",
-                                  size = 1) +
-                       geom_point(size=1,
-                                  alpha=0.5,
-                                  aes(color=year, #(Colour to be discrete)
-                                      textC = country_name,
-                                      textI = industry_name,
-                                      textS = skill_group_name))
+                       geom_vline(
+                         xintercept = 0,
+                         linetype = "dashed",
+                         color = "grey60",
+                         size = 1
+                       ) +
+                       geom_hline(
+                         yintercept = 0,
+                         linetype = "dashed",
+                         color = "grey60",
+                         size = 1
+                       ) +
+                       geom_point(
+                         size = 1,
+                         alpha = 0.5,
+                         aes(
+                           color = year,
+                           #(Colour to be discrete)
+                           textC = country_name,
+                           textI = industry_name,
+                           textS = skill_group_name
+                         )
+                       )
                      ggplotly(p2, tooltips = c(textC, textI, textS)) #(Edit tooltip)
                    })
                  })
                  
-                 output$CorrelationOutput <- renderPlot(
-                   
-                   #(Add filter)
-                   
-                   isolate({
-                     ggcorrmat(master,
-                               cor.vars = c(7, 10, 11, 12))
+                 output$CorrelationOutput <-
+                   renderPlot({
+                     req(input$apply3 > 0)
+                     
+                     isolate({
+                       #(Add filter)
+                       
+                       ggcorrmat(master,
+                                 cor.vars = c(7, 10, 11, 12))
+                     })
                    })
-                 )
                  
                  # Server code should end above this line
-               }
-)}
+               })
+}
