@@ -99,7 +99,9 @@ regressionRegressionUI <- function(id = "regression") {
       width = 9,
       solidHeader = TRUE,
       plotOutput(ns("RegressionOutput")) %>% withSpinner(type =
-                                                           8)
+                                                           8),
+      verbatimTextOutput(ns("RegResOutput")) %>% withSpinner(type =
+                                                               8)
     )
   ))
 }
@@ -256,9 +258,25 @@ regressionServer <- function(id = "regression") {
                    isolate({
                      x <- unlist(master[, input$xVar1])
                      y <- unlist(master[, input$yVar1])
+                     
+                     
                      #(Add filter)
                      
-                     #ggscatterstats(master, x, y) cannot work
+      #(Can see if ggscatterstats work?)               
+      #               ggscatterstats(master, x, y,
+      #                              ggplot.component = list(ggplot2::
+      #                                                      xlim(-2.00, 2.00),
+      #                                                      ylim(-0.50, 0.50),
+      #                                                      labs(x = NULL, y = NULL),
+      #                                                      geom_hline(yintercept = 0,
+      #                                                                 linetype = "dashed",
+      #                                                                 color = "grey60",
+      #                                                                 size = 1),
+      #                                                      geom_vline(xintercept = 0,
+      #                                                                 linetype = "dashed",
+      #                                                                 color = "grey60",
+      #                                                                 size = 1)))
+                     
                      p1 <- ggplot(master, aes(x, y)) +
                        labs(x = NULL, y = NULL) +
                        xlim(-2.00, 2.00) + ylim(-0.50, 0.50) +
@@ -279,8 +297,26 @@ regressionServer <- function(id = "regression") {
                        ) +
                        geom_smooth(method = "lm", color = "firebrick3") +
                        stat_regline_equation(label.x = -2, label.y = 0.45) +
-                       stat_cor(label.x = -2, label.y = 0.4) #(No model parameters - coef, CI, p)
+                       stat_cor(label.x = -2, label.y = 0.4)
                      ggMarginal(p1, type = "histogram", fill = "darkseagreen")
+                   })
+                 })
+                 
+                 output$RegResOutput <- renderPrint({
+                   req(input$apply1 > 0) # Check that greater than 0 to ensure user has clicked the button once
+                   
+                   isolate({
+                     x <- unlist(master[, input$xVar1])
+                     y <- unlist(master[, input$yVar1])
+                     
+                     
+                     #(Add filter)
+                     
+        #(Use this instead if ggscatterstats can work)             
+        #             lm(y ~ x, master) %>%
+        #               model_parameters()
+                     
+                     ols_regress(y ~ x, master)
                    })
                  })
                  
@@ -292,7 +328,12 @@ regressionServer <- function(id = "regression") {
                      y <- unlist(master[, input$yVar2])
                      #(Add filter)
                      
-                     p2 <- ggplot(master, aes(x, y)) +
+                     p2 <- ggplot(master, aes(x, y,
+                                              color = year, #(Can change to discrete colors?)
+                                              textC = country_name,
+                                              textI = industry_name,
+                                              textS = skill_group_name
+                                              )) +
                        labs(x = NULL, y = NULL) +
                        xlim(-2.00, 2.00) + ylim(-0.50, 0.50) +
                        geom_vline(
@@ -309,16 +350,9 @@ regressionServer <- function(id = "regression") {
                        ) +
                        geom_point(
                          size = 1,
-                         alpha = 0.5,
-                         aes(
-                           color = year,
-                           #(Colour to be discrete)
-                           textC = country_name,
-                           textI = industry_name,
-                           textS = skill_group_name
-                         )
+                         alpha = 0.5
                        )
-                     ggplotly(p2, tooltips = c(textC, textI, textS)) #(Edit tooltip)
+                     ggplotly(p2, tooltips = c(textC, textI, textS)) #(Can improve tooltip names?)
                    })
                  })
                  
@@ -327,6 +361,7 @@ regressionServer <- function(id = "regression") {
                      req(input$apply3 > 0)
                      
                      isolate({
+                       
                        #(Add filter)
                        
                        ggcorrmat(master,
