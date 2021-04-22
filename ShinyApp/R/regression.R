@@ -276,9 +276,8 @@ regressionServer <- function(id = "regression") {
                    isolate({
                      x <- unlist(master[, input$xVar1])
                      y <- unlist(master[, input$yVar1])
-                     
-                     
-                     #(Add filter)
+
+                     #(Can add filtered dataset?)
                      
       #(Can see if ggscatterstats work?)               
       #               ggscatterstats(master, x, y,
@@ -327,8 +326,7 @@ regressionServer <- function(id = "regression") {
                      x <- unlist(master[, input$xVar1])
                      y <- unlist(master[, input$yVar1])
                      
-                     
-                     #(Add filter)
+                     #(Can add filtered dataset?)
                      
         #(Use this instead if ggscatterstats can work)             
         #             lm(y ~ x, master) %>%
@@ -344,7 +342,8 @@ regressionServer <- function(id = "regression") {
                    isolate({
                      x <- unlist(master[, input$xVar2])
                      y <- unlist(master[, input$yVar2])
-                     #(Add filter)
+
+                     #(Can add filtered dataset?)
                      
                      p2 <- ggplot(master, aes(x, y,
                                               color = year, #(Can change to discrete colors?)
@@ -380,7 +379,7 @@ regressionServer <- function(id = "regression") {
                      
                      isolate({
                        
-                       #(Add filter)
+                       #(Can add filtered dataset?)
                        
                        ggcorrmat(master,
                                  cor.vars = c(7, 10, 11, 12))
