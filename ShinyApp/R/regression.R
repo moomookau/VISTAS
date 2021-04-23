@@ -45,7 +45,7 @@ regressionRegressionUI <- function(id = "regression") {
           ),
           selected = "employment_growth"
         ),
-        "Placeholder for tooltip"
+        "Select variable for y axis of regression plot"
       ),
       quickPop(
         selectInput(
@@ -59,7 +59,7 @@ regressionRegressionUI <- function(id = "regression") {
           ),
           selected = "industry_migration"
         ),
-        "Placeholder for tooltip"
+        "Select variable for x axis of regression plot"
       ),
       h4("Filters"),
       quickPop(
@@ -71,7 +71,7 @@ regressionRegressionUI <- function(id = "regression") {
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
-        "Placeholder for tooltip"
+        "Select year to include in regression plot"
       ),
       quickPop(
         pickerInput(
@@ -82,7 +82,7 @@ regressionRegressionUI <- function(id = "regression") {
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
-        "Placeholder for tooltip"
+        "Select country to include in regression plot"
       ),
       quickPop(
         pickerInput(
@@ -93,7 +93,7 @@ regressionRegressionUI <- function(id = "regression") {
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
-        "Placeholder for tooltip"
+        "Select region to include in regression plot"
       ),
       quickPop(
         pickerInput(
@@ -104,7 +104,7 @@ regressionRegressionUI <- function(id = "regression") {
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
-        "Placeholder for tooltip"
+        "Select country income level to include in regression plot"
       ),
       quickPop(
         pickerInput(
@@ -115,7 +115,7 @@ regressionRegressionUI <- function(id = "regression") {
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
-        "Placeholder for tooltip"
+        "Select industry section to include in regression plot"
       ),
       quickPop(
         pickerInput(
@@ -126,14 +126,14 @@ regressionRegressionUI <- function(id = "regression") {
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
-        "Placeholder for tooltip"
+        "Select skill group to include in regression plot"
       ),
       quickPop(
         actionButton(inputId = ns("apply1"), "Apply changes"),
-        "Placeholder for tooltip"
+        "Click on button to generate regression plot and results"
       ),
       helpText(
-        "Add help text or description here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        "Note: 'No results for selection' will be shown if selected filters produce no data point."
       )
     ),
     box(
@@ -167,7 +167,7 @@ regressionScatterUI <- function(id = "regression") {
           ),
           selected = "employment_growth"
         ),
-        "Placeholder for tooltip"
+        "Select variable for y axis of interactive scatter plot"
       ),
       quickPop(
         selectInput(
@@ -181,7 +181,7 @@ regressionScatterUI <- function(id = "regression") {
           ),
           selected = "industry_migration"
         ),
-        "Placeholder for tooltip"
+        "Select variable for x axis of interactive scatter plot"
       ),
       h4("Filters"),
       quickPop(
@@ -193,7 +193,7 @@ regressionScatterUI <- function(id = "regression") {
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
-        "Placeholder for tooltip"
+        "Select year to include in interactive scatter plot"
       ),
       quickPop(
         pickerInput(
@@ -204,7 +204,7 @@ regressionScatterUI <- function(id = "regression") {
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
-        "Placeholder for tooltip"
+        "Select country to include in interactive scatter plot"
       ),
       quickPop(
         pickerInput(
@@ -215,7 +215,7 @@ regressionScatterUI <- function(id = "regression") {
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
-        "Placeholder for tooltip"
+        "Select region to include in interactive scatter plot"
       ),
       quickPop(
         pickerInput(
@@ -226,7 +226,7 @@ regressionScatterUI <- function(id = "regression") {
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
-        "Placeholder for tooltip"
+        "Select country income level to include in interactive scatter plot"
       ),
       quickPop(
         pickerInput(
@@ -237,7 +237,7 @@ regressionScatterUI <- function(id = "regression") {
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
-        "Placeholder for tooltip"
+        "Select industry section to include in interactive scatter plot"
       ),
       quickPop(
         pickerInput(
@@ -248,14 +248,14 @@ regressionScatterUI <- function(id = "regression") {
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
-        "Placeholder for tooltip"
+        "Select skill group to include in interactive scatter plot"
       ),
       quickPop(
         actionButton(inputId = ns("apply2"), "Apply changes"),
-        "Placeholder for tooltip"
+        "Click on button to generate interactive scatter plot"
       ),
       helpText(
-        "Add help text or description here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        "Note: 'No results for selection' will be shown if selected filters produce no data point."
       )
     ),
     box(
@@ -288,7 +288,7 @@ regressionCorrelationUI <- function(id = "regression") {
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
-        "Placeholder for tooltip"
+        "Select year to include in correlation matrix"
       ),
       quickPop(
         pickerInput(
@@ -299,7 +299,7 @@ regressionCorrelationUI <- function(id = "regression") {
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
-        "Placeholder for tooltip"
+        "Select country to include in correlation matrix"
       ),
       quickPop(
         pickerInput(
@@ -310,7 +310,7 @@ regressionCorrelationUI <- function(id = "regression") {
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
-        "Placeholder for tooltip"
+        "Select region to include in correlation matrix"
       ),
       quickPop(
         pickerInput(
@@ -321,7 +321,7 @@ regressionCorrelationUI <- function(id = "regression") {
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
-        "Placeholder for tooltip"
+        "Select country income level to include in correlation matrix"
       ),
       quickPop(
         pickerInput(
@@ -332,7 +332,7 @@ regressionCorrelationUI <- function(id = "regression") {
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
-        "Placeholder for tooltip"
+        "Select industry section to include in correlation matrix"
       ),
       quickPop(
         pickerInput(
@@ -343,14 +343,14 @@ regressionCorrelationUI <- function(id = "regression") {
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
-        "Placeholder for tooltip"
+        "Select skill group to include in correlation matrix"
       ),
       quickPop(
         actionButton(inputId = ns("apply3"), "Apply changes"),
-        "Placeholder for tooltip"
+        "Click on button to generate correlation matrix"
       ),
       helpText(
-        "Add help text or description here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        "Note: 'No results for selection' will be shown if selected filters produce no data point."
       )
     ),
     box(
@@ -383,47 +383,52 @@ regressionServer <- function(id = "regression") {
                          isic_section_name %in% input$industry1,
                          skill_group_category %in% input$skill1
                        )
+                     
+                     validate(need(nrow(filteredMaster1a) > 0,
+                                   "No results for selection."))
 
-                     x <- unlist(filteredMaster1a[, input$xVar1])
-                     y <- unlist(filteredMaster1a[, input$yVar1])
+#                     x <- unlist(filteredMaster1a[, input$xVar1])
+#                     y <- unlist(filteredMaster1a[, input$yVar1])
                      
-                     #(Can see if ggscatterstats work?)
-                     #               ggscatterstats(filteredMaster1a, x, y,
-                     #                              ggplot.component = list(ggplot2::
-                     #                                                      xlim(-2.00, 2.00),
-                     #                                                      ylim(-0.50, 0.50),
-                     #                                                      labs(x = NULL, y = NULL),
-                     #                                                      geom_hline(yintercept = 0,
-                     #                                                                 linetype = "dashed",
-                     #                                                                 color = "grey60",
-                     #                                                                 size = 1),
-                     #                                                      geom_vline(xintercept = 0,
-                     #                                                                 linetype = "dashed",
-                     #                                                                 color = "grey60",
-                     #                                                                 size = 1)))
+                     ggscatterstats(filteredMaster1a,
+                                    !!input$xVar1,
+                                    !!input$yVar1,
+                                    ggplot.component = list(ggplot2::
+                                                            xlim(-2.00, 2.00),
+                                                            ylim(-0.50, 0.50),
+                                                            labs(x = NULL, y = NULL),
+                                                            geom_hline(yintercept = 0,
+                                                                       linetype = "dashed",
+                                                                       color = "grey60",
+                                                                       size = 1),
+                                                            geom_vline(xintercept = 0,
+                                                                       linetype = "dashed",
+                                                                       color = "grey60",
+                                                                       size = 1)))
+
+#                     p1 <- ggplot(filteredMaster1a, aes(x, y)) +
+#                       labs(x = NULL, y = NULL) +
+#                       xlim(-2.00, 2.00) + ylim(-0.50, 0.50) +
+#                       geom_point(color = "grey10",
+#                                  size = 1,
+#                                  alpha = 0.5) +
+#                       geom_vline(
+#                         xintercept = 0,
+#                         linetype = "dashed",
+#                         color = "grey60",
+#                         size = 1
+#                       ) +
+#                       geom_hline(
+#                         yintercept = 0,
+#                         linetype = "dashed",
+#                         color = "grey60",
+#                         size = 1
+#                       ) +
+#                       geom_smooth(method = "lm", color = "firebrick3") +
+#                       stat_regline_equation(label.x = -2, label.y = 0.45) +
+#                       stat_cor(label.x = -2, label.y = 0.4)
+#                     ggMarginal(p1, type = "histogram", fill = "darkseagreen")
                      
-                     p1 <- ggplot(filteredMaster1a, aes(x, y)) +
-                       labs(x = NULL, y = NULL) +
-                       xlim(-2.00, 2.00) + ylim(-0.50, 0.50) +
-                       geom_point(color = "grey10",
-                                  size = 1,
-                                  alpha = 0.5) +
-                       geom_vline(
-                         xintercept = 0,
-                         linetype = "dashed",
-                         color = "grey60",
-                         size = 1
-                       ) +
-                       geom_hline(
-                         yintercept = 0,
-                         linetype = "dashed",
-                         color = "grey60",
-                         size = 1
-                       ) +
-                       geom_smooth(method = "lm", color = "firebrick3") +
-                       stat_regline_equation(label.x = -2, label.y = 0.45) +
-                       stat_cor(label.x = -2, label.y = 0.4)
-                     ggMarginal(p1, type = "histogram", fill = "darkseagreen")
                    })
                  })
                  
@@ -442,14 +447,17 @@ regressionServer <- function(id = "regression") {
                          skill_group_category %in% input$skill1
                        )
                      
+                     validate(need(nrow(filteredMaster1b) > 0,
+                                   "No results for selection."))
+                     
                      x <- unlist(filteredMaster1b[, input$xVar1])
                      y <- unlist(filteredMaster1b[, input$yVar1])
                      
-                     #(Use this instead if ggscatterstats can work)
-                     #             lm(y ~ x, filteredMaster1b) %>%
-                     #               model_parameters()
+                     lm(y ~ x, filteredMaster1b) %>%
+                       model_parameters()
+
+#                     ols_regress(y ~ x, filteredMaster1b)
                      
-                     ols_regress(y ~ x, filteredMaster1b)
                    })
                  })
                  
@@ -468,6 +476,9 @@ regressionServer <- function(id = "regression") {
                          skill_group_category %in% input$skill2
                        )
                      
+                     validate(need(nrow(filteredMaster2) > 0,
+                                   "No results for selection."))
+                     
                      x <- unlist(filteredMaster2[, input$xVar2])
                      y <- unlist(filteredMaster2[, input$yVar2])
                      
@@ -476,8 +487,7 @@ regressionServer <- function(id = "regression") {
                        aes(
                          x,
                          y,
-                         color = year,
-                         #(Can change to discrete colors?)
+                         color = factor(year),
                          textC = country_name,
                          textI = industry_name,
                          textS = skill_group_name
@@ -499,7 +509,7 @@ regressionServer <- function(id = "regression") {
                        ) +
                        geom_point(size = 1,
                                   alpha = 0.5)
-                     ggplotly(p2, tooltips = c(textC, textI, textS)) #(Can improve tooltip names?)
+                     ggplotly(p2, tooltips = c(textC, textI, textS))
                    })
                  })
                  
@@ -518,6 +528,9 @@ regressionServer <- function(id = "regression") {
                            isic_section_name %in% input$industry3,
                            skill_group_category %in% input$skill3
                          )
+                       
+                       validate(need(nrow(filteredMaster3) > 0,
+                                     "No results for selection."))
                        
                        ggcorrmat(filteredMaster3,
                                  cor.vars = c(7, 10, 11, 12))
