@@ -35,7 +35,7 @@ ui <- dashboardPage(
                         tabName = "regressionScatter",
                         icon = icon("braille")
                     ),
-                    "Visualise values for two variables using scatter plot coloured by year"
+                    "Visualise values for two variables using interactive scatter plot coloured by year"
                 ),
                 quickPop(
                     menuSubItem(
