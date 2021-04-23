@@ -19,7 +19,7 @@ ui <- dashboardPage(
                     menuSubItem("Usage Guide",
                                 tabName = "regressionUsage",
                                 icon = icon("info")),
-                    "Placeholder for tooltip"
+                    "Click here for a guide for statistical analysis"
                 ),
                 quickPop(
                     menuSubItem(
@@ -27,7 +27,7 @@ ui <- dashboardPage(
                         tabName = "regressionRegression",
                         icon = icon("chart-line")
                     ),
-                    "Placeholder for tooltip"
+                    "Visualise relationship between two variables using regression plot and visualise marginal distributions of variables using histogram"
                 ),
                 quickPop(
                     menuSubItem(
@@ -35,7 +35,7 @@ ui <- dashboardPage(
                         tabName = "regressionScatter",
                         icon = icon("braille")
                     ),
-                    "Placeholder for tooltip"
+                    "Visualise values for two variables using scatter plot coloured by year"
                 ),
                 quickPop(
                     menuSubItem(
@@ -43,7 +43,7 @@ ui <- dashboardPage(
                         tabName = "regressionCorrelation",
                         icon = icon("border-all")
                     ),
-                    "Placeholder for tooltip"
+                    "Visualise strength of relationship between pairs of variables using correlation matrix"
                 )
             ),
             # Create a Migration Menu
