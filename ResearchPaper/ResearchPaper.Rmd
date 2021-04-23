@@ -19,9 +19,9 @@ output: rticles::acm_article
 
 
 # Abstract
-Describe dataset
-Highlight importance of project/analysis
-Explain aim of VISTA, dynamic, interactive visual analytics dashboard
+Numerous studies are conducted to analyse the impact of population growth on GDP per capita. However, these studies usually tap onto aggregated country level datasets and more can be done to deep dive into the relationship between GDP per capita and employment growth or migration in each industry.
+LinkedIn and World Bank Group have partnered to release data from 2015 to 2019 on the employment growth and migration for each industry and skill in various countries. By combining this data with countries' GDP per capita in each year, individuals and countries can better understand the rapidly evolving labour market and its impact on countries' growth.
+We have designed and developed VISTAS (Visualising Industry Skill TAlent Shifts), an interactive visual analytics dashboard. Individuals can analyse the labour market, identify the highly sought-after skills and countries that hold better employment opportunities for each skill. Countries can study the impact of employment growth and migration for each industry and skill on GDP per capita and find out which key skills have been lost or gained.
 
 # Introduction 
 The LinkedIn and World Bank Group have partnered and released data from 2015 to 2019 that focuses on 100+ countries with at least 100,000 LinkedIn members each, distributed across 148 industries and 50,000 skill categories. This data aims to help government and researchers understand rapidly evolving labor markets with detailed and dynamic data.
@@ -45,7 +45,7 @@ Highlight examples of current data visualisations and their limitations
 
 Simple data visualisations are publicly available at <https://linkedindata.worldbank.org/data>.
 
-### Talent Migration
+## Talent Migration
 The available visualisation only shows top 10 countries on the map, and top 5 countries, industries and skills in the table. A user may want to know more than just the top N for these metrics.
 The visualisation of the map and table makes it difficult to visualise the inflow vs outflow of the selected country. A visualisation which allows for comparison between inflow and outflow could be useful to know if a country is gaining or losing talent.
 
@@ -57,6 +57,10 @@ One is hence unable to see the change in skills over the years in an industry. B
 <insert online visualisation here>
 
 Describe analytical techniques used and explain how they can help achieve objectives
+
+Scatter plot: Visualise values of two variables i.e. GDP per capita growth, industry employment growth, industry migration, skill migration
+Regression plot: Find out relationship between two variables, how much industry employment growth, industry and skill migration impact GDP per capita growth, to what extent does industry employment growth change with industry and skill migration
+Correlation matrix: Find out strength of relationship between each pair of variables, 
 
 # User Interface Design
 Explain each component of VISTA and how the combination of components will provide users certain insights
