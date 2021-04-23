@@ -355,10 +355,19 @@ regressionServer <- function(id = "regression") {
                    req(input$apply1 > 0) # Check that greater than 0 to ensure user has clicked the button once
                    
                    isolate({
-                     x <- unlist(master[, input$xVar1])
-                     y <- unlist(master[, input$yVar1])
                      
-                     #(Can add filtered dataset?)
+                     filteredMaster1a <- master %>%
+                       filter(
+                         year %in% input$year1,
+                         country_name %in% input$country1,
+                         wb_region %in% input$region1,
+                         wb_income %in% input$income1,
+                         isic_section_name %in% input$industry1,
+                         skill_group_category %in% input$skill1
+                       )
+
+                     x <- unlist(filteredMaster1a[, input$xVar1])
+                     y <- unlist(filteredMaster1a[, input$yVar1])
                      
                      #(Can see if ggscatterstats work?)
                      #               ggscatterstats(master, x, y,
@@ -375,7 +384,7 @@ regressionServer <- function(id = "regression") {
                      #                                                                 color = "grey60",
                      #                                                                 size = 1)))
                      
-                     p1 <- ggplot(master, aes(x, y)) +
+                     p1 <- ggplot(filteredMaster1a, aes(x, y)) +
                        labs(x = NULL, y = NULL) +
                        xlim(-2.00, 2.00) + ylim(-0.50, 0.50) +
                        geom_point(color = "grey10",
@@ -404,16 +413,25 @@ regressionServer <- function(id = "regression") {
                    req(input$apply1 > 0) # Check that greater than 0 to ensure user has clicked the button once
                    
                    isolate({
-                     x <- unlist(master[, input$xVar1])
-                     y <- unlist(master[, input$yVar1])
                      
-                     #(Can add filtered dataset?)
+                     filteredMaster1b <- master %>%
+                       filter(
+                         year %in% input$year1,
+                         country_name %in% input$country1,
+                         wb_region %in% input$region1,
+                         wb_income %in% input$income1,
+                         isic_section_name %in% input$industry1,
+                         skill_group_category %in% input$skill1
+                       )
+                     
+                     x <- unlist(filteredMaster1b[, input$xVar1])
+                     y <- unlist(filteredMaster1b[, input$yVar1])
                      
                      #(Use this instead if ggscatterstats can work)
-                     #             lm(y ~ x, master) %>%
+                     #             lm(y ~ x, filteredMaster1b) %>%
                      #               model_parameters()
                      
-                     ols_regress(y ~ x, master)
+                     ols_regress(y ~ x, filteredMaster1b)
                    })
                  })
                  
@@ -421,13 +439,22 @@ regressionServer <- function(id = "regression") {
                    req(input$apply2 > 0)
                    
                    isolate({
-                     x <- unlist(master[, input$xVar2])
-                     y <- unlist(master[, input$yVar2])
                      
-                     #(Can add filtered dataset?)
+                     filteredMaster2 <- master %>%
+                       filter(
+                         year %in% input$year2,
+                         country_name %in% input$country2,
+                         wb_region %in% input$region2,
+                         wb_income %in% input$income2,
+                         isic_section_name %in% input$industry2,
+                         skill_group_category %in% input$skill2
+                       )
+                     
+                     x <- unlist(filteredMaster2[, input$xVar2])
+                     y <- unlist(filteredMaster2[, input$yVar2])
                      
                      p2 <- ggplot(
-                       master,
+                       filteredMaster2,
                        aes(
                          x,
                          y,
@@ -463,9 +490,18 @@ regressionServer <- function(id = "regression") {
                      req(input$apply3 > 0)
                      
                      isolate({
-                       #(Can add filtered dataset?)
                        
-                       ggcorrmat(master,
+                       filteredMaster3 <- master %>%
+                         filter(
+                           year %in% input$year3,
+                           country_name %in% input$country3,
+                           wb_region %in% input$region3,
+                           wb_income %in% input$income3,
+                           isic_section_name %in% input$industry3,
+                           skill_group_category %in% input$skill3
+                         )
+                       
+                       ggcorrmat(filteredMaster3,
                                  cor.vars = c(7, 10, 11, 12))
                      })
                    })
