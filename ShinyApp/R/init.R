@@ -108,6 +108,8 @@ countriesGrouped <-
   split(countriesUnique$base_country_name,
         countriesUnique$base_country_wb_region)
 
+regionsUnique <- sort(unique(countryMigrationPivot$base_country_wb_region))
+
 industriesUnique <- industryMigrationPivot %>%
   select(isic_section_name, industry_name) %>%
   unique()
