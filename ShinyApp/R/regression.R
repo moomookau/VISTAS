@@ -67,6 +67,7 @@ regressionRegressionUI <- function(id = "regression") {
           inputId = ns("year1"),
           label = "Year:",
           choices = year,
+          selected = year,
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
@@ -77,6 +78,7 @@ regressionRegressionUI <- function(id = "regression") {
           inputId = ns("country1"),
           label = "Country:",
           choices = country,
+          selected = country,
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
@@ -87,6 +89,7 @@ regressionRegressionUI <- function(id = "regression") {
           inputId = ns("region1"),
           label = "Region:",
           choices = region,
+          selected = region,
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
@@ -97,6 +100,7 @@ regressionRegressionUI <- function(id = "regression") {
           inputId = ns("income1"),
           label = "Income Level:",
           choices = income,
+          selected = income,
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
@@ -107,6 +111,7 @@ regressionRegressionUI <- function(id = "regression") {
           inputId = ns("industry1"),
           label = "Industry Section:",
           choices = industry,
+          selected = industry,
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
@@ -117,6 +122,7 @@ regressionRegressionUI <- function(id = "regression") {
           inputId = ns("skill1"),
           label = "Skill Group:",
           choices = skill,
+          selected = skill,
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
@@ -183,6 +189,7 @@ regressionScatterUI <- function(id = "regression") {
           inputId = ns("year2"),
           label = "Year:",
           choices = year,
+          selected = year,
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
@@ -193,6 +200,7 @@ regressionScatterUI <- function(id = "regression") {
           inputId = ns("country2"),
           label = "Country:",
           choices = country,
+          selected = country,
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
@@ -203,6 +211,7 @@ regressionScatterUI <- function(id = "regression") {
           inputId = ns("region2"),
           label = "Region:",
           choices = region,
+          selected = region,
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
@@ -213,6 +222,7 @@ regressionScatterUI <- function(id = "regression") {
           inputId = ns("income2"),
           label = "Income Level:",
           choices = income,
+          selected = income,
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
@@ -223,6 +233,7 @@ regressionScatterUI <- function(id = "regression") {
           inputId = ns("industry2"),
           label = "Industry Section:",
           choices = industry,
+          selected = industry,
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
@@ -233,6 +244,7 @@ regressionScatterUI <- function(id = "regression") {
           inputId = ns("skill2"),
           label = "Skill Group:",
           choices = skill,
+          selected = skill,
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
@@ -272,6 +284,7 @@ regressionCorrelationUI <- function(id = "regression") {
           inputId = ns("year3"),
           label = "Year:",
           choices = year,
+          selected = year,
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
@@ -282,6 +295,7 @@ regressionCorrelationUI <- function(id = "regression") {
           inputId = ns("country3"),
           label = "Country:",
           choices = country,
+          selected = country,
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
@@ -292,6 +306,7 @@ regressionCorrelationUI <- function(id = "regression") {
           inputId = ns("region3"),
           label = "Region:",
           choices = region,
+          selected = region,
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
@@ -302,6 +317,7 @@ regressionCorrelationUI <- function(id = "regression") {
           inputId = ns("income3"),
           label = "Income Level:",
           choices = income,
+          selected = income,
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
@@ -312,6 +328,7 @@ regressionCorrelationUI <- function(id = "regression") {
           inputId = ns("industry3"),
           label = "Industry Section:",
           choices = industry,
+          selected = industry,
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
@@ -322,6 +339,7 @@ regressionCorrelationUI <- function(id = "regression") {
           inputId = ns("skill3"),
           label = "Skill Group:",
           choices = skill,
+          selected = skill,
           multiple = TRUE,
           options = list(`actions-box` = TRUE)
         ),
