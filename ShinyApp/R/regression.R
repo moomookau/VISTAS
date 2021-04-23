@@ -370,7 +370,7 @@ regressionServer <- function(id = "regression") {
                      y <- unlist(filteredMaster1a[, input$yVar1])
                      
                      #(Can see if ggscatterstats work?)
-                     #               ggscatterstats(master, x, y,
+                     #               ggscatterstats(filteredMaster1a, x, y,
                      #                              ggplot.component = list(ggplot2::
                      #                                                      xlim(-2.00, 2.00),
                      #                                                      ylim(-0.50, 0.50),
