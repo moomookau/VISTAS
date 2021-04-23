@@ -30,76 +30,105 @@ regressionRegressionUI <- function(id = "regression") {
   tagList(fluidRow(
     box(
       title = "Inputs",
-      status = "warning",
       width = 3,
       solidHeader = TRUE,
       h4("Variables"),
-      selectInput(
-        inputId = ns("yVar1"),
-        label = "Y Variable:",
-        choices = c(
-          "GDP Per Capita Growth" = "GDP_per_capita_growth",
-          "Employment Growth" = "employment_growth",
-          "Industry Migration" = "industry_migration",
-          "Skill Migration" = "skill_migration"
+      quickPop(
+        selectInput(
+          inputId = ns("yVar1"),
+          label = "Y Variable:",
+          choices = c(
+            "GDP Per Capita Growth" = "GDP_per_capita_growth",
+            "Employment Growth" = "employment_growth",
+            "Industry Migration" = "industry_migration",
+            "Skill Migration" = "skill_migration"
+          ),
+          selected = "employment_growth"
         ),
-        selected = "employment_growth"
+        "Placeholder for tooltip"
       ),
-      selectInput(
-        inputId = ns("xVar1"),
-        label = "X Variable:",
-        choices = c(
-          "GDP Per Capita Growth" = "GDP_per_capita_growth",
-          "Employment Growth" = "employment_growth",
-          "Industry Migration" = "industry_migration",
-          "Skill Migration" = "skill_migration"
+      quickPop(
+        selectInput(
+          inputId = ns("xVar1"),
+          label = "X Variable:",
+          choices = c(
+            "GDP Per Capita Growth" = "GDP_per_capita_growth",
+            "Employment Growth" = "employment_growth",
+            "Industry Migration" = "industry_migration",
+            "Skill Migration" = "skill_migration"
+          ),
+          selected = "industry_migration"
         ),
-        selected = "industry_migration"
+        "Placeholder for tooltip"
       ),
       h4("Filters"),
-      pickerInput(
-        inputId = ns("year1"),
-        label = "Year:",
-        choices = year,
-        multiple = TRUE,
-        options = list(`actions-box` = TRUE)
+      quickPop(
+        pickerInput(
+          inputId = ns("year1"),
+          label = "Year:",
+          choices = year,
+          multiple = TRUE,
+          options = list(`actions-box` = TRUE)
+        ),
+        "Placeholder for tooltip"
       ),
-      pickerInput(
-        inputId = ns("country1"),
-        label = "Country:",
-        choices = country,
-        multiple = TRUE,
-        options = list(`actions-box` = TRUE)
+      quickPop(
+        pickerInput(
+          inputId = ns("country1"),
+          label = "Country:",
+          choices = country,
+          multiple = TRUE,
+          options = list(`actions-box` = TRUE)
+        ),
+        "Placeholder for tooltip"
       ),
-      pickerInput(
-        inputId = ns("region1"),
-        label = "Region:",
-        choices = region,
-        multiple = TRUE,
-        options = list(`actions-box` = TRUE)
+      quickPop(
+        pickerInput(
+          inputId = ns("region1"),
+          label = "Region:",
+          choices = region,
+          multiple = TRUE,
+          options = list(`actions-box` = TRUE)
+        ),
+        "Placeholder for tooltip"
       ),
-      pickerInput(
-        inputId = ns("income1"),
-        label = "Income Level:",
-        choices = income,
-        multiple = TRUE,
-        options = list(`actions-box` = TRUE)
+      quickPop(
+        pickerInput(
+          inputId = ns("income1"),
+          label = "Income Level:",
+          choices = income,
+          multiple = TRUE,
+          options = list(`actions-box` = TRUE)
+        ),
+        "Placeholder for tooltip"
       ),
-      pickerInput(
-        inputId = ns("industry1"),
-        label = "Industry Section:",
-        choices = industry,
-        multiple = TRUE,
-        options = list(`actions-box` = TRUE)
+      quickPop(
+        pickerInput(
+          inputId = ns("industry1"),
+          label = "Industry Section:",
+          choices = industry,
+          multiple = TRUE,
+          options = list(`actions-box` = TRUE)
+        ),
+        "Placeholder for tooltip"
       ),
-      pickerInput(
-        inputId = ns("skill1"),
-        label = "Skill Group:",
-        choices = skill,
-        multiple = TRUE,
-        options = list(`actions-box` = TRUE)
+      quickPop(
+        pickerInput(
+          inputId = ns("skill1"),
+          label = "Skill Group:",
+          choices = skill,
+          multiple = TRUE,
+          options = list(`actions-box` = TRUE)
+        ),
+        "Placeholder for tooltip"
       ),
-      actionButton(inputId = ns("apply1"), "Apply changes")
+      quickPop(
+        actionButton(inputId = ns("apply1"), "Apply changes"),
+        "Placeholder for tooltip"
+      ),
+      helpText(
+        "Add help text or description here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      )
     ),
     box(
       width = 9,
@@ -117,76 +146,105 @@ regressionScatterUI <- function(id = "regression") {
   tagList(fluidRow(
     box(
       title = "Inputs",
-      status = "warning",
       width = 3,
       solidHeader = TRUE,
       h4("Variables"),
-      selectInput(
-        inputId = ns("yVar2"),
-        label = "Y Variable:",
-        choices = c(
-          "GDP Per Capita Growth" = "GDP_per_capita_growth",
-          "Employment Growth" = "employment_growth",
-          "Industry Migration" = "industry_migration",
-          "Skill Migration" = "skill_migration"
+      quickPop(
+        selectInput(
+          inputId = ns("yVar2"),
+          label = "Y Variable:",
+          choices = c(
+            "GDP Per Capita Growth" = "GDP_per_capita_growth",
+            "Employment Growth" = "employment_growth",
+            "Industry Migration" = "industry_migration",
+            "Skill Migration" = "skill_migration"
+          ),
+          selected = "employment_growth"
         ),
-        selected = "employment_growth"
+        "Placeholder for tooltip"
       ),
-      selectInput(
-        inputId = ns("xVar2"),
-        label = "X Variable:",
-        choices = c(
-          "GDP Per Capita Growth" = "GDP_per_capita_growth",
-          "Employment Growth" = "employment_growth",
-          "Industry Migration" = "industry_migration",
-          "Skill Migration" = "skill_migration"
+      quickPop(
+        selectInput(
+          inputId = ns("xVar2"),
+          label = "X Variable:",
+          choices = c(
+            "GDP Per Capita Growth" = "GDP_per_capita_growth",
+            "Employment Growth" = "employment_growth",
+            "Industry Migration" = "industry_migration",
+            "Skill Migration" = "skill_migration"
+          ),
+          selected = "industry_migration"
         ),
-        selected = "industry_migration"
+        "Placeholder for tooltip"
       ),
       h4("Filters"),
-      pickerInput(
-        inputId = ns("year2"),
-        label = "Year:",
-        choices = year,
-        multiple = TRUE,
-        options = list(`actions-box` = TRUE)
+      quickPop(
+        pickerInput(
+          inputId = ns("year2"),
+          label = "Year:",
+          choices = year,
+          multiple = TRUE,
+          options = list(`actions-box` = TRUE)
+        ),
+        "Placeholder for tooltip"
       ),
-      pickerInput(
-        inputId = ns("country2"),
-        label = "Country:",
-        choices = country,
-        multiple = TRUE,
-        options = list(`actions-box` = TRUE)
+      quickPop(
+        pickerInput(
+          inputId = ns("country2"),
+          label = "Country:",
+          choices = country,
+          multiple = TRUE,
+          options = list(`actions-box` = TRUE)
+        ),
+        "Placeholder for tooltip"
       ),
-      pickerInput(
-        inputId = ns("region2"),
-        label = "Region:",
-        choices = region,
-        multiple = TRUE,
-        options = list(`actions-box` = TRUE)
+      quickPop(
+        pickerInput(
+          inputId = ns("region2"),
+          label = "Region:",
+          choices = region,
+          multiple = TRUE,
+          options = list(`actions-box` = TRUE)
+        ),
+        "Placeholder for tooltip"
       ),
-      pickerInput(
-        inputId = ns("income2"),
-        label = "Income Level:",
-        choices = income,
-        multiple = TRUE,
-        options = list(`actions-box` = TRUE)
+      quickPop(
+        pickerInput(
+          inputId = ns("income2"),
+          label = "Income Level:",
+          choices = income,
+          multiple = TRUE,
+          options = list(`actions-box` = TRUE)
+        ),
+        "Placeholder for tooltip"
       ),
-      pickerInput(
-        inputId = ns("industry2"),
-        label = "Industry Section:",
-        choices = industry,
-        multiple = TRUE,
-        options = list(`actions-box` = TRUE)
+      quickPop(
+        pickerInput(
+          inputId = ns("industry2"),
+          label = "Industry Section:",
+          choices = industry,
+          multiple = TRUE,
+          options = list(`actions-box` = TRUE)
+        ),
+        "Placeholder for tooltip"
       ),
-      pickerInput(
-        inputId = ns("skill2"),
-        label = "Skill Group:",
-        choices = skill,
-        multiple = TRUE,
-        options = list(`actions-box` = TRUE)
+      quickPop(
+        pickerInput(
+          inputId = ns("skill2"),
+          label = "Skill Group:",
+          choices = skill,
+          multiple = TRUE,
+          options = list(`actions-box` = TRUE)
+        ),
+        "Placeholder for tooltip"
       ),
-      actionButton(inputId = ns("apply2"), "Apply changes")
+      quickPop(
+        actionButton(inputId = ns("apply2"), "Apply changes"),
+        "Placeholder for tooltip"
+      ),
+      helpText(
+        "Add help text or description here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      )
     ),
     box(
       width = 9,
@@ -201,7 +259,6 @@ regressionCorrelationUI <- function(id = "regression") {
   tagList(fluidRow(
     box(
       title = "Inputs",
-      status = "warning",
       width = 3,
       solidHeader = TRUE,
       h4("Variables"),
@@ -210,49 +267,73 @@ regressionCorrelationUI <- function(id = "regression") {
       h5("- Industry migration"),
       h5("- Skill migration"),
       h4("Filters"),
-      pickerInput(
-        inputId = ns("year3"),
-        label = "Year:",
-        choices = year,
-        multiple = TRUE,
-        options = list(`actions-box` = TRUE)
+      quickPop(
+        pickerInput(
+          inputId = ns("year3"),
+          label = "Year:",
+          choices = year,
+          multiple = TRUE,
+          options = list(`actions-box` = TRUE)
+        ),
+        "Placeholder for tooltip"
       ),
-      pickerInput(
-        inputId = ns("country3"),
-        label = "Country:",
-        choices = country,
-        multiple = TRUE,
-        options = list(`actions-box` = TRUE)
+      quickPop(
+        pickerInput(
+          inputId = ns("country3"),
+          label = "Country:",
+          choices = country,
+          multiple = TRUE,
+          options = list(`actions-box` = TRUE)
+        ),
+        "Placeholder for tooltip"
       ),
-      pickerInput(
-        inputId = ns("region3"),
-        label = "Region:",
-        choices = region,
-        multiple = TRUE,
-        options = list(`actions-box` = TRUE)
+      quickPop(
+        pickerInput(
+          inputId = ns("region3"),
+          label = "Region:",
+          choices = region,
+          multiple = TRUE,
+          options = list(`actions-box` = TRUE)
+        ),
+        "Placeholder for tooltip"
       ),
-      pickerInput(
-        inputId = ns("income3"),
-        label = "Income Level:",
-        choices = income,
-        multiple = TRUE,
-        options = list(`actions-box` = TRUE)
+      quickPop(
+        pickerInput(
+          inputId = ns("income3"),
+          label = "Income Level:",
+          choices = income,
+          multiple = TRUE,
+          options = list(`actions-box` = TRUE)
+        ),
+        "Placeholder for tooltip"
       ),
-      pickerInput(
-        inputId = ns("industry3"),
-        label = "Industry Section:",
-        choices = industry,
-        multiple = TRUE,
-        options = list(`actions-box` = TRUE)
+      quickPop(
+        pickerInput(
+          inputId = ns("industry3"),
+          label = "Industry Section:",
+          choices = industry,
+          multiple = TRUE,
+          options = list(`actions-box` = TRUE)
+        ),
+        "Placeholder for tooltip"
       ),
-      pickerInput(
-        inputId = ns("skill3"),
-        label = "Skill Group:",
-        choices = skill,
-        multiple = TRUE,
-        options = list(`actions-box` = TRUE)
+      quickPop(
+        pickerInput(
+          inputId = ns("skill3"),
+          label = "Skill Group:",
+          choices = skill,
+          multiple = TRUE,
+          options = list(`actions-box` = TRUE)
+        ),
+        "Placeholder for tooltip"
       ),
-      actionButton(inputId = ns("apply3"), "Apply changes")
+      quickPop(
+        actionButton(inputId = ns("apply3"), "Apply changes"),
+        "Placeholder for tooltip"
+      ),
+      helpText(
+        "Add help text or description here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      )
     ),
     box(
       width = 9,
@@ -276,23 +357,23 @@ regressionServer <- function(id = "regression") {
                    isolate({
                      x <- unlist(master[, input$xVar1])
                      y <- unlist(master[, input$yVar1])
-
+                     
                      #(Can add filtered dataset?)
                      
-      #(Can see if ggscatterstats work?)               
-      #               ggscatterstats(master, x, y,
-      #                              ggplot.component = list(ggplot2::
-      #                                                      xlim(-2.00, 2.00),
-      #                                                      ylim(-0.50, 0.50),
-      #                                                      labs(x = NULL, y = NULL),
-      #                                                      geom_hline(yintercept = 0,
-      #                                                                 linetype = "dashed",
-      #                                                                 color = "grey60",
-      #                                                                 size = 1),
-      #                                                      geom_vline(xintercept = 0,
-      #                                                                 linetype = "dashed",
-      #                                                                 color = "grey60",
-      #                                                                 size = 1)))
+                     #(Can see if ggscatterstats work?)
+                     #               ggscatterstats(master, x, y,
+                     #                              ggplot.component = list(ggplot2::
+                     #                                                      xlim(-2.00, 2.00),
+                     #                                                      ylim(-0.50, 0.50),
+                     #                                                      labs(x = NULL, y = NULL),
+                     #                                                      geom_hline(yintercept = 0,
+                     #                                                                 linetype = "dashed",
+                     #                                                                 color = "grey60",
+                     #                                                                 size = 1),
+                     #                                                      geom_vline(xintercept = 0,
+                     #                                                                 linetype = "dashed",
+                     #                                                                 color = "grey60",
+                     #                                                                 size = 1)))
                      
                      p1 <- ggplot(master, aes(x, y)) +
                        labs(x = NULL, y = NULL) +
@@ -328,9 +409,9 @@ regressionServer <- function(id = "regression") {
                      
                      #(Can add filtered dataset?)
                      
-        #(Use this instead if ggscatterstats can work)             
-        #             lm(y ~ x, master) %>%
-        #               model_parameters()
+                     #(Use this instead if ggscatterstats can work)
+                     #             lm(y ~ x, master) %>%
+                     #               model_parameters()
                      
                      ols_regress(y ~ x, master)
                    })
@@ -342,15 +423,21 @@ regressionServer <- function(id = "regression") {
                    isolate({
                      x <- unlist(master[, input$xVar2])
                      y <- unlist(master[, input$yVar2])
-
+                     
                      #(Can add filtered dataset?)
                      
-                     p2 <- ggplot(master, aes(x, y,
-                                              color = year, #(Can change to discrete colors?)
-                                              textC = country_name,
-                                              textI = industry_name,
-                                              textS = skill_group_name
-                                              )) +
+                     p2 <- ggplot(
+                       master,
+                       aes(
+                         x,
+                         y,
+                         color = year,
+                         #(Can change to discrete colors?)
+                         textC = country_name,
+                         textI = industry_name,
+                         textS = skill_group_name
+                       )
+                     ) +
                        labs(x = NULL, y = NULL) +
                        xlim(-2.00, 2.00) + ylim(-0.50, 0.50) +
                        geom_vline(
@@ -365,10 +452,8 @@ regressionServer <- function(id = "regression") {
                          color = "grey60",
                          size = 1
                        ) +
-                       geom_point(
-                         size = 1,
-                         alpha = 0.5
-                       )
+                       geom_point(size = 1,
+                                  alpha = 0.5)
                      ggplotly(p2, tooltips = c(textC, textI, textS)) #(Can improve tooltip names?)
                    })
                  })
@@ -378,7 +463,6 @@ regressionServer <- function(id = "regression") {
                      req(input$apply3 > 0)
                      
                      isolate({
-                       
                        #(Can add filtered dataset?)
                        
                        ggcorrmat(master,

@@ -7,12 +7,13 @@ library(shinyjs) # Used for jQuery manipulation of dom objects
 library(tidyverse) # Tidy universe of libraries
 library(readxl) # Used to read excel files
 library(leaflet) # Used to draw interactive maps
-library(sf) # Load the simple feature package
 library(rworldmap) # Get world map geospatial data and functions
+####################################################################################################################
 library(CGPfunctions) # For plotting of slope graph
-# We used a forked version @ github.com/moomookau/CGPfunctions
+# Note: We used a forked version @ github.com/moomookau/CGPfunctions
 # The forked version allows customisation to colour by another column of the dataframe
 # To Install - devtools::install_github("moomookau/CGPfunctions")
+####################################################################################################################
 library(shinycssloaders) # For loading animation of plots
 library(plotly) # Interactive scatter plot
 library(ggExtra) # Marginal distribution on regression plot
@@ -21,14 +22,16 @@ library(olsrr) # Regression results
 library(parameters) # Regression results
 library(ggstatsplot) # Correlation matrix analysis
 library(treemap) # For plotting of treemap
+####################################################################################################################
 library(d3treeR) # For interactive treemaps
-# We use a forked version of d3treeR @ github.com/moomookau/d3treeR
+# Note: We use a forked version of d3treeR @ github.com/moomookau/d3treeR
 # The forked version renames the d3 object to allow compatibility with other packages which use a diff version of d3
 # To Install - devtools::install_github("moomookau/d3treeR")
+####################################################################################################################
 library(chorddiag) # For plotting of chord diagrams
 library(ggallin) # For pseudolog transformation
-library(geofacet)
-library(shinyBS)
+library(geofacet) # For geofacet map
+library(shinyBS) # For popover tooltips
 
 # Load of data files
 industryEmploymentGrowth <-
@@ -108,7 +111,8 @@ countriesGrouped <-
   split(countriesUnique$base_country_name,
         countriesUnique$base_country_wb_region)
 
-regionsUnique <- sort(unique(countryMigrationPivot$base_country_wb_region))
+regionsUnique <-
+  sort(unique(countryMigrationPivot$base_country_wb_region))
 
 industriesUnique <- industryMigrationPivot %>%
   select(isic_section_name, industry_name) %>%

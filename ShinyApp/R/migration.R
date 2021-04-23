@@ -36,17 +36,58 @@ divergingPalettesChoices <- list(
 migrationUsageUI <- function(id = "migration") {
   ns <- NS(id)
   tagList(fluidRow(
-    box(plotOutput("plot1"), width = 8, height = "100%"),
-    
     box(
       width = 4,
-      "Box content here",
-      br(),
-      "More box content",
-      sliderInput("slider", "Slider input:", 1, 100, 50),
-      textInput("text", "Text input:")
+      title = "Introduction",
+      helpText(
+        "Add help text or description here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      )
+    ),
+    box(
+      width = 4,
+      title = "Choropleth",
+      helpText(
+        "Add help text or description here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      )
+    ),
+    box(
+      width = 4,
+      title = "Chord Diagram",
+      helpText(
+        "Add help text or description here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      )
     )
-  ))
+  ),
+  fluidRow(
+    box(
+      width = 4,
+      title = "Slope Graph",
+      helpText(
+        "Add help text or description here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      )
+    ),
+    box(
+      width = 4,
+      title = "Treemap",
+      helpText(
+        "Add help text or description here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      )
+    ),
+    box(
+      width = 4,
+      title = "Geofacet",
+      helpText(
+        "Add help text or description here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      )
+    )
+  ),
+  fluidRow(box(
+    width = 12,
+    title = "Maybe",
+    helpText(
+      "How should we do this usage guide? Maybe we can use tab panel instead."
+    )
+  )))
 }
 
 migrationChoroplethUI <- function(id = "migration") {
