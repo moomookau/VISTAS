@@ -338,9 +338,13 @@ migrationGeofacetUI <- function(id = "migration") {
               "Select the type of migration to view."
             )
           ),
-          column(width = 4, uiOutput(outputId = ns(
-            "geofacetSelectedOutput"
-          ))),
+          column(width = 4,
+                 uiOutput(outputId = ns(
+                   "geofacetSelectedOutput"
+                 )),
+                 uiOutput(outputId = ns(
+                   "geofacetYearOutput"
+                 ))),
           column(
             width = 4,
             quickPop(
@@ -357,10 +361,7 @@ migrationGeofacetUI <- function(id = "migration") {
                 multiple = TRUE
               ),
               "Select the regions to display the geofacet for."
-            )
-          ),
-          column(
-            width = 1,
+            ),
             quickPop(
               actionButton(inputId = ns("geofacetApply"),
                            label = "Render!"),
@@ -962,26 +963,70 @@ migrationServer <- function(id = "migration") {
                    }
                    else if (input$geofacetType == 'Industry') {
                      output$geofacetSelectedOutput <-
-                       renderUI(quickPop(
-                         selectInput(
-                           inputId = ns("geofacetIndustry"),
-                           label = "Choose the Industry:",
-                           choices = industriesGrouped
-                         ),
-                         "Select the industry to view the migration for."
-                       ))
+                       renderUI(
+                         quickPop(
+                           pickerInput(
+                             inputId = ns("geofacetIndustries"),
+                             label = "Industries:",
+                             choices = industriesGrouped,
+                             options = list(
+                               "max-options" = 5,
+                               "max-options-text" = "Maximum number of industries have been selected.",
+                               size = 10
+                             ),
+                             multiple = TRUE
+                           ),
+                           "Select the industry to view the migration for.
+                           If one industry is selected, a line chart will show the migration trend over the years.
+                           If more than one industry is selected, a bar chart will display the migration for the industries for a selected year."
+                         )
+                       )
                    }
                    else {
                      output$geofacetSelectedOutput <-
-                       renderUI(quickPop(
-                         selectInput(
-                           inputId = ns("geofacetSkill"),
-                           label = "Choose the Skill:",
-                           choices = skillsGrouped
-                         ),
-                         "Select the skill to view the migration for."
-                       ))
+                       renderUI(
+                         quickPop(
+                           pickerInput(
+                             inputId = ns("geofacetSkills"),
+                             label = "Skills:",
+                             choices = skillsGrouped,
+                             options = list(
+                               "max-options" = 5,
+                               "max-options-text" = "Maximum number of skills have been selected.",
+                               size = 10
+                             ),
+                             multiple = TRUE
+                           ),
+                           "Select the skill to view the migration for.
+                           If one skill is selected, a line chart will show the migration trend over the years.
+                           If more than one skill is selected, a bar chart will display the migration for the skills for a selected year."
+                         )
+                       )
                    }
+                 })
+                 
+                 output$geofacetYearOutput <- renderUI({
+                   req((
+                     input$geofacetType == "Industry" &&
+                       length(input$geofacetIndustries) > 1
+                   ) ||
+                     (
+                       input$geofacetType == "Skill" && length(input$geofacetSkills) > 1
+                     )
+                   )
+                   
+                   quickPop(
+                     sliderInput(
+                       inputId = ns("geofacetYear"),
+                       label = NULL,
+                       min = yearMin,
+                       max = yearMax,
+                       value = yearMax,
+                       step = 1,
+                       ticks = FALSE
+                     ),
+                     "Slide to choose the year to view."
+                   )
                  })
                  
                  output$geofacetOutput <- renderPlot({
@@ -992,6 +1037,8 @@ migrationServer <- function(id = "migration") {
                        length(input$geofacetRegions) > 0,
                        "Please select at least one region."
                      ))
+                     
+                     geofacetBar <- FALSE
                      
                      if (input$geofacetType == "Country")
                      {
@@ -1009,36 +1056,82 @@ migrationServer <- function(id = "migration") {
                                 country_code = target_country_code)
                      }
                      else if (input$geofacetType == "Industry") {
-                       migrationGeofacet <-
-                         industryMigrationPivot %>%
-                         filter(
-                           industry_name == input$geofacetIndustry,
-                           wb_region %in% input$geofacetRegions
-                         ) %>%
-                         select(country_name,
-                                country_code,
-                                net_per_10K,
-                                year)
+                       validate(need(
+                         length(input$geofacetIndustries) > 0,
+                         "Please choose at least one industry"
+                       ))
+                       if (length(input$geofacetIndustries) > 1)
+                       {
+                         req(input$geofacetYear)
+                         geofacetBar <- TRUE
+                         
+                         migrationGeofacet <-
+                           industryMigrationPivot %>%
+                           filter(
+                             industry_name %in% input$geofacetIndustries,
+                             wb_region %in% input$geofacetRegions,
+                             year == input$geofacetYear
+                           ) %>%
+                           select(industry_name,
+                                  country_name,
+                                  country_code,
+                                  net_per_10K) %>%
+                           rename(bars = industry_name)
+                       }
+                       else {
+                         migrationGeofacet <-
+                           industryMigrationPivot %>%
+                           filter(
+                             industry_name == input$geofacetIndustries,
+                             wb_region %in% input$geofacetRegions
+                           ) %>%
+                           select(country_name,
+                                  country_code,
+                                  net_per_10K,
+                                  year)
+                       }
                      }
                      else {
-                       migrationGeofacet <-
-                         skillMigrationPivot %>%
-                         filter(
-                           skill_group_name == input$geofacetSkill,
-                           wb_region %in% input$geofacetRegions
-                         ) %>%
-                         select(country_name,
-                                country_code,
-                                net_per_10K,
-                                year)
+                       validate(need(
+                         length(input$geofacetSkills) > 0,
+                         "Please choose at least one skill"
+                       ))
+                       if (length(input$geofacetSkills) > 1)
+                       {
+                         req(input$geofacetYear)
+                         geofacetBar <- TRUE
+                         
+                         migrationGeofacet <-
+                           skillMigrationPivot %>%
+                           filter(
+                             skill_group_name %in% input$geofacetSkills,
+                             wb_region %in% input$geofacetRegions,
+                             year == input$geofacetYear
+                           ) %>%
+                           select(skill_group_name,
+                                  country_name,
+                                  country_code,
+                                  net_per_10K) %>%
+                           rename(bars = skill_group_name)
+                       }
+                       else {
+                         migrationGeofacet <-
+                           skillMigrationPivot %>%
+                           filter(
+                             skill_group_name == input$geofacetSkills,
+                             wb_region %in% input$geofacetRegions
+                           ) %>%
+                           select(country_name,
+                                  country_code,
+                                  net_per_10K,
+                                  year)
+                       }
                      }
-                     
                      
                      validate(need(nrow(migrationGeofacet) > 0,
                                    "No results for selection."))
                      
                      migrationGeofacet$country_code = toupper(migrationGeofacet$country_code)
-                     migrationGeofacet$year = as.numeric(migrationGeofacet$year)
                      
                      # We use joinCountryData2Map to join the data with the spatial data
                      geofacetMap <- migrationGeofacet %>%
@@ -1052,11 +1145,25 @@ migrationServer <- function(id = "migration") {
                                                seed = 1234) %>%
                        distinct(name_country_name, .keep_all = TRUE)
                      
-                     ggplot(migrationGeofacet,
-                            aes(year, net_per_10K, color = net_per_10K)) +
-                       geom_line() +
-                       theme(axis.text.x = element_blank()) +
-                       facet_geo( ~ country_name, grid = geofacetGrid)
+                     if (geofacetBar)
+                     {
+                       ggplot(migrationGeofacet,
+                              aes(bars, net_per_10K, fill = bars, alpha = net_per_10K >= 0)) +
+                         geom_col() +
+                         geom_hline(yintercept=0, linetype="dashed", color = "black") +
+                         scale_alpha_discrete(range=c(0.5,1.0)) +
+                         facet_geo( ~ country_name, grid = geofacetGrid) +
+                         coord_flip() +
+                         theme(legend.position = "none")
+                     }
+                     else {
+                       migrationGeofacet$year = as.numeric(migrationGeofacet$year)
+                       ggplot(migrationGeofacet,
+                              aes(year, net_per_10K, color = net_per_10K)) +
+                         geom_line() +
+                         theme(axis.text.x = element_blank()) +
+                         facet_geo( ~ country_name, grid = geofacetGrid)
+                     }
                    })
                  })
                  
