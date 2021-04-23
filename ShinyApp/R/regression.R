@@ -22,7 +22,52 @@ skill <- sort(unique(master$skill_group_category))
 # Make sure to wrap all input and output ids with the ns() function
 regressionUsageUI <- function(id = "regression") {
   ns <- NS(id)
-  tagList()
+  tagList(
+    fluidRow(box(
+      width = 12,
+      title = "Regression",
+      helpText(
+        "1. Click on regression tab.
+        2. Select two different variables to be shown on the regression plot, one for y axis and one for x axis e.g. Employment Growth and Industry Migration.
+        3. Select filters to be applied on the dataset. The filters include year, country, region, income level, industry section and skill group.
+        4. By default, all options are selected for each filter. On each filter, there are buttons to select all, deselect all or select individual options. Selected options will have a tick next to it.
+        5. 'No results for selection' will be shown on the main panel if the selected filters produce no result or data point e.g. country (Austria) and region (South Asia). Select the appropriate filters to ensure results.
+        6. Once the variables and filters are selected, click on 'Apply changes'.
+        7. The spinning wheel indicates that the regression plot and results are being generated. Once completed, the visualisations will be shown.
+        "
+      )
+    )),
+    fluidRow(box(
+      width = 12,
+      title = "Scatter Plot",
+      helpText(
+        "1. Click on scatter plot tab.
+        2. Select two different variables to be shown on the interactive scatter plot, one for y axis and one for x axis e.g. Employment Growth and Industry Migration.
+        3. Select filters to be applied on the dataset. The filters include year, country, region, income level, industry section and skill group.
+        4. By default, all options are selected for each filter. On each filter, there are buttons to select all, deselect all or select individual options. Selected options will have a tick next to it.
+        5. 'No results for selection' will be shown on the main panel if the selected filters produce no result or data point e.g. country (Austria) and region (South Asia). Select the appropriate filters to ensure results.
+        6. Once the variables and filters are selected, click on 'Apply changes'.
+        7. The spinning wheel indicates that the interactive scatter plot is being generated. Once completed, the visualisation will be shown.
+        8. Hover over each point on the interactive scatter plot to find out its values i.e. x variable, y variable, year, country, industry and skill.
+        9. There are buttons on the interactive scatter plot to carry out actions e.g. download plot as png, zoom, select.
+        "
+      )
+    )),
+    fluidRow(box(
+      width = 12,
+      title = "Correlation Matrix",
+      helpText(
+        "1. Click on correlation matrix tab.
+        2. Four variables will be used for the correlation matrix i.e. GDP per capita growth, Employment growth, Industry migration and Skill migration.
+        3. Select filters to be applied on the dataset. The filters include year, country, region, income level, industry section and skill group.
+        4. By default, all options are selected for each filter. On each filter, there are buttons to select all, deselect all or select individual options. Selected options will have a tick next to it.
+        5. 'No results for selection' will be shown on the main panel if the selected filters produce no result or data point e.g. country (Austria) and region (South Asia). Select the appropriate filters to ensure results.
+        6. Once the variables and filters are selected, click on 'Apply changes'.
+        7. The spinning wheel indicates that the correlation matrix is being generated. Once completed, the visualisation will be shown.
+        "
+      )
+    ))
+  )
 }
 
 regressionRegressionUI <- function(id = "regression") {
