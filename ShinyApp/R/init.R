@@ -50,6 +50,25 @@ popAndGdpData <-
   read_excel("data/Population-GDPPerCapita-2015-2019.xlsx")
 master <- read.csv("data/master.csv")
 
+# We change Taiwan and Gaza to be recognisable by RWorldMap
+industryEmploymentGrowth <- industryEmploymentGrowth %>%
+  mutate(country_name = str_replace(country_name, "Taiwan, China", "Taiwan")) %>%
+  mutate(country_name = str_replace(country_name, "West Bank and Gaza", "West Bank"))
+countryMigration <- countryMigration %>%
+  mutate(base_country_name = str_replace(base_country_name, "Taiwan, China", "Taiwan")) %>%
+  mutate(base_country_name = str_replace(base_country_name, "West Bank and Gaza", "West Bank")) %>%
+  mutate(target_country_name = str_replace(target_country_name, "Taiwan, China", "Taiwan")) %>%
+  mutate(target_country_name = str_replace(target_country_name, "West Bank and Gaza", "West Bank"))
+industryMigration <- industryMigration %>%
+  mutate(country_name = str_replace(country_name, "Taiwan, China", "Taiwan")) %>%
+  mutate(country_name = str_replace(country_name, "West Bank and Gaza", "West Bank"))
+skillMigration <- skillMigration %>%
+  mutate(country_name = str_replace(country_name, "Taiwan, China", "Taiwan")) %>%
+  mutate(country_name = str_replace(country_name, "West Bank and Gaza", "West Bank"))
+popAndGdpData <- popAndGdpData %>%
+  mutate(`Country Name` = str_replace(`Country Name`, "Taiwan, China", "Taiwan")) %>%
+  mutate(`Country Name` = str_replace(`Country Name`, "West Bank and Gaza", "West Bank"))
+
 # Pivoting of data files
 industryEmploymentGrowthPivot <- industryEmploymentGrowth %>%
   pivot_longer(

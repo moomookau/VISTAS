@@ -976,9 +976,7 @@ migrationServer <- function(id = "migration") {
                              ),
                              multiple = TRUE
                            ),
-                           "Select the industry to view the migration for.
-                           If one industry is selected, a line chart will show the migration trend over the years.
-                           If more than one industry is selected, a bar chart will display the migration for the industries for a selected year."
+                           "Select the industry to view the migration for. If one industry is selected, a line chart will show the migration trend over the years. If more than one industry is selected, a bar chart will display the migration for the industries for a selected year."
                          )
                        )
                    }
@@ -997,9 +995,7 @@ migrationServer <- function(id = "migration") {
                              ),
                              multiple = TRUE
                            ),
-                           "Select the skill to view the migration for.
-                           If one skill is selected, a line chart will show the migration trend over the years.
-                           If more than one skill is selected, a bar chart will display the migration for the skills for a selected year."
+                           "Select the skill to view the migration for. If one skill is selected, a line chart will show the migration trend over the years. If more than one skill is selected, a bar chart will display the migration for the skills for a selected year."
                          )
                        )
                    }
@@ -1037,7 +1033,7 @@ migrationServer <- function(id = "migration") {
                        length(input$geofacetRegions) > 0,
                        "Please select at least one region."
                      ))
-                     
+
                      geofacetBar <- FALSE
                      
                      if (input$geofacetType == "Country")
@@ -1132,7 +1128,7 @@ migrationServer <- function(id = "migration") {
                                    "No results for selection."))
                      
                      migrationGeofacet$country_code = toupper(migrationGeofacet$country_code)
-                     
+
                      # We use joinCountryData2Map to join the data with the spatial data
                      geofacetMap <- migrationGeofacet %>%
                        distinct(country_code, .keep_all = TRUE) %>%
@@ -1147,11 +1143,20 @@ migrationServer <- function(id = "migration") {
                      
                      if (geofacetBar)
                      {
-                       ggplot(migrationGeofacet,
-                              aes(bars, net_per_10K, fill = bars, alpha = net_per_10K >= 0)) +
+                       ggplot(
+                         migrationGeofacet,
+                         aes(
+                           bars,
+                           net_per_10K,
+                           fill = bars,
+                           alpha = net_per_10K >= 0
+                         )
+                       ) +
                          geom_col() +
-                         geom_hline(yintercept=0, linetype="dashed", color = "black") +
-                         scale_alpha_discrete(range=c(0.5,1.0)) +
+                         geom_hline(yintercept = 0,
+                                    linetype = "dashed",
+                                    color = "black") +
+                         scale_alpha_discrete(range = c(0.5, 1.0)) +
                          facet_geo( ~ country_name, grid = geofacetGrid) +
                          coord_flip() +
                          theme(legend.position = "none")
