@@ -3,6 +3,7 @@ library(shiny) # Base Shiny library
 library(shinydashboard) # Used for Shiny Dashboard
 library(dashboardthemes) # Used for Shiny Dashboard Themes
 library(shinyWidgets) # Used for advanced Shiny Widgets
+library(shinyjs) # Used for jQuery manipulation of dom objects
 library(tidyverse) # Tidy universe of libraries
 library(readxl) # Used to read excel files
 library(leaflet) # Used to draw interactive maps
@@ -11,6 +12,7 @@ library(rworldmap) # Get world map geospatial data and functions
 library(CGPfunctions) # For plotting of slope graph
 # We used a forked version @ github.com/moomookau/CGPfunctions
 # The forked version allows customisation to colour by another column of the dataframe
+# To Install - devtools::install_github("moomookau/CGPfunctions")
 library(shinycssloaders) # For loading animation of plots
 library(plotly) # Interactive scatter plot
 library(ggExtra) # Marginal distribution on regression plot
@@ -22,10 +24,11 @@ library(treemap) # For plotting of treemap
 library(d3treeR) # For interactive treemaps
 # We use a forked version of d3treeR @ github.com/moomookau/d3treeR
 # The forked version renames the d3 object to allow compatibility with other packages which use a diff version of d3
+# To Install - devtools::install_github("moomookau/d3treeR")
 library(chorddiag) # For plotting of chord diagrams
-library(randomcoloR)
 library(ggallin) # For pseudolog transformation
 library(geofacet)
+library(shinyBS)
 
 # Load of data files
 industryEmploymentGrowth <-

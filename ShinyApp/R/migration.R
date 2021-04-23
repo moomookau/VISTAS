@@ -11,6 +11,22 @@
 yearMin <- as.integer(min(countryMigrationPivot$year))
 yearMax <- as.integer(max(countryMigrationPivot$year))
 
+divergingPalettesChoices <- list(
+  "Colour Blind Accessible" = list(
+    "Red Yellow Blue" = "RdYlBu",
+    "Red Blue" = "RdBu",
+    "Purple Orange" = "PuOr",
+    "Purple Green" = "PRGn",
+    "Pink Green" = "PiYG",
+    "Brown Green" = "BrBG"
+  ),
+  "Others" = list(
+    "Spectral",
+    "Red Yellow Green" = "RdYlGn",
+    "Red Grey" = "RdGy"
+  )
+)
+
 ##########################################################################
 # End of pre load code
 ##########################################################################
@@ -38,22 +54,52 @@ migrationChoroplethUI <- function(id = "migration") {
   tagList(fluidRow(
     box(
       title = "Inputs",
-      status = "warning",
       width = 3,
       solidHeader = TRUE,
-      selectInput(
-        inputId = ns("choroplethCountry"),
-        label = "Country:",
-        choices = countriesGrouped
+      quickPop(
+        selectInput(
+          inputId = ns("choroplethType"),
+          label = "Type of Migration to View:",
+          choices = c("Country", "Industry", "Skill")
+        ),
+        "Select the type of migration to view."
       ),
-      sliderInput(
-        inputId = ns("choroplethYear"),
-        label = "Select year",
-        min = yearMin,
-        max = yearMax,
-        value = yearMax,
-        step = 1,
-        ticks = FALSE
+      uiOutput(outputId = ns("choroplethSelectedOutput")),
+      quickPop(
+        sliderInput(
+          inputId = ns("choroplethYear"),
+          label = "Year:",
+          min = yearMin,
+          max = yearMax,
+          value = yearMax,
+          step = 1,
+          ticks = FALSE
+        ),
+        "Slide to choose the year to view."
+      ),
+      quickPop(
+        sliderInput(
+          inputId = ns("choroplethBins"),
+          label = "Number of Bins:",
+          min = 2,
+          max = 10,
+          value = 4,
+          step = 2,
+          ticks = FALSE
+        ),
+        "Slide to choose the number of bins to colour by. The number of bins need to be even to have equal number of bins for positive and negative values."
+      ),
+      quickPop(
+        selectInput(
+          inputId = ns("choroplethPalette"),
+          label = "Colour Palette:",
+          choices = divergingPalettesChoices,
+          selected = "RdBu"
+        ),
+        "Choose the colour palette for the choropleth."
+      ),
+      helpText(
+        "Add help text or description here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
       )
     ),
     box(
@@ -69,29 +115,36 @@ migrationChordUI <- function(id = "migration") {
   tagList(fluidRow(
     box(
       title = "Inputs",
-      status = "warning",
       width = 3,
       solidHeader = TRUE,
-      selectInput(
-        inputId = ns("chordType"),
-        label = "Type of Chord Diagram",
-        choices = c("Single Region", "Aggregate"),
-        selected = "Single Region"
+      quickPop(
+        pickerInput(
+          inputId = ns("chordCountries"),
+          label = "Countries:",
+          choices = countriesGrouped,
+          options = list(
+            `actions-box` = TRUE,
+            size = 10,
+            `selected-text-format` = "count > 3"
+          ),
+          multiple = TRUE
+        ),
+        "Select the countries to display the Chord Diagram for. Chord Diagram will only be displayed when 3 or more countries are selected."
       ),
-      selectInput(
-        inputId = ns("chordRegion"),
-        label = "Region:",
-        choices = c("East Asia & Pacific"),
-        selected = "East Asia & Pacific"
+      quickPop(
+        sliderInput(
+          inputId = ns("chordYear"),
+          label = "Year:",
+          min = yearMin,
+          max = yearMax,
+          value = yearMax,
+          step = 1,
+          ticks = FALSE
+        ),
+        "Slide to choose the year to view."
       ),
-      sliderInput(
-        inputId = ns("chordYear"),
-        label = "Select year",
-        min = yearMin,
-        max = yearMax,
-        value = yearMax,
-        step = 1,
-        ticks = FALSE
+      helpText(
+        "Add help text or description here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
       )
     ),
     box(
@@ -107,30 +160,44 @@ migrationSlopeUI <- function(id = "migration") {
   tagList(fluidRow(
     box(
       title = "Inputs",
-      status = "warning",
       width = 3,
       solidHeader = TRUE,
-      selectInput(
-        inputId = ns("slopeType"),
-        label = "Type of Migration to View:",
-        choices = c("Country", "Industry", "Skill")
+      quickPop(
+        selectInput(
+          inputId = ns("slopeType"),
+          label = "Type of Migration to View:",
+          choices = c("Country", "Industry", "Skill")
+        ),
+        "Select the type of migration to view."
       ),
       uiOutput(outputId = ns("slopeSelectedOutput")),
-      sliderInput(
-        inputId = ns("slopeTop"),
-        label = "Show Top N Countries:",
-        min = 10,
-        max = nrow(countriesUnique),
-        value = 30
+      quickPop(
+        sliderInput(
+          inputId = ns("slopeTop"),
+          label = "Show Top N Countries:",
+          min = 10,
+          max = nrow(countriesUnique),
+          value = 30
+        ),
+        "Slide to choose number of countries to show. Countries will be chosen by the top N net migration values of 2019."
       ),
-      selectInput(
-        inputId = ns("slopeColour"),
-        label = "Color By:",
-        choices = c("Income Group" = "wb_income", "Region" = "wb_region"),
-        selected = "wb_region"
+      quickPop(
+        selectInput(
+          inputId = ns("slopeColour"),
+          label = "Color By:",
+          choices = c("Income Group" = "wb_income", "Region" = "wb_region"),
+          selected = "wb_region"
+        ),
+        "Select the variable to colour the lines by."
       ),
-      checkboxInput(inputId = ns("slopeLog"),
-                    label = "Pseudolog Y-Axis?")
+      quickPop(
+        checkboxInput(inputId = ns("slopeLog"),
+                      label = "Pseudolog Y-Axis?"),
+        "Check to apply pseudolog transformation on the Y-Axis. Pseudolog allows for a log-like transformation for both positive and negative values."
+      ),
+      helpText(
+        "Add help text or description here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      )
     ),
     box(
       width = 9,
@@ -146,34 +213,57 @@ migrationTreeUI <- function(id = "migration") {
   tagList(fluidRow(
     box(
       title = "Inputs",
-      status = "warning",
       width = 3,
       solidHeader = TRUE,
-      selectInput(
-        inputId = ns("treeType"),
-        label = "Type of Migration to View:",
-        choices = c("Country", "Industry", "Skill")
+      quickPop(
+        selectInput(
+          inputId = ns("treeType"),
+          label = "Type of Migration to View:",
+          choices = c("Country", "Industry", "Skill")
+        ),
+        "Select the type of migration to view."
       ),
       uiOutput(outputId = ns("treeSelectedOutput")),
-      sliderInput(
-        inputId = ns("treeYear"),
-        label = "Select year:",
-        min = yearMin,
-        max = yearMax,
-        value = yearMax,
-        step = 1,
-        ticks = FALSE
+      quickPop(
+        sliderInput(
+          inputId = ns("treeYear"),
+          label = "Year:",
+          min = yearMin,
+          max = yearMax,
+          value = yearMax,
+          step = 1,
+          ticks = FALSE
+        ),
+        "Slide to choose the year to view."
       ),
-      selectInput(
-        inputId = ns("treeGroup"),
-        label = "Group By:",
-        choices = c("Income Group" = "wb_income", "Region" = "wb_region"),
-        selected = "wb_region"
+      quickPop(
+        selectInput(
+          inputId = ns("treeGroup"),
+          label = "Group By:",
+          choices = c("Income Group" = "wb_income", "Region" = "wb_region"),
+          selected = "wb_region"
+        ),
+        "Select the variable to group the treemap by."
       ),
-      selectInput(
-        inputId = ns("treeSize"),
-        label = "Size By:",
-        choices = c("Population", "GDP Per Capita (2010 US$)")
+      quickPop(
+        selectInput(
+          inputId = ns("treeSize"),
+          label = "Size By:",
+          choices = c("Population", "GDP Per Capita (2010 US$)")
+        ),
+        "Select the variable to size the treemap by."
+      ),
+      quickPop(
+        selectInput(
+          inputId = ns("treePalette"),
+          label = "Colour Palette:",
+          choices = divergingPalettesChoices,
+          selected = "RdBu"
+        ),
+        "Choose the colour palette for the choropleth."
+      ),
+      helpText(
+        "Add help text or description here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
       )
     ),
     box(
@@ -198,16 +288,54 @@ migrationServer <- function(id = "migration") {
                  #######################################
                  # Choropleth Map - Start
                  #######################################
+                 # We create an observeEvent to have dynamic UI inputs
+                 observeEvent(c(input$choroplethType), {
+                   clearPops()
+                   if (input$choroplethType == "Country") {
+                     output$choroplethSelectedOutput <-
+                       renderUI(
+                         quickPop(
+                           selectInput(
+                             inputId = ns("choroplethCountry"),
+                             label = "Base Country:",
+                             choices = countriesGrouped
+                           ),
+                           "Select the base country to view the migration for. Migration will be shown with respect to the chosen base country."
+                         )
+                       )
+                   }
+                   else if (input$choroplethType == 'Industry') {
+                     output$choroplethSelectedOutput <-
+                       renderUI(quickPop(
+                         selectInput(
+                           inputId = ns("choroplethIndustry"),
+                           label = "Choose the Industry:",
+                           choices = industriesGrouped
+                         ),
+                         "Select the industry to view the migration for."
+                       ))
+                   }
+                   else {
+                     output$choroplethSelectedOutput <-
+                       renderUI(quickPop(
+                         selectInput(
+                           inputId = ns("choroplethSkill"),
+                           label = "Choose the Skill:",
+                           choices = skillsGrouped
+                         ),
+                         "Select the skill to view the migration for."
+                       ))
+                   }
+                 })
+                 
                  output$choroplethOutput <- renderLeaflet({
                    leaflet(options = leafletOptions(zoomControl = FALSE,
                                                     dragging = FALSE)) %>%
                      addTiles() %>%
-                     fitBounds(-170, 85, 170,-75) %>%
+                     fitBounds(-170, 85, 170, -75) %>%
                      htmlwidgets::onRender(
                        "
     function(el, x) {
-    console.log(el);
-    console.log(x);
       var map = $('#migration-choroplethOutput').data('leaflet-map');
         function disableZoom(e) {map.scrollWheelZoom.disable();}
 
@@ -222,69 +350,125 @@ migrationServer <- function(id = "migration") {
                      )
                  })
                  
-                 observeEvent(c(
-                   input$choroplethCountry,
-                   input$choroplethYear,
-                   input$sidebar
-                 ),
-                 {
-                   req(input$sidebar == "migrationChoropleth")
-                   
-                   # We set the variables based on the UI inputs
-                   filterCountry <- input$choroplethCountry
-                   filterYear <- input$choroplethYear
-                   
-                   # We create the choropleth data using the variables above
-                   migrationChoropleth <- countryMigrationPivot %>%
-                     filter(base_country_name == filterCountry, year == filterYear) %>%
-                     select(target_country_name, net_per_10K) %>%
-                     mutate(label = lapply(
-                       paste0(
-                         "Country: ",
-                         target_country_name,
-                         "<br/>Net migration: ",
-                         net_per_10K
-                       ),
-                       htmltools::HTML
-                     ))
-                   
-                   # We use joinCountryData2Map to join the data with the spatial data
-                   migrationChoroplethMap <-
-                     joinCountryData2Map(migrationChoropleth,
-                                         joinCode = "NAME",
-                                         nameJoinColumn = "target_country_name") %>%
-                     spatialEco::sp.na.omit(col.name = "net_per_10K")
-                   
-                   # We compute the max migration, rounding up to the nearest 5
-                   maxMigration = plyr::round_any(max(abs(migrationChoropleth$net_per_10K)), 5, f =
-                                                    ceiling)
-                   
-                   # We create the bins and a diverging palette
-                   bins <- seq(-maxMigration, maxMigration, 5)
-                   pal <- colorBin("RdBu", bins = bins)
-                   
-                   # We plot the migration choropleth map
-                   leafletProxy("choroplethOutput", data = migrationChoroplethMap) %>%
-                     clearShapes() %>%
-                     clearControls() %>%
-                     addPolygons(
-                       fillColor = ~ pal(net_per_10K),
-                       label = ~ label,
-                       weight = 2,
-                       opacity = 1,
-                       color = "white",
-                       dashArray = "3",
-                       fillOpacity = 0.7
-                     ) %>%
-                     addLegend(
-                       pal = pal,
-                       values = ~ net_per_10K,
-                       opacity = 0.7,
-                       title = NULL,
-                       position = "bottomright"
-                     ) %>%
-                     fitBounds(-170, 85, 170,-75)
-                 })
+                 observeEvent(
+                   c(
+                     input$choroplethType,
+                     input$choroplethCountry,
+                     input$choroplethIndustry,
+                     input$choroplethSkill,
+                     input$choroplethYear,
+                     input$sidebar,
+                     input$choroplethBins,
+                     input$choroplethPalette
+                   ),
+                   {
+                     req(input$sidebar == "migrationChoropleth")
+                     
+                     if (input$choroplethType == "Country")
+                     {
+                       req(input$choroplethCountry)
+                       
+                       migrationChoropleth <-
+                         countryMigrationPivot %>%
+                         filter(base_country_name == input$choroplethCountry,
+                                year == input$choroplethYear) %>%
+                         select(target_country_name,
+                                target_country_code,
+                                net_per_10K) %>%
+                         mutate(label = lapply(
+                           paste0(
+                             "Country: ",
+                             target_country_name,
+                             "<br/>Net migration: ",
+                             net_per_10K
+                           ),
+                           htmltools::HTML
+                         )) %>%
+                         rename(country_name = target_country_name,
+                                country_code = target_country_code)
+                     }
+                     else if (input$choroplethType == "Industry") {
+                       req(input$choroplethIndustry)
+                       
+                       migrationChoropleth <-
+                         industryMigrationPivot %>%
+                         filter(industry_name == input$choroplethIndustry,
+                                year == input$choroplethYear) %>%
+                         select(country_name, country_code, net_per_10K) %>%
+                         mutate(label = lapply(
+                           paste0(
+                             "Country: ",
+                             country_name,
+                             "<br/>Net Industry migration: ",
+                             net_per_10K
+                           ),
+                           htmltools::HTML
+                         ))
+                     }
+                     else {
+                       req(input$choroplethSkill)
+                       
+                       migrationChoropleth <-
+                         skillMigrationPivot %>%
+                         filter(skill_group_name == input$choroplethSkill,
+                                year == input$choroplethYear) %>%
+                         select(country_name, country_code, net_per_10K) %>%
+                         mutate(label = lapply(
+                           paste0(
+                             "Country: ",
+                             country_name,
+                             "<br/>Net Skill migration: ",
+                             net_per_10K
+                           ),
+                           htmltools::HTML
+                         ))
+                     }
+                     
+                     migrationChoropleth$country_code = toupper(migrationChoropleth$country_code)
+                     
+                     # We use joinCountryData2Map to join the data with the spatial data
+                     migrationChoroplethMap <-
+                       joinCountryData2Map(migrationChoropleth,
+                                           joinCode = "ISO2",
+                                           nameJoinColumn = "country_code") %>%
+                       spatialEco::sp.na.omit(col.name = "net_per_10K")
+                     
+                     # We compute the max migration, rounding up to the nearest 5
+                     maxMigration = plyr::round_any(max(abs(migrationChoropleth$net_per_10K)), 5, f =
+                                                      ceiling)
+                     
+                     # We create the bins and a diverging palette
+                     bins <-
+                       seq(-maxMigration,
+                           maxMigration,
+                           maxMigration / input$choroplethBins * 2)
+                     pal <-
+                       colorBin(input$choroplethPalette, bins = bins)
+                     
+                     # We plot the migration choropleth map
+                     leafletProxy("choroplethOutput", data = migrationChoroplethMap) %>%
+                       clearShapes() %>%
+                       clearControls() %>%
+                       addPolygons(
+                         fillColor = ~ pal(net_per_10K),
+                         label = ~ label,
+                         weight = 2,
+                         opacity = 1,
+                         color = "white",
+                         dashArray = "3",
+                         fillOpacity = 0.7
+                       ) %>%
+                       addLegend_decreasing(
+                         pal = pal,
+                         values = ~ net_per_10K,
+                         opacity = 0.7,
+                         title = NULL,
+                         position = "bottomleft",
+                         decreasing = TRUE
+                       ) %>%
+                       fitBounds(-170, 85, 170, -75)
+                   }
+                 )
                  #######################################
                  # Choropleth Map - End
                  #######################################
@@ -294,14 +478,28 @@ migrationServer <- function(id = "migration") {
                  #######################################
                  
                  output$chorddiagOutput <- renderChorddiag({
-                   # We set the variables we want to try out
-                   # In this case, we filter by the year 2019
-                   filterYear <- 2019
+                   topCountries <- countryMigrationPivot %>%
+                     filter(year == input$chordYear) %>%
+                     mutate(abs_net_per_10K = abs(net_per_10K)) %>%
+                     group_by(base_country_name) %>%
+                     summarise(groupsum = sum(abs_net_per_10K)) %>%
+                     slice_max(n = 20, order_by = groupsum)
+                   
+                   validate(need(
+                     length(input$chordCountries) > 2,
+                     'Please choose at least 3 countries to plot Chord Diagram'
+                   ))
                    
                    # In order to use the chorddiag package, we create a matrix of the countries
                    chordDf <- countryMigrationPivot %>%
-                     filter(year == filterYear) %>%
-                     select(base_country_name, target_country_name, net_per_10K) %>%
+                     filter(
+                       year == input$chordYear,
+                       base_country_name %in% input$chordCountries,
+                       target_country_name %in% input$chordCountries
+                     ) %>%
+                     select(base_country_name,
+                            target_country_name,
+                            net_per_10K) %>%
                      pivot_wider(
                        names_from = target_country_name,
                        values_from = net_per_10K,
@@ -324,20 +522,17 @@ migrationServer <- function(id = "migration") {
                    chordPosMatrix <- as.matrix(chordPosDf)
                    chordNegMatrix <- as.matrix(chordNegDf)
                    
-                   # We create a palette
-                   colours <-
-                     distinctColorPalette(length(countryNames))
-                   
                    # We plot the chord diagram
                    p <-
                      chorddiag(
                        chordPosMatrix,
-                       height = 1000,
-                       width = 1000,
+                       #height = 1000,
+                       #width = 1000,
                        groupnamePadding = 20,
+                       groupnameFontsize = 10,
                        showTicks = FALSE,
                        groupThickness = 0.01,
-                       groupColors = colours,
+                       palette = "Set3",
                        precision = 3,
                        showZeroTooltips = FALSE
                      )
@@ -354,32 +549,40 @@ migrationServer <- function(id = "migration") {
                  
                  # We create an observeEvent to have dynamic UI inputs
                  observeEvent(c(input$slopeType), {
+                   clearPops()
                    if (input$slopeType == "Country") {
                      output$slopeSelectedOutput <-
                        renderUI(
-                         selectInput(
-                           inputId = ns("slopeCountry"),
-                           label = "Choose the Base Country:",
-                           choices = countriesGrouped
+                         quickPop(
+                           selectInput(
+                             inputId = ns("slopeCountry"),
+                             label = "Base Country:",
+                             choices = countriesGrouped
+                           ),
+                           "Select the base country to view the migration for. Migration will be shown with respect to the chosen base country."
                          )
                        )
                    }
                    else if (input$slopeType == 'Industry') {
                      output$slopeSelectedOutput <-
-                       renderUI(
+                       renderUI(quickPop(
                          selectInput(
                            inputId = ns("slopeIndustry"),
-                           label = "Choose the Industry:",
+                           label = "Industry:",
                            choices = industriesGrouped
-                         )
-                       )
+                         ),
+                         "Select the industry to view the migration for."
+                       ))
                    }
                    else {
                      output$slopeSelectedOutput <-
-                       renderUI(selectInput(
-                         inputId = ns("slopeSkill"),
-                         label = "Choose the Skill:",
-                         choices = skillsGrouped
+                       renderUI(quickPop(
+                         selectInput(
+                           inputId = ns("slopeSkill"),
+                           label = "Skill:",
+                           choices = skillsGrouped
+                         ),
+                         "Select the skill to view the migration for."
                        ))
                    }
                  })
@@ -391,8 +594,10 @@ migrationServer <- function(id = "migration") {
                      if (input$slopeType == "Country") {
                        req(input$slopeCountry)
                        
-                       topNCountries <- countryMigrationPivot %>%
-                         filter(base_country_name == input$slopeCountry, year == 2019) %>%
+                       topNCountries <-
+                         countryMigrationPivot %>%
+                         filter(base_country_name == input$slopeCountry,
+                                year == 2019) %>%
                          slice_max(net_per_10K, n = input$slopeTop) %>%
                          pull(target_country_name)
                        
@@ -410,8 +615,10 @@ migrationServer <- function(id = "migration") {
                      {
                        req(input$slopeIndustry)
                        
-                       topNCountries <- industryMigrationPivot %>%
-                         filter(industry_name == input$slopeIndustry, year == 2019) %>%
+                       topNCountries <-
+                         industryMigrationPivot %>%
+                         filter(industry_name == input$slopeIndustry,
+                                year == 2019) %>%
                          slice_max(net_per_10K, n = input$slopeTop) %>%
                          pull(country_name)
                        
@@ -424,7 +631,8 @@ migrationServer <- function(id = "migration") {
                        req(input$slopeSkill)
                        
                        topNCountries <- skillMigrationPivot %>%
-                         filter(skill_group_name == input$slopeSkill, year == 2019) %>%
+                         filter(skill_group_name == input$slopeSkill,
+                                year == 2019) %>%
                          slice_max(net_per_10K, n = input$slopeTop) %>%
                          pull(country_name)
                        
@@ -523,35 +731,42 @@ migrationServer <- function(id = "migration") {
                  # Treemap - Start
                  #######################################
                  
-                 # Using d3treeR
                  # We create an observeEvent to have dynamic UI inputs
                  observeEvent(c(input$treeType), {
+                   clearPops()
                    if (input$treeType == "Country") {
                      output$treeSelectedOutput <-
                        renderUI(
-                         selectInput(
-                           inputId = ns("treeCountry"),
-                           label = "Choose the Base Country:",
-                           choices = countriesGrouped
+                         quickPop(
+                           selectInput(
+                             inputId = ns("treeCountry"),
+                             label = "Base Country:",
+                             choices = countriesGrouped
+                           ),
+                           "Select the base country to view the migration for. Migration will be shown with respect to the chosen base country."
                          )
                        )
                    }
                    else if (input$treeType == 'Industry') {
                      output$treeSelectedOutput <-
-                       renderUI(
+                       renderUI(quickPop(
                          selectInput(
                            inputId = ns("treeIndustry"),
                            label = "Choose the Industry:",
                            choices = industriesGrouped
-                         )
-                       )
+                         ),
+                         "Select the industry to view the migration for."
+                       ))
                    }
                    else {
                      output$treeSelectedOutput <-
-                       renderUI(selectInput(
-                         inputId = ns("treeSkill"),
-                         label = "Choose the Skill:",
-                         choices = skillsGrouped
+                       renderUI(quickPop(
+                         selectInput(
+                           inputId = ns("treeSkill"),
+                           label = "Choose the Skill:",
+                           choices = skillsGrouped
+                         ),
+                         "Select the skill to view the migration for."
                        ))
                    }
                  })
@@ -607,7 +822,10 @@ migrationServer <- function(id = "migration") {
                      index = c(input$treeGroup, "country_name"),
                      vSize = "value",
                      vColor = "net_per_10K",
-                     type = "value"
+                     type = "value",
+                     palette = input$treePalette,
+                     title = "Hello",
+                     title.legend = "Net Migration Per 10K LinkedIn users of Country"
                    )
                    d3tree2(tm, rootname = "World")
                    

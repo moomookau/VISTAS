@@ -67,6 +67,7 @@ ui <- dashboardPage(
     )),
     # Create a Dashboard Body
     dashboardBody(
+        useShinyjs(),
         # Change the theme
         shinyDashboardThemes(theme = "grey_light"),
         tabItems(
