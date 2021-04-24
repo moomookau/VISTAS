@@ -22,7 +22,7 @@ output: rticles::acm_article
 
 Numerous studies have been conducted to analyse the impact of employment growth and migration on GDP per capita. However, these studies usually use datasets aggregated at country level. More can be done to deep dive into the relationship between GDP per capita, employment growth and migration within each industry to help individuals and countries better understand the rapidly evolving labour market and its impact on country’s economic growth. LinkedIn and World Bank Group have partnered to release a useful set of data from 2015 to 2019 on the employment growth and migration for different industries and skills in various countries. Together with GDP per capita data for each country, countries can study the impact of employment growth and migration for each industry and skill on GDP per capita, find out which are the key skills and whether they have been gained or lost to other countries. At the same time, individuals can analyse the labour market, identify the highly sought-after skills and countries that hold better employment opportunities for each skill. This boosts the competitive edge of countries and individuals in the labour market. To aid individuals and countries in the study, we have designed and developed VISTAS (Visualising Industry Skill TAlent Shifts), an interactive and user-friendly visual analytics dashboard.
 
-# Introduction
+# 1. Introduction
 
 The LinkedIn and World Bank Group have partnered and released data from 2015 to 2019 that focuses on 100+ countries with at least 100,000 LinkedIn members each, distributed across 148 industries and 50,000 skill categories. This data aims to help government and researchers understand rapidly evolving labor markets with detailed and dynamic data (The World Bank Group, 2021).
 
@@ -44,13 +44,13 @@ As such, we have developed a dynamic, interactive and user-friendly visual analy
 
 This paper reports on the effort to design the VISTAS application and consists of six sections. Section 1 provides a general introduction of the paper. Section 2 provides the motivation and objectives. Section 3 provides a review of analytical techniques for visualising and analysing the data. This includes scatterplots, slope graphs, treemap and more. The interface design and R package selection of VISTAS are discussed in Section 4 and 5 respectively. Section 6 demonstrates and discuss the insights from the use of VISTAS for analysis. Lastly, the paper concludes by highlighting the future direction of research.
 
-# Motivation and Objectives
+# 2. Motivation and Objectives
 
 Through the VISTAS application, we wish to provide individuals and countries with insights into various interest areas to benchmark themselves against the global landscape. We envision that our application will help individuals and countries answer questions on employability, employment opportunities, migration and skill trends.
 
 As mentioned in Section 1, instead of static charts that highlight observations and present them directly, we want to enable users to discover the insights themselves. Hence, our objective is to create a simple tool for users to analyze the data in various ways, including conducting statistical analyses of regression and correlation. The application will support analysis requirements that will be explained in Section 3. It will give users flexibility in selecting their own variables for every visualization. One can choose the values they want to see on their visualizations i.e. x and y variables, categorization (colour by region) and filter using different variables.
 
-# Analytical Techniques
+# 3. Analytical Techniques
 
 
 The map shows country migration when migration data for industry and skills are also available. Aside from a point map, the output of migration data can also be a choropleth map or slope graph.
