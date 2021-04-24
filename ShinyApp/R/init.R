@@ -7,7 +7,6 @@ library(shinyjs) # Used for jQuery manipulation of dom objects
 library(tidyverse) # Tidy universe of libraries
 library(readxl) # Used to read excel files
 library(leaflet) # Used to draw interactive maps
-library(rworldmap) # Get world map geospatial data and functions
 ####################################################################################################################
 library(CGPfunctions) # For plotting of slope graph
 # Note: We used a forked version @ github.com/moomookau/CGPfunctions
@@ -50,24 +49,11 @@ popAndGdpData <-
   read_excel("data/Population-GDPPerCapita-2015-2019.xlsx")
 master <- read.csv("data/master.csv")
 
-# We change Taiwan and Gaza to be recognisable by RWorldMap
-industryEmploymentGrowth <- industryEmploymentGrowth %>%
-  mutate(country_name = str_replace(country_name, "Taiwan, China", "Taiwan")) %>%
-  mutate(country_name = str_replace(country_name, "West Bank and Gaza", "West Bank"))
-countryMigration <- countryMigration %>%
-  mutate(base_country_name = str_replace(base_country_name, "Taiwan, China", "Taiwan")) %>%
-  mutate(base_country_name = str_replace(base_country_name, "West Bank and Gaza", "West Bank")) %>%
-  mutate(target_country_name = str_replace(target_country_name, "Taiwan, China", "Taiwan")) %>%
-  mutate(target_country_name = str_replace(target_country_name, "West Bank and Gaza", "West Bank"))
-industryMigration <- industryMigration %>%
-  mutate(country_name = str_replace(country_name, "Taiwan, China", "Taiwan")) %>%
-  mutate(country_name = str_replace(country_name, "West Bank and Gaza", "West Bank"))
-skillMigration <- skillMigration %>%
-  mutate(country_name = str_replace(country_name, "Taiwan, China", "Taiwan")) %>%
-  mutate(country_name = str_replace(country_name, "West Bank and Gaza", "West Bank"))
-popAndGdpData <- popAndGdpData %>%
-  mutate(`Country Name` = str_replace(`Country Name`, "Taiwan, China", "Taiwan")) %>%
-  mutate(`Country Name` = str_replace(`Country Name`, "West Bank and Gaza", "West Bank"))
+# We read the world polygons file we prepared using the rnaturalearth data
+# We had to rename some of the files and manually merge the 110 scale file with the 50 scale file to account for smaller countries such as Singapore
+worldPolygons10 <- readRDS(file = "data/worldPolygons10.rds")
+worldPolygons50 <- readRDS(file = "data/worldPolygons50.rds")
+worldPolygons110 <- readRDS(file = "data/worldPolygons110.rds")
 
 # Pivoting of data files
 industryEmploymentGrowthPivot <- industryEmploymentGrowth %>%

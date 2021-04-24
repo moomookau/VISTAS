@@ -533,16 +533,11 @@ migrationServer <- function(id = "migration") {
                      
                      migrationChoropleth$country_code = toupper(migrationChoropleth$country_code)
                      
-                     # We use joinCountryData2Map to join the data with the spatial data
-                     migrationChoroplethMap <-
-                       joinCountryData2Map(migrationChoropleth,
-                                           joinCode = "ISO2",
-                                           nameJoinColumn = "country_code") %>%
-                       spatialEco::sp.na.omit(col.name = "net_per_10K")
+                     migrationChoroplethMap <- worldPolygons10 %>%
+                       right_join(migrationChoropleth, by=c("ISO_A2" = "country_code"))
                      
                      # We compute the max migration, rounding up to the nearest 5
-                     maxMigration = plyr::round_any(max(abs(migrationChoropleth$net_per_10K)), 5, f =
-                                                      ceiling)
+                     maxMigration = max(abs(migrationChoropleth$net_per_10K))
                      
                      # We create the bins and a diverging palette
                      bins <-
@@ -1128,13 +1123,12 @@ migrationServer <- function(id = "migration") {
                                    "No results for selection."))
                      
                      migrationGeofacet$country_code = toupper(migrationGeofacet$country_code)
+                     
+                     migrationGeoFacetCountries <- migrationGeofacet %>%
+                       distinct(country_code, .keep_all = TRUE)
 
-                     # We use joinCountryData2Map to join the data with the spatial data
-                     geofacetMap <- migrationGeofacet %>%
-                       distinct(country_code, .keep_all = TRUE) %>%
-                       joinCountryData2Map(joinCode = "ISO2",
-                                           nameJoinColumn = "country_code") %>%
-                       spatialEco::sp.na.omit(col.name = "net_per_10K")
+                     geofacetMap <- worldPolygons110 %>%
+                       right_join(migrationGeoFacetCountries, by=c("ISO_A2" = "country_code"))
                      
                      geofacetGrid <- grid_auto(geofacetMap,
                                                names = "country_name",
@@ -1166,7 +1160,13 @@ migrationServer <- function(id = "migration") {
                        ggplot(migrationGeofacet,
                               aes(year, net_per_10K, color = net_per_10K)) +
                          geom_line() +
+                         scale_colour_gradient2(
+                           low = "red",
+                           mid = "black",
+                           high = "blue"
+                         ) +
                          theme(axis.text.x = element_blank()) +
+                         theme_bw() +
                          facet_geo( ~ country_name, grid = geofacetGrid)
                      }
                    })
