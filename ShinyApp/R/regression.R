@@ -184,6 +184,7 @@ regressionRegressionUI <- function(id = "regression") {
     box(
       width = 9,
       solidHeader = TRUE,
+      verbatimTextOutput(ns("RegressionRowsOutput")),
       plotOutput(ns("RegressionOutput")) %>% withSpinner(type =
                                                            8),
       verbatimTextOutput(ns("RegResOutput")) %>% withSpinner(type =
@@ -306,6 +307,7 @@ regressionScatterUI <- function(id = "regression") {
     box(
       width = 9,
       solidHeader = TRUE,
+      verbatimTextOutput(ns("ScatterPlotRowsOutput")),
       plotlyOutput(ns("ScatterPlotOutput")) %>% withSpinner(type = 8)
     )
   ))
@@ -401,6 +403,7 @@ regressionCorrelationUI <- function(id = "regression") {
     box(
       width = 9,
       solidHeader = TRUE,
+      verbatimTextOutput(ns("CorrelationRowsOutput")),
       plotOutput(ns("CorrelationOutput")) %>% withSpinner(type =
                                                             8)
     )
@@ -414,6 +417,21 @@ regressionServer <- function(id = "regression") {
   moduleServer(id,
                function(input, output, session) {
                  # Server code should start from there
+                 
+                 output$RegressionRowsOutput <- renderText({
+                   filteredMaster1r <- master %>%
+                     filter(
+                       year %in% input$year1,
+                       country_name %in% input$country1,
+                       wb_region %in% input$region1,
+                       wb_income %in% input$income1,
+                       isic_section_name %in% input$industry1,
+                       skill_group_category %in% input$skill1
+                     )
+                   
+                   paste("You have selected", nrow(filteredMaster1r), "rows.")
+                 })
+                 
                  output$RegressionOutput <- renderPlot({
                    req(input$apply1 > 0) # Check that greater than 0 to ensure user has clicked the button once
                    
@@ -506,6 +524,20 @@ regressionServer <- function(id = "regression") {
                    })
                  })
                  
+                 output$ScatterPlotRowsOutput <- renderText({
+                   filteredMaster2r <- master %>%
+                     filter(
+                       year %in% input$year2,
+                       country_name %in% input$country2,
+                       wb_region %in% input$region2,
+                       wb_income %in% input$income2,
+                       isic_section_name %in% input$industry2,
+                       skill_group_category %in% input$skill2
+                     )
+                   
+                   paste("You have selected", nrow(filteredMaster2r), "rows.")
+                 })
+                 
                  output$ScatterPlotOutput <- renderPlotly({
                    req(input$apply2 > 0)
                    
@@ -556,6 +588,20 @@ regressionServer <- function(id = "regression") {
                                   alpha = 0.5)
                      ggplotly(p2, tooltips = c(textC, textI, textS))
                    })
+                 })
+                 
+                 output$CorrelationRowsOutput <- renderText({
+                   filteredMaster3r <- master %>%
+                     filter(
+                       year %in% input$year3,
+                       country_name %in% input$country3,
+                       wb_region %in% input$region3,
+                       wb_income %in% input$income3,
+                       isic_section_name %in% input$industry3,
+                       skill_group_category %in% input$skill3
+                     )
+                   
+                   paste("You have selected", nrow(filteredMaster3r), "rows.")
                  })
                  
                  output$CorrelationOutput <-
