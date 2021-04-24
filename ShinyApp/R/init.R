@@ -15,9 +15,9 @@ library(CGPfunctions) # For plotting of slope graph
 ####################################################################################################################
 library(shinycssloaders) # For loading animation of plots
 library(plotly) # Interactive scatter plot
-library(ggExtra) # Marginal distribution on regression plot
-library(ggpubr) # Regression formula
-library(olsrr) # Regression results
+# library(ggExtra) # Marginal distribution on regression plot
+# library(ggpubr) # Regression formula
+# library(olsrr) # Regression results
 library(parameters) # Regression results
 library(ggstatsplot) # Correlation matrix analysis
 library(treemap) # For plotting of treemap
