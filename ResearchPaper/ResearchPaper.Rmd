@@ -23,9 +23,9 @@ Numerous studies have been conducted to analyse the impact of employment growth 
 
 # Introduction
 
-The LinkedIn and World Bank Group have partnered and released data from 2015 to 2019 that focuses on 100+ countries with at least 100,000 LinkedIn members each, distributed across 148 industries and 50,000 skill categories. This data aims to help government and researchers understand rapidly evolving labor markets with detailed and dynamic data (The World Bank Group, 2021).
+The [LinkedIn and World Bank Group](https://linkedindata.worldbank.org/data) have partnered and released data from 2015 to 2019 that focuses on 100+ countries with at least 100,000 LinkedIn members each, distributed across 148 industries and 50,000 skill categories. This dataset aims to help government and researchers understand rapidly evolving labor markets with detailed and dynamic data. It comprises growth rate of employment in each industry in each industry, growth in number of people from each industry and skill in each country and top 10 skills required in each industry. As an extension, we included macroeconomic data (GDP per capita) from the [World Bank](https://data.worldbank.org/indicator/NY.GDP.PCAP.CD).
 
-Aside from being able to download the data in csv format from the [LinkedIn-World Bank partnership webpage](https://linkedindata.worldbank.org/data), simple data visualisations are available. However, they are limited in their variety and interactivity because they only allow one parameter of choice (Figure 1). Information is presented in one default way with no other option and the user cannot conduct comparisons "at one glance".
+Aside from being able to download the data in csv format from the LinkedIn-World Bank partnership webpage, simple data visualisations are available. However, they are limited in their variety and interactivity because they only allow one parameter of choice (Figure 1). Information is presented in one default way with no other option and the user cannot conduct comparisons "at one glance".
 
 \<Figure 1: Insert screenshot showing "Pick A Country"\>
 
