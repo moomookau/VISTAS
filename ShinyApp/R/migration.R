@@ -292,7 +292,7 @@ migrationSlopeUI <- function(id = "migration") {
             "This visualisation shows the net migration with respect to a base country, industry or skill over time."
           ),
           p(
-            "As the slope graph may be too cluttered if there are too many lines on the plot, there is an option to limit the number of lines to the Top N Countries. The lines can be coloured by either Region or Income Group. The Y-Axis can be transformed using the pseudolog function if the lines are too cluttered at certain values."
+            "As the slope graph may be too cluttered if there are too many lines on the plot, there is an option to limit the number of lines to the Top, Bottom or Top & Bottom N Countries. The lines can be coloured by either Region or Income Group. The Y-Axis can be transformed using the pseudolog function if the lines are too cluttered at certain values."
           )
         )
       ),
@@ -533,7 +533,7 @@ migrationGeofacetUI <- function(id = "migration") {
     box(
       width = 12,
       solidHeader = TRUE,
-      plotOutput(ns("geofacetOutput"), height = "calc(100vh - 180px)") %>% withSpinner(type = 8)
+      plotOutput(ns("geofacetOutput"), height = "calc(100vh - 200px)") %>% withSpinner(type = 8)
     )
   ))
 }
@@ -1092,82 +1092,37 @@ migrationServer <- function(id = "migration") {
                    }
                    
                    # We plot the slope graph
-                   if (input$slopeType == "Country") {
-                     newggslopegraph(
-                       dataframe = slopeDf,
-                       Times = year,
-                       Measurement = net_per_10K,
-                       Grouping = country_name,
-                       Title = paste("Net Country Migration for", input$slopeCountry),
-                       SubTitle = NULL,
-                       Caption = NULL,
-                       #WiderLabels = TRUE,
-                       #XTextSize = 8,
-                       ColorGroup = colour_group
-                     ) +
-                       theme(legend.position = "bottom") +
-                       scale_alpha(guide = 'none') +
-                       scale_color_discrete(name = ifelse(
-                         input$slopeColour == "wb_region",
-                         "Region",
-                         "Income Group"
-                       )) +
-                       {
-                         if (input$slopeLog)
-                           scale_y_continuous(trans = pseudolog10_trans)
+                   newggslopegraph(
+                     dataframe = slopeDf,
+                     Times = year,
+                     Measurement = net_per_10K,
+                     Grouping = country_name,
+                     Title = {
+                       if (input$slopeType == "Country") {
+                         paste("Net Country Migration for", input$slopeCountry)
                        }
-                   }
-                   else if (input$slopeType == "Industry")
-                   {
-                     newggslopegraph(
-                       dataframe = slopeDf,
-                       Times = year,
-                       Measurement = net_per_10K,
-                       Grouping = country_name,
-                       Title = paste("Net Industry Migration for", input$slopeIndustry),
-                       SubTitle = NULL,
-                       Caption = NULL,
-                       #WiderLabels = TRUE,
-                       #XTextSize = 8,
-                       ColorGroup = colour_group
-                     ) +
-                       theme(legend.position = "bottom") +
-                       scale_alpha(guide = 'none') +
-                       scale_color_discrete(name = ifelse(
-                         input$slopeColour == "wb_region",
-                         "Region",
-                         "Income Group"
-                       )) +
-                       {
-                         if (input$slopeLog)
-                           scale_y_continuous(trans = pseudolog10_trans)
+                       else if (input$slopeType == "Industry") {
+                         paste("Net Industry Migration for", input$slopeIndustry)
                        }
-                   }
-                   else {
-                     newggslopegraph(
-                       dataframe = slopeDf,
-                       Times = year,
-                       Measurement = net_per_10K,
-                       Grouping = country_name,
-                       Title = paste("Net Skill Migration for", input$slopeSkill),
-                       SubTitle = NULL,
-                       Caption = NULL,
-                       #WiderLabels = TRUE,
-                       #XTextSize = 8,
-                       ColorGroup = colour_group
-                     ) +
-                       theme(legend.position = "bottom") +
-                       scale_alpha(guide = 'none') +
-                       scale_color_discrete(name = ifelse(
-                         input$slopeColour == "wb_region",
-                         "Region",
-                         "Income Group"
-                       )) +
-                       {
-                         if (input$slopeLog)
-                           scale_y_continuous(trans = pseudolog10_trans)
+                       else{
+                         paste("Net Skill Migration for", input$slopeSkill)
                        }
-                   }
+                     },
+                     SubTitle = NULL,
+                     Caption = NULL,
+                     ColorGroup = colour_group
+                   ) +
+                     theme(legend.position = "bottom") +
+                     scale_alpha(guide = 'none') +
+                     scale_color_discrete(name = ifelse(
+                       input$slopeColour == "wb_region",
+                       "Region",
+                       "Income Group"
+                     )) +
+                     {
+                       if (input$slopeLog)
+                         scale_y_continuous(trans = pseudolog10_trans)
+                     }
                    
                  })
                  
@@ -1500,18 +1455,28 @@ migrationServer <- function(id = "migration") {
                      
                      migrationGeofacet$country_code = toupper(migrationGeofacet$country_code)
                      
-                     migrationGeoFacetCountries <-
+                     
+                     migrationGeofacetCountries <-
                        migrationGeofacet %>%
                        distinct(country_code, .keep_all = TRUE)
                      
                      geofacetMap <- worldPolygons110 %>%
-                       right_join(migrationGeoFacetCountries,
+                       right_join(migrationGeofacetCountries,
                                   by = c("ISO_A2" = "country_code"))
+
+                     geofacetGrid <- NULL
                      
-                     geofacetGrid <- grid_auto(geofacetMap,
-                                               names = "country_name",
-                                               seed = 1234) %>%
-                       distinct(name_country_name, .keep_all = TRUE)
+                     while (is.null(geofacetGrid)) {
+                       tryCatch(
+                         geofacetGrid <- grid_auto(geofacetMap,
+                                                   names = "country_name") %>%
+                           distinct(name_country_name, .keep_all = TRUE),
+                         error = function(e) {
+                           print(e)
+                           print("retrying...")
+                         }
+                       )
+                     }
                      
                      if (geofacetBar)
                      {
@@ -1536,11 +1501,11 @@ migrationServer <- function(id = "migration") {
                      else {
                        migrationGeofacet$year = as.numeric(migrationGeofacet$year)
                        ggplot(migrationGeofacet,
-                              aes(year, net_per_10K, color = net_per_10K)) +
+                              aes(year, net_per_10K)) +
                          geom_line() +
-                         scale_colour_gradient2(low = "red",
-                                                mid = "black",
-                                                high = "blue") +
+                         geom_hline(yintercept = 0,
+                                    linetype = "dashed",
+                                    color = "black") +
                          theme_bw() +
                          theme(axis.text.x = element_blank()) +
                          facet_geo(~ country_name, grid = geofacetGrid)
