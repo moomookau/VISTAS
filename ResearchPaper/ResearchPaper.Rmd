@@ -17,54 +17,50 @@ csl: acm-sig-proceedings.csl
 output: rticles::acm_article
 ---
 
+# Abstract {.unnumbered}
 
-# Abstract
+Numerous studies have been conducted to analyse the impact of employment growth and migration on GDP per capita. However, these studies usually use datasets aggregated at country level. More can be done to deep dive into the relationship between GDP per capita, employment growth and migration within each industry to help individuals and countries better understand the rapidly evolving labour market and its impact on country's economic growth. LinkedIn and World Bank Group have partnered to release a useful set of data from 2015 to 2019 on the employment growth and migration for different industries and skills in various countries. Together with GDP per capita data for each country, countries can study the impact of employment growth and migration for each industry and skill on GDP per capita, find out which are the key skills and whether they have been gained or lost to other countries. At the same time, individuals can analyse the labour market, identify the highly sought-after skills and countries that hold better employment opportunities for each skill. This boosts the competitive edge of countries and individuals in the labour market. To aid individuals and countries in the study, we have designed and developed VISTAS (Visualising Industry Skill TAlent Shifts), an interactive and user-friendly visual analytics dashboard.
 
-Numerous studies have been conducted to analyse the impact of employment growth and migration on GDP per capita. However, these studies usually use datasets aggregated at country level. More can be done to deep dive into the relationship between GDP per capita, employment growth and migration within each industry to help individuals and countries better understand the rapidly evolving labour market and its impact on country’s economic growth. LinkedIn and World Bank Group have partnered to release a useful set of data from 2015 to 2019 on the employment growth and migration for different industries and skills in various countries. Together with GDP per capita data for each country, countries can study the impact of employment growth and migration for each industry and skill on GDP per capita, find out which are the key skills and whether they have been gained or lost to other countries. At the same time, individuals can analyse the labour market, identify the highly sought-after skills and countries that hold better employment opportunities for each skill. This boosts the competitive edge of countries and individuals in the labour market. To aid individuals and countries in the study, we have designed and developed VISTAS (Visualising Industry Skill TAlent Shifts), an interactive and user-friendly visual analytics dashboard.
-
-# 1. Introduction
+# Introduction
 
 The LinkedIn and World Bank Group have partnered and released data from 2015 to 2019 that focuses on 100+ countries with at least 100,000 LinkedIn members each, distributed across 148 industries and 50,000 skill categories. This data aims to help government and researchers understand rapidly evolving labor markets with detailed and dynamic data (The World Bank Group, 2021).
 
-Aside from being able to download the data in csv format from the [LinkedIn-World Bank partnership webpage](https://linkedindata.worldbank.org/data), simple data visualisations are available. However, they are limited in their variety and interactivity because they only allow one parameter of choice (Figure 1). Information is presented in one default way with no other option and the user cannot conduct comparisons "at one glance". 
+Aside from being able to download the data in csv format from the [LinkedIn-World Bank partnership webpage](https://linkedindata.worldbank.org/data), simple data visualisations are available. However, they are limited in their variety and interactivity because they only allow one parameter of choice (Figure 1). Information is presented in one default way with no other option and the user cannot conduct comparisons "at one glance".
 
-<Figure 1: Insert screenshot showing "Pick A Country">
+\<Figure 1: Insert screenshot showing "Pick A Country"\>
 
 In addition, studies on GDP per capita, employment growth and migration are usually done at country level and there are limited studies to analyse the relationship between GDP per capita growth and employment growth or migration in each industry. These analyses are also shown as static charts in reports, lacking interactivity.
 
 Figure 2 shows the relationship between employment growth and interstate migration ([Tunny, G., 2015](https://queenslandeconomywatch.com/2015/03/29/feedback-between-interstate-migration-and-employment-growth/)). Here, analysis is done at state level, but not industry level.
 
-![Figure 2: Employment Growth vs Interstate Migration](https://raw.githubusercontent.com/louischong1990/blog/master/Assignment/Images/Picture1.png)
+<!-- ![Figure 2: Employment Growth vs Interstate Migration](https://raw.githubusercontent.com/louischong1990/blog/master/Assignment/Images/Picture1.png) -->
 
 Figure 3 shows the relationship between GDP per capita and share of employment in business services in 2000 for countries in Europe ([Kox, H. & Rubalcaba, L., 2007](https://www.researchgate.net/publication/5007988_Business_services_and_the_changing_structure_of_European_economic_growth)). However, this does not show how a change in migration or employment growth in an industry will cause the change in GDP per capita.
 
-![Figure 3: GDP per capita vs Share of employment in business services in Europe in 2000](https://raw.githubusercontent.com/louischong1990/blog/master/Assignment/Images/Picture2.png)
+<!-- ![Figure 3: GDP per capita vs Share of employment in business services in Europe in 2000](https://raw.githubusercontent.com/louischong1990/blog/master/Assignment/Images/Picture2.png) -->
 
 As such, we have developed a dynamic, interactive and user-friendly visual analytics dashboard as a R Shiny appplication, titled VISTAS (Visualising Industry Skill TAlent Shifts). It allows individuals and countries to view their competitive advantage and understand the evolving labour market across the world. Comparisons can be done at both country-level and industry-level.
 
 This paper reports on the effort to design the VISTAS application and consists of six sections. Section 1 provides a general introduction of the paper. Section 2 provides the motivation and objectives. Section 3 provides a review of analytical techniques for visualising and analysing the data. This includes scatterplots, slope graphs, treemap and more. The interface design and R package selection of VISTAS are discussed in Section 4 and 5 respectively. Section 6 demonstrates and discuss the insights from the use of VISTAS for analysis. Lastly, the paper concludes by highlighting the future direction of research.
 
-# 2. Motivation and Objectives
+# Motivation and Objectives
 
 Through the VISTAS application, we wish to provide individuals and countries with insights into various interest areas to benchmark themselves against the global landscape. We envision that our application will help individuals and countries answer questions on employability, employment opportunities, migration and skill trends.
 
 As mentioned in Section 1, instead of static charts that highlight observations and present them directly, we want to enable users to discover the insights themselves. Hence, our objective is to create a simple tool for users to analyze the data in various ways, including conducting statistical analyses of regression and correlation. The application will support analysis requirements that will be explained in Section 3. It will give users flexibility in selecting their own variables for every visualization. One can choose the values they want to see on their visualizations i.e. x and y variables, categorization (colour by region) and filter using different variables.
 
-# 3. Analytical Techniques
+# Analytical Techniques
 
+The map shows country migration when migration data for industry and skills are also available. Aside from a point map, the output of migration data can also be a choropleth map or slope graph. <insert screenshot>
 
-The map shows country migration when migration data for industry and skills are also available. Aside from a point map, the output of migration data can also be a choropleth map or slope graph.
-<insert screenshot>
-
-
-
-##Statistical Analyses
+\#\#Statistical Analyses
 
 ## Talent Migration
-The available visualisation only shows top 10 countries on the map, and top 5 countries, industries and skills in the table. A user may want to know more than just the top N for these metrics.
-The visualisation of the map and table makes it difficult to visualise the inflow vs outflow of the selected country. A visualisation which allows for comparison between inflow and outflow could be useful to know if a country is gaining or losing talent.
+
+The available visualisation only shows top 10 countries on the map, and top 5 countries, industries and skills in the table. A user may want to know more than just the top N for these metrics. The visualisation of the map and table makes it difficult to visualise the inflow vs outflow of the selected country. A visualisation which allows for comparison between inflow and outflow could be useful to know if a country is gaining or losing talent.
 
 ## Industry Skills Needs
+
 The interactive visualisation in **Industry Skills Needs panel** allows users to pick an industry group and industry, but only the skills valued in Year 2019 are shown. No option to change the year is provided.
 
 One is hence unable to see the change in skills over the years in an industry. By presenting the changes over the years, the user is able to review trends and gather insights to the industry skills shift and sought-after skills in a particular industry.
@@ -73,28 +69,42 @@ One is hence unable to see the change in skills over the years in an industry. B
 
 Describe analytical techniques used and explain how they can help achieve objectives
 
-Scatter plot: Visualise values of two variables i.e. GDP per capita growth, industry employment growth, industry migration, skill migration
-Regression plot: Find out relationship between two variables, how much industry employment growth, industry and skill migration impact GDP per capita growth, to what extent does industry employment growth change with industry and skill migration
-Correlation matrix: Find out strength of relationship between each pair of variables, 
+Scatter plot: Visualise values of two variables i.e. GDP per capita growth, industry employment growth, industry migration, skill migration Regression plot: Find out relationship between two variables, how much industry employment growth, industry and skill migration impact GDP per capita growth, to what extent does industry employment growth change with industry and skill migration Correlation matrix: Find out strength of relationship between each pair of variables,
 
 # User Interface Design
+
 Explain each component of VISTA and how the combination of components will provide users certain insights
 
-- create tabs for various topics (compartmentalization)
-- ensuring positioning is not compromised with reduced window size / visualisations are not distorted when window width is reduced
-- action buttons are added to delay reactions and minimize lag - eventReactive()
-
+-   create tabs for various topics (compartmentalization)
+-   ensuring positioning is not compromised with reduced window size / visualisations are not distorted when window width is reduced
+-   action buttons are added to delay reactions and minimize lag - eventReactive()
 
 # Application
+
 List and explain the packages used to create VISTA
 
+## Limitations of packages
+
+During the course of development of the Shiny Application, we faced limitations for some of the packages out there.
+
+### d3treeR
+
+We were unable to get d3treeR working with other packages such as chorddiag due the incompatibility of the d3.js versions. d3treeR was using d3.js version 3.x while chorddiag was using d3.js version 4.x. This is an inherent problem with how htmlwidgets uses the highest version of d3.js, which may not be backward compatible. We had to fork this package from d3treeR and manually rename the d3 object, i.e. from d3 to d3_3. While the ideal option would be to upgrade the package to work with a newer d3.js version, this was a quick fix to allow us to use both packages together. The forked package with the renamed d3 object can be found at <https://github.com/moomookau/d3treeR>.
+
+### CGPfunctions
+
+We used the ggnewslopegraph function of CGPfunctions to draw slope graphs in our application. While not really a limitation, we were unable to colour the slope graphs by a grouping variable e.g. Income Group or Region. We had to fork this package from github and make changes to enhance the existing package to achieve this. The forked package with additional functionality can be found at <https://github.com/moomookau/CGPfunctions>.
+
 # Insights
+
 What has the audience learned from your work? What new insights or practices has your system enabled? A full blown user study is not expected, but informal observations of use that help evaluate your system are encouraged.
 
 # Conclusion
+
 Future work - ....
 
 # Acknowledgement
+
 Prof Kam
 
 # References
@@ -127,5 +137,4 @@ references:
   issued:
     year: 2012
     month: 3
-...
-
+---
