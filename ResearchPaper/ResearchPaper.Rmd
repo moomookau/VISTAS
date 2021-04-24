@@ -53,14 +53,14 @@ This paper reports on the effort to design the VISTAS application and consists o
 
 Through the VISTAS application, we wish to provide individuals and countries with insights into various interest areas to benchmark themselves against the global landscape. We envision that our application will help individuals and countries answer questions on employability, employment opportunities, migration and skill trends.
 
-As mentioned in Section 1, instead of static charts that highlight observations and present them directly, we want to enable users to discover the insights themselves. Hence, our objective is to create a simple tool for users to analyze the data in various ways, including conducting statistical analyses of regression and correlation. The application will support analysis requirements that will be explained in Section 3. It will give users flexibility in selecting their own variables for every visualization. One can choose the values they want to see on their visualizations i.e. x and y variables, categorization (colour by region) and filter using different variables.
+As mentioned in Section 1, instead of static charts that highlight observations and present them directly, we want to enable users to discover the insights themselves. Hence, our objective is to create a simple tool for users to analyze the data in various ways, including conducting statistical analyses of regression and correlation. The application will support analytical requirements that will be explained in Section 3. It will give users flexibility in selecting their own variables for every visualization. One can choose the values they want to see on their visualizations i.e. x and y variables, categorization (colour by region) and filter using different variables.
 
-# Analytical Techniques
+# Analytical Techniques and Visualisations
 
-The VISTAS application utilises the following analytical techniques.
+The VISTAS application supports various analytical techniques that will produce the visualisations listed below. As mentioned earlier, this will enable users to discover deeper insights on the labour market.
 
 1. Regression Plot: The regression plot and histogram visualise the relationship between two variables (among GDP per capita growth, employment growth, industry migration or skill migration) and their marginal distributions.
-2. Scatter Plot: The interactive scatter plot visualises values for two variables (among GDP per capita growth, employment growth, industry migration or skill migration) and is coloured by year.
+2. Scatter Plot: The interactive scatter plot visualises the values for two variables (among GDP per capita growth, employment growth, industry migration or skill migration) and is coloured by year.
 3. Correlation Matrix: The correlation matrix visualises the strength of relationship between pairs of variables. Four variables are used i.e. GDP per capita growth, employment growth, industry migration and skill migration.
 4. Choropleth Map: The choropleth visualisation is a thematic map where countries are coloured by country, industry or skill migration values.
 5. Chord Diagram: The chord diagram is a graphical method of displaying the inter-relationships between data in a matrix. The data are arranged radially around a circle with the relationships between the data points drawn as arcs connecting the data. In this case, the relationship is the net migration between two countries.
@@ -68,27 +68,41 @@ The VISTAS application utilises the following analytical techniques.
 7. Treemap: The treemap displays hierarchical data as a set of nested rectangles. Each group is represented by a rectangle, which area is proportional to its value. It shows the net country, industry or skill migration by the colour of the rectangles, and either the population or GDP per Capita by the size of the rectangles. The rectangles can be nested by region or income group of the countries, and clicking on a rectangle will show the individual countries within that rectangle.
 8. Geofacet Plot: The geofacet plot takes data representing different geographic entities and apply a visualisation method to the data for each entity, with the resulting set of visualisations being laid out in a grid that mimics the original geographic topology as closely as possible. It shows the net country, industry or skill migration. If it is based on industry or skill migration and multiple industries or skills are selected, bar charts will be shown for each country.
 
-
-
-Describe analytical techniques used and explain how they can help achieve objectives
-
-
 # User Interface Design
 
-Need a sketch?
-Explain each component of VISTA and how the combination of components will provide users certain insights
+The VISTAS application is built with several tabs, one per visualisation described in Section 3. Each tab is accompanied by a tooltip (seen when hover over), which describes the purpose of each tab and the visualisation shown in each. Within each tab, there is also a note on the side panel to explain further details of each visualisation.
 
--   create tabs for various topics (compartmentalization)
--   ensuring positioning is not compromised with reduced window size / visualisations are not distorted when window width is reduced
--   action buttons are added to delay reactions and minimize lag - eventReactive()
+The introduction tab gives an overview on the VISTAS application and provides a link to the step-by-step user guide. As for the various visualisations, they are divided into two groups - Statistical Analysis and Migration Analysis. The regression plot, scatter plot and correlation matrix are grouped under statistical analysis, as they will produce statistical results when variables are compared with one another. The choropleth map, chord diagram, slope graph, treemap and geofacet plot are grouped under migration analysis.
+
+On the side panel in each tab, users may select different variables, filters, grouping and colours to plot various visualisations. Action buttons are added to delay reactions and minimize lag in the application. The main panel in each tab will then show the visualisation. Proper dimensioning is done to ensure the visualisations are not distorted and the positioning is not compromised when the window width is reduced.
 
 # Application
 
-List and explain the packages used to create VISTA
+Next, we will explain the R packages used to build each function of the application and element of the visualisations. Comprehensive evaluation was done to decide on the selected R packages for the VISTAS application. However, we also noted some limitations of the packages.
 
-## Limitations of packages
+## System Architecture
 
-During the course of development of the Shiny Application, we faced limitations for some of the packages out there.
+### (Insert package used for system architecture e.g. shiny, tabs, tooltip, variable, filter, multi-select, action button)
+
+(Explain reasons for choosing packages and highlight any alternative packages that were considered but not chosen)
+
+### (Insert package used for system architecture e.g. shiny, tabs, tooltip, variable, filter, multi-select, action button)
+
+(Explain reasons for choosing packages and highlight any alternative packages that were considered but not chosen)
+
+
+## Data Visualisation
+
+### (Insert package used for data visualisation)
+
+(Explain reasons for choosing packages and highlight any alternative packages that were considered but not chosen)
+
+### (Insert package used for data visualisation)
+
+(Explain reasons for choosing packages and highlight any alternative packages that were considered but not chosen)
+
+
+## Limitations of Packages
 
 ### d3treeR
 
