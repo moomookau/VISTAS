@@ -25,19 +25,25 @@ Numerous studies have been conducted to analyse the impact of employment growth 
 
 The [LinkedIn and World Bank Group](https://linkedindata.worldbank.org/data) have partnered and released data from 2015 to 2019 that focuses on 100+ countries with at least 100,000 LinkedIn members each, distributed across 148 industries and 50,000 skill categories. This dataset aims to help government and researchers understand rapidly evolving labor markets with detailed and dynamic data. It comprises growth rate of employment in each industry in each industry, growth in number of people from each industry and skill in each country and top 10 skills required in each industry. As an extension, we included macroeconomic data (GDP per capita) from the [World Bank](https://data.worldbank.org/indicator/NY.GDP.PCAP.CD).
 
-Aside from being able to download the data in csv format from the LinkedIn-World Bank partnership webpage, simple data visualisations are available. However, they are limited in their variety and interactivity because they only allow one parameter of choice (Figure 1). Information is presented in one default way with no other option and the user cannot conduct comparisons "at one glance".
+Aside from being able to download the data in csv format from the LinkedIn-World Bank partnership webpage, simple data visualisations are available. However, they are limited in their variety and interactivity because they only allow one parameter of choice. Information is presented in one default way with no other option and the user cannot conduct comparisons "at one glance".
 
-\<Figure 1: Insert screenshot showing "Pick A Country"\>
+* Talent Migration: The available visualisation only shows top 10 countries on the map, and top 5 countries, industries and skills in the table. A user may want to know more than just the top N for these metrics. The use of a map and table makes it difficult to visualise the inflow vs outflow of the selected country. A visualisation that allows for comparison between inflow and outflow will be useful to understand if a country is gaining or losing talent.
+
+\<Figure 1: Insert screenshot showing "Talent Migration"\>
+
+* Industry Skills Needs: The interactive visualisation in Industry Skills Needs panel allows users to pick an industry group and industry, but only the skills valued in Year 2019 are shown. No option to change the year is provided. One is hence unable to see the change in skills over the years in an industry. By presenting the changes over the years, the user is able to review trends and gather insights to the industry skills shift and sought-after skills in a particular industry.
+
+\<Figure 2: Insert screenshot showing "Industry Skills Needs"\>
 
 In addition, studies on GDP per capita, employment growth and migration are usually done at country level and there are limited studies to analyse the relationship between GDP per capita growth and employment growth or migration in each industry. These analyses are also shown as static charts in reports, lacking interactivity.
 
-Figure 2 shows the relationship between employment growth and interstate migration ([Tunny, G., 2015](https://queenslandeconomywatch.com/2015/03/29/feedback-between-interstate-migration-and-employment-growth/)). Here, analysis is done at state level, but not industry level.
+Figure 3 shows the relationship between employment growth and interstate migration ([Tunny, G., 2015](https://queenslandeconomywatch.com/2015/03/29/feedback-between-interstate-migration-and-employment-growth/)). Here, analysis is done at state level, but not industry level.
 
-<!-- ![Figure 2: Employment Growth vs Interstate Migration](https://raw.githubusercontent.com/louischong1990/blog/master/Assignment/Images/Picture1.png) -->
+<!-- ![Figure 3: Employment Growth vs Interstate Migration](https://raw.githubusercontent.com/louischong1990/blog/master/Assignment/Images/Picture1.png) -->
 
-Figure 3 shows the relationship between GDP per capita and share of employment in business services in 2000 for countries in Europe ([Kox, H. & Rubalcaba, L., 2007](https://www.researchgate.net/publication/5007988_Business_services_and_the_changing_structure_of_European_economic_growth)). However, this does not show how a change in migration or employment growth in an industry will cause the change in GDP per capita.
+Figure 4 shows the relationship between GDP per capita and share of employment in business services in 2000 for countries in Europe ([Kox, H. & Rubalcaba, L., 2007](https://www.researchgate.net/publication/5007988_Business_services_and_the_changing_structure_of_European_economic_growth)). However, this does not show how a change in migration or employment growth in an industry will cause the change in GDP per capita.
 
-<!-- ![Figure 3: GDP per capita vs Share of employment in business services in Europe in 2000](https://raw.githubusercontent.com/louischong1990/blog/master/Assignment/Images/Picture2.png) -->
+<!-- ![Figure 4: GDP per capita vs Share of employment in business services in Europe in 2000](https://raw.githubusercontent.com/louischong1990/blog/master/Assignment/Images/Picture2.png) -->
 
 As such, we have developed a dynamic, interactive and user-friendly visual analytics dashboard as a R Shiny appplication, titled VISTAS (Visualising Industry Skill TAlent Shifts). It allows individuals and countries to view their competitive advantage and understand the evolving labour market across the world. Comparisons can be done at both country-level and industry-level.
 
@@ -51,28 +57,25 @@ As mentioned in Section 1, instead of static charts that highlight observations 
 
 # Analytical Techniques
 
-The map shows country migration when migration data for industry and skills are also available. Aside from a point map, the output of migration data can also be a choropleth map or slope graph. <insert screenshot>
+The VISTAS application utilises the following analytical techniques.
 
-\#\#Statistical Analyses
+1. Regression Plot: The regression plot and histogram visualise the relationship between two variables (among GDP per capita growth, employment growth, industry migration or skill migration) and their marginal distributions.
+2. Scatter Plot: The interactive scatter plot visualises values for two variables (among GDP per capita growth, employment growth, industry migration or skill migration) and is coloured by year.
+3. Correlation Matrix: The correlation matrix visualises the strength of relationship between pairs of variables. Four variables are used i.e. GDP per capita growth, employment growth, industry migration and skill migration.
+4. Choropleth Map: The choropleth visualisation is a thematic map where countries are coloured by country, industry or skill migration values.
+5. Chord Diagram: The chord diagram is a graphical method of displaying the inter-relationships between data in a matrix. The data are arranged radially around a circle with the relationships between the data points drawn as arcs connecting the data. In this case, the relationship is the net migration between two countries.
+6. Slope Graph: The slope graph allows users to compare changes usually over time for a list of categorical variables. The change in country, industry or skill migration for various countries over the years are shown.
+7. Treemap: The treemap displays hierarchical data as a set of nested rectangles. Each group is represented by a rectangle, which area is proportional to its value. It shows the net country, industry or skill migration by the colour of the rectangles, and either the population or GDP per Capita by the size of the rectangles. The rectangles can be nested by region or income group of the countries, and clicking on a rectangle will show the individual countries within that rectangle.
+8. Geofacet Plot: The geofacet plot takes data representing different geographic entities and apply a visualisation method to the data for each entity, with the resulting set of visualisations being laid out in a grid that mimics the original geographic topology as closely as possible. It shows the net country, industry or skill migration. If it is based on industry or skill migration and multiple industries or skills are selected, bar charts will be shown for each country.
 
-## Talent Migration
 
-The available visualisation only shows top 10 countries on the map, and top 5 countries, industries and skills in the table. A user may want to know more than just the top N for these metrics. The visualisation of the map and table makes it difficult to visualise the inflow vs outflow of the selected country. A visualisation which allows for comparison between inflow and outflow could be useful to know if a country is gaining or losing talent.
-
-## Industry Skills Needs
-
-The interactive visualisation in **Industry Skills Needs panel** allows users to pick an industry group and industry, but only the skills valued in Year 2019 are shown. No option to change the year is provided.
-
-One is hence unable to see the change in skills over the years in an industry. By presenting the changes over the years, the user is able to review trends and gather insights to the industry skills shift and sought-after skills in a particular industry.
-
-<insert online visualisation here>
 
 Describe analytical techniques used and explain how they can help achieve objectives
 
-Scatter plot: Visualise values of two variables i.e. GDP per capita growth, industry employment growth, industry migration, skill migration Regression plot: Find out relationship between two variables, how much industry employment growth, industry and skill migration impact GDP per capita growth, to what extent does industry employment growth change with industry and skill migration Correlation matrix: Find out strength of relationship between each pair of variables,
 
 # User Interface Design
 
+Need a sketch?
 Explain each component of VISTA and how the combination of components will provide users certain insights
 
 -   create tabs for various topics (compartmentalization)
@@ -102,6 +105,10 @@ What has the audience learned from your work? What new insights or practices has
 # Conclusion
 
 Future work - ....
+
+We have identified two main limitations of our project which arise due to the LinkedIn dataset:
+Our data does not capture all the countries due to the penetration rate of LinkedIn; some countries do not use LinkedIn.
+Our data is not representative of the entire migration landscape as LinkedIn data has better coverage fo white-collar workers in knowledge-intensive sectors.
 
 # Acknowledgement
 
