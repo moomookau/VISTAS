@@ -653,7 +653,7 @@ migrationServer <- function(id = "migration") {
                    leaflet(options = leafletOptions(zoomControl = FALSE,
                                                     dragging = FALSE)) %>%
                      addTiles() %>%
-                     fitBounds(-170, 85, 170, -75) %>%
+                     fitBounds(-170, 85, 170,-75) %>%
                      htmlwidgets::onRender(
                        "
     function(el, x) {
@@ -803,7 +803,7 @@ migrationServer <- function(id = "migration") {
                          decreasing = TRUE,
                          title = "Net migration<br>(per 10K LinkedIn users of country)"
                        ) %>%
-                       fitBounds(-170, 85, 170, -75)
+                       fitBounds(-170, 85, 170,-75)
                      
                      output$choroplethTitle <- renderText({
                        paste(
@@ -853,10 +853,10 @@ migrationServer <- function(id = "migration") {
                        base_country_name %in% input$chordCountries,
                        target_country_name %in% input$chordCountries
                      ) %>%
-                     distinct(base_country_name, !!sym(input$chordOrder)) %>%
-                     select(base_country_name, !!sym(input$chordOrder)) %>%
+                     distinct(base_country_name,!!sym(input$chordOrder)) %>%
+                     select(base_country_name,!!sym(input$chordOrder)) %>%
                      arrange(!!sym(input$chordOrder), base_country_name) %>%
-                     mutate(tooltip = paste0(base_country_name, " (",!!sym(input$chordOrder), ")"))
+                     mutate(tooltip = paste0(base_country_name, " (", !!sym(input$chordOrder), ")"))
                    
                    tooltipNames <- countriesOrder$tooltip
                    
@@ -1463,7 +1463,7 @@ migrationServer <- function(id = "migration") {
                      geofacetMap <- worldPolygons110 %>%
                        right_join(migrationGeofacetCountries,
                                   by = c("ISO_A2" = "country_code"))
-
+                     
                      geofacetGrid <- NULL
                      
                      while (is.null(geofacetGrid)) {
@@ -1494,7 +1494,7 @@ migrationServer <- function(id = "migration") {
                                     linetype = "dashed",
                                     color = "black") +
                          scale_alpha_discrete(range = c(0.5, 1.0)) +
-                         facet_geo(~ country_name, grid = geofacetGrid) +
+                         facet_geo( ~ country_name, grid = geofacetGrid) +
                          coord_flip() +
                          theme(legend.position = "none")
                      }
@@ -1503,12 +1503,13 @@ migrationServer <- function(id = "migration") {
                        ggplot(migrationGeofacet,
                               aes(year, net_per_10K)) +
                          geom_line() +
+                         geom_point() +
                          geom_hline(yintercept = 0,
                                     linetype = "dashed",
                                     color = "black") +
                          theme_bw() +
                          theme(axis.text.x = element_blank()) +
-                         facet_geo(~ country_name, grid = geofacetGrid)
+                         facet_geo( ~ country_name, grid = geofacetGrid)
                      }
                    })
                  })

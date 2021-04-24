@@ -25,89 +25,89 @@ statisticalUsageUI <- function(id = "statistical") {
   tagList(fluidRow(box(
     width = 12,
     title = "Regression",
-    helpText(
-      p(
-        "1. Click on regression tab."
-      ),
-      p(
-        "2. Select two different variables to be shown on the regression plot, one for y axis and one for x axis e.g. Employment Growth and Industry Migration."
-      ),
-      p(
-        "3. Select filters to be applied on the dataset. The filters include year, country, region, income level, industry section and skill group."
-      ),
-      p(
-        "4. By default, all options are selected for each filter. On each filter, there are buttons to select all, deselect all or select individual options. Selected options will have a tick next to it."
-      ),
-      p(
-        "5. If the selected filters produce no data point, '0 rows selected' will be reflected and you will not be able to apply changes to generate the visualisation. Select the appropriate filters to ensure results."
-      ),
-      p(
-        "6. Once the variables and filters are selected, click on 'Apply changes'."
-      ),
-      p(
-        "7. The spinning wheel indicates that the regression plot and results are being generated. Once completed, the visualisations will be shown."
-      )
-    )
+    withTags({
+      div(ol(
+        li("Click on ",b("Regression")," in the navigation bar."),
+        li(
+          "Select two different variables to be shown on the regression plot, one for y axis and one for x axis e.g. Employment Growth and Industry Migration."
+        ),
+        li(
+          "Select filters to be applied on the dataset. The filters include year, country, region, income level, industry section and skill group."
+        ),
+        li(
+          "By default, all options are selected for each filter. On each filter, there are buttons to select all, deselect all or select individual options. Selected options will have a tick next to it."
+        ),
+        li(
+          "If the selected filters produce no data point, '0 rows selected' will be reflected and you will not be able to apply changes to generate the visualisation. Select the appropriate filters to ensure results."
+        ),
+        li(
+          "Once the variables and filters are selected, click on 'Apply changes'."
+        ),
+        li(
+          "The spinning wheel indicates that the regression plot and results are being generated. Once completed, the visualisations will be shown."
+        )
+      ))
+    })
   )),
   fluidRow(box(
     width = 12,
     title = "Scatter Plot",
-    helpText(
-      p(
-        "1. Click on scatter plot tab."
-      ),
-      p(
-        "2. Select two different variables to be shown on the interactive scatter plot, one for y axis and one for x axis e.g. Employment Growth and Industry Migration."
-      ),
-      p(
-        "3. Select filters to be applied on the dataset. The filters include year, country, region, income level, industry section and skill group."
-      ),
-      p(
-        "4. By default, all options are selected for each filter. On each filter, there are buttons to select all, deselect all or select individual options. Selected options will have a tick next to it."
-      ),
-      p(
-        "5. If the selected filters produce no data point, '0 rows selected' will be reflected and you will not be able to apply changes to generate the visualisation. Select the appropriate filters to ensure results."
-      ),
-      p(
-        "6. Once the variables and filters are selected, click on 'Apply changes'."
-      ),
-      p(
-        "7. The spinning wheel indicates that the interactive scatter plot is being generated. Once completed, the visualisation will be shown."
-      ),
-      p(
-        "8. Hover over each point on the interactive scatter plot to find out its values i.e. x variable, y variable, year, country, industry and skill."
-      ),
-      p(
-        "9. There are buttons on the interactive scatter plot to carry out actions e.g. download plot as png, zoom, select."
-      )
-    )
+    withTags({
+      div(ol(
+        li("Click on ",b("Scatter Plot")," in the navigation bar."),
+        li(
+          "Select two different variables to be shown on the interactive scatter plot, one for y axis and one for x axis e.g. Employment Growth and Industry Migration."
+        ),
+        li(
+          "Select filters to be applied on the dataset. The filters include year, country, region, income level, industry section and skill group."
+        ),
+        li(
+          "By default, all options are selected for each filter. On each filter, there are buttons to select all, deselect all or select individual options. Selected options will have a tick next to it."
+        ),
+        li(
+          "If the selected filters produce no data point, '0 rows selected' will be reflected and you will not be able to apply changes to generate the visualisation. Select the appropriate filters to ensure results."
+        ),
+        li(
+          "Once the variables and filters are selected, click on 'Apply changes'."
+        ),
+        li(
+          "The spinning wheel indicates that the interactive scatter plot is being generated. Once completed, the visualisation will be shown."
+        ),
+        li(
+          "Hover over each point on the interactive scatter plot to find out its values i.e. x variable, y variable, year, country, industry and skill."
+        ),
+        li(
+          "There are buttons on the interactive scatter plot to carry out actions e.g. download plot as png, zoom, select."
+        )
+      ))
+    })
   )),
   fluidRow(box(
     width = 12,
     title = "Correlation Matrix",
-    helpText(
-      p(
-        "1. Click on correlation matrix tab."
-      ),
-      p(
-        "2. Four variables will be used for the correlation matrix i.e. GDP per capita growth, Employment growth, Industry migration and Skill migration."
-      ),
-      p(
-        "3. Select filters to be applied on the dataset. The filters include year, country, region, income level, industry section and skill group."
-      ),
-      p(
-        "4. By default, all options are selected for each filter. On each filter, there are buttons to select all, deselect all or select individual options. Selected options will have a tick next to it."
-      ),
-      p(
-        "5. If the selected filters produce no data point, '0 rows selected' will be reflected and you will not be able to apply changes to generate the visualisation. Select the appropriate filters to ensure results."
-      ),
-      p(
-        "6. Once the variables and filters are selected, click on 'Apply changes'."
-      ),
-      p(
-        "7. The spinning wheel indicates that the correlation matrix is being generated. Once completed, the visualisation will be shown."
-      )
-    )
+    withTags({
+      div(ol(
+        li("Click on ",b("Correlation Matrix")," in the navigation bar."),
+        li(
+          "Four variables will be used for the correlation matrix i.e. GDP per capita growth, Employment growth, Industry migration and Skill migration."
+        ),
+        li(
+          "Select filters to be applied on the dataset. The filters include year, country, region, income level, industry section and skill group."
+        ),
+        li(
+          "By default, all options are selected for each filter. On each filter, there are buttons to select all, deselect all or select individual options. Selected options will have a tick next to it."
+        ),
+        li(
+          "If the selected filters produce no data point, '0 rows selected' will be reflected and you will not be able to apply changes to generate the visualisation. Select the appropriate filters to ensure results."
+        ),
+        li(
+          "Once the variables and filters are selected, click on 'Apply changes'."
+        ),
+        li(
+          "The spinning wheel indicates that the correlation matrix is being generated. Once completed, the visualisation will be shown."
+        )
+      ))
+    })
   )))
 }
 
@@ -582,9 +582,7 @@ statisticalServer <- function(id = "statistical") {
                      #                     y <- unlist(filteredMaster1a[, input$yVar1])
                      
                      ggscatterstats(
-                       filteredMaster1a,
-                       !!input$xVar1,
-                       !!input$yVar1,
+                       filteredMaster1a,!!input$xVar1,!!input$yVar1,
                        ggplot.component = list(
                          ggplot2::xlim(-2.00, 2.00),
                          ylim(-0.50, 0.50),
