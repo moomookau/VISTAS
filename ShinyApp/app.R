@@ -11,20 +11,20 @@ ui <- dashboardPage(
             id = "migration-sidebar",
             # Create an Intro Menu
             menuItem("Introduction", tabName = "intro", icon = icon("home")),
-            # Create a Regression Menu
+            # Create a Statistical Menu
             menuItem(
                 "Statistical Analysis",
                 icon = icon("chart-line"),
                 quickPop(
                     menuSubItem("Usage Guide",
-                                tabName = "regressionUsage",
+                                tabName = "statisticalUsage",
                                 icon = icon("info")),
                     "Click here for a guide for statistical analysis"
                 ),
                 quickPop(
                     menuSubItem(
                         "Regression",
-                        tabName = "regressionRegression",
+                        tabName = "statisticalRegression",
                         icon = icon("chart-line")
                     ),
                     "Visualise relationship between two variables using regression plot and visualise marginal distributions of variables using histogram"
@@ -32,7 +32,7 @@ ui <- dashboardPage(
                 quickPop(
                     menuSubItem(
                         "Scatter Plot",
-                        tabName = "regressionScatter",
+                        tabName = "statisticalScatter",
                         icon = icon("braille")
                     ),
                     "Visualise values for two variables using interactive scatter plot coloured by year"
@@ -40,7 +40,7 @@ ui <- dashboardPage(
                 quickPop(
                     menuSubItem(
                         "Correlation Matrix",
-                        tabName = "regressionCorrelation",
+                        tabName = "statisticalCorrelation",
                         icon = icon("border-all")
                     ),
                     "Visualise strength of relationship between pairs of variables using correlation matrix"
@@ -97,6 +97,9 @@ ui <- dashboardPage(
     ),
     # Create a Dashboard Body
     dashboardBody(
+        tags$head(
+            tags$link(rel = "stylesheet", type = "text/css", href = "css/vistas.css")
+        ),
         useShinyjs(),
         # Change the theme
         shinyDashboardThemes(theme = "grey_light"),
@@ -104,15 +107,15 @@ ui <- dashboardPage(
             # Create an Intro Tab
             tabItem(tabName = "intro"),
             
-            # Create tabs for Regression Analysis
-            tabItem(tabName = "regressionUsage",
-                    regressionUsageUI()),
-            tabItem(tabName = "regressionRegression",
-                    regressionRegressionUI()),
-            tabItem(tabName = "regressionScatter",
-                    regressionScatterUI()),
-            tabItem(tabName = "regressionCorrelation",
-                    regressionCorrelationUI()),
+            # Create tabs for Statistical Analysis
+            tabItem(tabName = "statisticalUsage",
+                    statisticalUsageUI()),
+            tabItem(tabName = "statisticalRegression",
+                    statisticalRegressionUI()),
+            tabItem(tabName = "statisticalScatter",
+                    statisticalScatterUI()),
+            tabItem(tabName = "statisticalCorrelation",
+                    statisticalCorrelationUI()),
             
             # Create tabs for Migration Analysis
             tabItem(tabName = "migrationUsage",
@@ -133,8 +136,8 @@ ui <- dashboardPage(
 
 # Define the Server
 server <- function(input, output) {
-    # Load the Regression Server function
-    regressionServer()
+    # Load the Statistical Server function
+    statisticalServer()
     
     # Load the Migration Server function
     migrationServer()

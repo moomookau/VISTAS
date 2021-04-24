@@ -653,7 +653,7 @@ migrationServer <- function(id = "migration") {
                    leaflet(options = leafletOptions(zoomControl = FALSE,
                                                     dragging = FALSE)) %>%
                      addTiles() %>%
-                     fitBounds(-170, 85, 170,-75) %>%
+                     fitBounds(-170, 85, 170, -75) %>%
                      htmlwidgets::onRender(
                        "
     function(el, x) {
@@ -803,7 +803,7 @@ migrationServer <- function(id = "migration") {
                          decreasing = TRUE,
                          title = "Net migration<br>(per 10K LinkedIn users of country)"
                        ) %>%
-                       fitBounds(-170, 85, 170,-75)
+                       fitBounds(-170, 85, 170, -75)
                      
                      output$choroplethTitle <- renderText({
                        paste(
@@ -853,10 +853,10 @@ migrationServer <- function(id = "migration") {
                        base_country_name %in% input$chordCountries,
                        target_country_name %in% input$chordCountries
                      ) %>%
-                     distinct(base_country_name,!!sym(input$chordOrder)) %>%
-                     select(base_country_name,!!sym(input$chordOrder)) %>%
+                     distinct(base_country_name, !!sym(input$chordOrder)) %>%
+                     select(base_country_name, !!sym(input$chordOrder)) %>%
                      arrange(!!sym(input$chordOrder), base_country_name) %>%
-                     mutate(tooltip = paste0(base_country_name, " (", !!sym(input$chordOrder), ")"))
+                     mutate(tooltip = paste0(base_country_name, " (",!!sym(input$chordOrder), ")"))
                    
                    tooltipNames <- countriesOrder$tooltip
                    
@@ -983,7 +983,9 @@ migrationServer <- function(id = "migration") {
                          countryMigrationPivot %>%
                          filter(base_country_name == input$slopeCountry,
                                 year == 2019) %>%
-                         slice_max(net_per_10K, n = input$slopeN, with_ties = FALSE) %>%
+                         slice_max(net_per_10K,
+                                   n = input$slopeN,
+                                   with_ties = FALSE) %>%
                          pull(target_country_name)
                      }
                      else if (input$slopeType == "Industry") {
@@ -993,7 +995,9 @@ migrationServer <- function(id = "migration") {
                          industryMigrationPivot %>%
                          filter(industry_name == input$slopeIndustry,
                                 year == 2019) %>%
-                         slice_max(net_per_10K, n = input$slopeN, with_ties = FALSE) %>%
+                         slice_max(net_per_10K,
+                                   n = input$slopeN,
+                                   with_ties = FALSE) %>%
                          pull(country_name)
                      }
                      else {
@@ -1002,7 +1006,9 @@ migrationServer <- function(id = "migration") {
                        topNCountries <- skillMigrationPivot %>%
                          filter(skill_group_name == input$slopeSkill,
                                 year == 2019) %>%
-                         slice_max(net_per_10K, n = input$slopeN, with_ties = FALSE) %>%
+                         slice_max(net_per_10K,
+                                   n = input$slopeN,
+                                   with_ties = FALSE) %>%
                          pull(country_name)
                      }
                    }
@@ -1015,7 +1021,9 @@ migrationServer <- function(id = "migration") {
                          countryMigrationPivot %>%
                          filter(base_country_name == input$slopeCountry,
                                 year == 2019) %>%
-                         slice_min(net_per_10K, n = input$slopeN, with_ties = FALSE) %>%
+                         slice_min(net_per_10K,
+                                   n = input$slopeN,
+                                   with_ties = FALSE) %>%
                          pull(target_country_name)
                      }
                      else if (input$slopeType == "Industry") {
@@ -1025,7 +1033,9 @@ migrationServer <- function(id = "migration") {
                          industryMigrationPivot %>%
                          filter(industry_name == input$slopeIndustry,
                                 year == 2019) %>%
-                         slice_min(net_per_10K, n = input$slopeN, with_ties = FALSE) %>%
+                         slice_min(net_per_10K,
+                                   n = input$slopeN,
+                                   with_ties = FALSE) %>%
                          pull(country_name)
                      }
                      else {
@@ -1034,7 +1044,9 @@ migrationServer <- function(id = "migration") {
                        topNCountries <- skillMigrationPivot %>%
                          filter(skill_group_name == input$slopeSkill,
                                 year == 2019) %>%
-                         slice_min(net_per_10K, n = input$slopeN, with_ties = FALSE) %>%
+                         slice_min(net_per_10K,
+                                   n = input$slopeN,
+                                   with_ties = FALSE) %>%
                          pull(country_name)
                      }
                    }
@@ -1517,7 +1529,7 @@ migrationServer <- function(id = "migration") {
                                     linetype = "dashed",
                                     color = "black") +
                          scale_alpha_discrete(range = c(0.5, 1.0)) +
-                         facet_geo( ~ country_name, grid = geofacetGrid) +
+                         facet_geo(~ country_name, grid = geofacetGrid) +
                          coord_flip() +
                          theme(legend.position = "none")
                      }
@@ -1531,7 +1543,7 @@ migrationServer <- function(id = "migration") {
                                                 high = "blue") +
                          theme_bw() +
                          theme(axis.text.x = element_blank()) +
-                         facet_geo( ~ country_name, grid = geofacetGrid)
+                         facet_geo(~ country_name, grid = geofacetGrid)
                      }
                    })
                  })
