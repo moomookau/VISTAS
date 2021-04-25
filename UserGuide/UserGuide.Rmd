@@ -200,7 +200,7 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 
 #### 3.5 Geofacet
 
-The geofacet has two types of visualisations, line graph and bar graphs. These graphs are shown based on the user inputs.
+The geofacet has two types of visualisations, line graph and bar graphs. These graphs are shown based on the user inputs, specifically the number of countries, industries or skills they select.
 
 ![](Images/13-facet-bar.png){width="100%"}
 
