@@ -37,14 +37,21 @@ introUI <- function(id = "intro") {
         width = 12,
         solidHeader = TRUE,
         title = "Links",
-        div(div("Research Paper"),
-            div("Usage Guide"),
-            div(
-              a(href = "https://va.moomookau.org/posts/2021-02-21-visual-analytics-project-proposal/", "Project Proposal")
-            ),
-            div(
-              a(href = "https://github.com/moomookau/VISTAS", "Project Github")
-            ), )
+        div(div(
+          a(href = "https://github.com/moomookau/VISTAS/raw/main/ResearchPaper/ResearchPaper.pdf", target =
+              "_blank", "Research Paper")
+        ),
+        div(
+          a(href = "https://github.com/moomookau/VISTAS/raw/main/UserGuide/UserGuide.pdf", target =
+              "_blank", "User Guide")
+        ),
+        div(
+          a(href = "https://va.moomookau.org/posts/2021-02-21-visual-analytics-project-proposal/", target =
+              "_blank", "Project Proposal")
+        ),
+        div(
+          a(href = "https://github.com/moomookau/VISTAS", target = "_blank", "Project Github")
+        ), )
       )
     ),
     column(
@@ -280,35 +287,47 @@ introUI <- function(id = "intro") {
             div(
               span(class = "intro-author-person", "Cheryl Pay"),
               span(
-                a(href = "#",
-                  #target = "_blank",
+                a(
+                  href = "https://www.linkedin.com/in/cheryl-pay/",
+                  target = "_blank",
                   title = "LinkedIn",
-                  icon("linkedin")),
-                a(href = "#",
-                  #target = "_blank",
+                  icon("linkedin")
+                ),
+                a(
+                  href = "https://github.com/cpwl23/",
+                  target = "_blank",
                   title = "Github",
-                  icon("github")),
-                a(href = "#",
-                  #target = "_blank",
+                  icon("github")
+                ),
+                a(
+                  href = "https://cherylpay-isss608.netlify.app/",
+                  target = "_blank",
                   title = "Blog",
-                  icon("blog"))
+                  icon("blog")
+                )
               )
             ),
             div(
               span(class = "intro-author-person", "Louis Chong"),
               span(
-                a(href = "https://www.linkedin.com/in/louis-chong-jia-jun/",
+                a(
+                  href = "https://www.linkedin.com/in/louis-chong-jia-jun/",
                   target = "_blank",
                   title = "LinkedIn",
-                  icon("linkedin")),
-                a(href = "https://github.com/louischong1990/",
+                  icon("linkedin")
+                ),
+                a(
+                  href = "https://github.com/louischong1990/",
                   target = "_blank",
                   title = "Github",
-                  icon("github")),
-                a(href = "https://affectionate-dijkstra-f71bd4.netlify.app/",
+                  icon("github")
+                ),
+                a(
+                  href = "https://affectionate-dijkstra-f71bd4.netlify.app/",
                   target = "_blank",
                   title = "Blog",
-                  icon("blog"))
+                  icon("blog")
+                )
               )
             ),
             hr(),
