@@ -213,8 +213,11 @@ Lastly, using statistical analysis, we observe a strong correlation (0.91) betwe
 
 # Conclusion
 
+
+
 Future work - ....
 
+Net migration, not actual migration
 We have identified two main limitations of our project which arise due to the LinkedIn dataset: Our data does not capture all the countries due to the penetration rate of LinkedIn; some countries do not use LinkedIn. Our data is not representative of the entire migration landscape as LinkedIn data has better coverage fo white-collar workers in knowledge-intensive sectors.
 
 # Acknowledgement
