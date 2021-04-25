@@ -39,11 +39,11 @@ In addition, studies on GDP per capita, employment growth and migration are usua
 
 Figure 3 shows the relationship between employment growth and interstate migration ([Tunny, G., 2015](https://queenslandeconomywatch.com/2015/03/29/feedback-between-interstate-migration-and-employment-growth/)). Here, analysis is done at state level, but not industry level.
 
-<!-- ![Figure 3: Employment Growth vs Interstate Migration](https://raw.githubusercontent.com/louischong1990/blog/master/Assignment/Images/Picture1.png) -->
+![Figure 3: Employment Growth vs Interstate Migration](Images/Picture1.png)
 
 Figure 4 shows the relationship between GDP per capita and share of employment in business services in 2000 for countries in Europe ([Kox, H. & Rubalcaba, L., 2007](https://www.researchgate.net/publication/5007988_Business_services_and_the_changing_structure_of_European_economic_growth)). However, this does not show how a change in migration or employment growth in an industry will cause the change in GDP per capita.
 
-<!-- ![Figure 4: GDP per capita vs Share of employment in business services in Europe in 2000](https://raw.githubusercontent.com/louischong1990/blog/master/Assignment/Images/Picture2.png) -->
+![Figure 4: GDP per capita vs Share of employment in business services in Europe in 2000](Images/Picture2.png)
 
 As such, we have developed a dynamic, interactive and user-friendly visual analytics dashboard as a R Shiny application, titled VISTAS (Visualising Industry Skill TAlent Shifts). It allows individuals and countries to view their competitive advantage and understand the evolving labour market across the world. Comparisons can be done at both country-level, industry-level and skill-level.
 
