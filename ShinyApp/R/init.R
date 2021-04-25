@@ -1,6 +1,7 @@
 # We load the libraries
 library(shiny) # Base Shiny library
 library(shinydashboard) # Used for Shiny Dashboard
+library(shinydashboardPlus) # Additional Shiny Dashboard features
 library(dashboardthemes) # Used for Shiny Dashboard Themes
 library(shinyWidgets) # Used for advanced Shiny Widgets
 library(shinyjs) # Used for jQuery manipulation of dom objects

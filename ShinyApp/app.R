@@ -105,7 +105,8 @@ ui <- dashboardPage(
         shinyDashboardThemes(theme = "grey_light"),
         tabItems(
             # Create an Intro Tab
-            tabItem(tabName = "intro"),
+            tabItem(tabName = "intro",
+                    introUI()),
             
             # Create tabs for Statistical Analysis
             tabItem(tabName = "statisticalUsage",
