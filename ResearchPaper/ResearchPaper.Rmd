@@ -23,15 +23,15 @@ Numerous studies have been conducted to analyse the impact of employment growth 
 
 # Introduction
 
-The [LinkedIn and World Bank Group](https://linkedindata.worldbank.org/data) have partnered and released data from 2015 to 2019 that focuses on 100+ countries with at least 100,000 LinkedIn members each, distributed across 148 industries and 50,000 skill categories. This dataset aims to help government and researchers understand rapidly evolving labor markets with detailed and dynamic data. It comprises growth rate of employment in each industry in each industry, growth in number of people from each industry and skill in each country and top 10 skills required in each industry. As an extension, we included macroeconomic data (GDP per capita) from the [World Bank](https://data.worldbank.org/indicator/NY.GDP.PCAP.CD).
+The [LinkedIn and World Bank Group](https://linkedindata.worldbank.org/data) have partnered and released data from 2015 to 2019 that focuses on 100+ countries with at least 100,000 LinkedIn members each, distributed across 148 industries and 50,000 skill categories. This dataset aims to help government and researchers understand rapidly evolving labor markets with detailed and dynamic data. It comprises growth rate of employment in each industry in each industry, growth in number of people from each industry and skill in each country and top 10 skills required in each industry. As an extension, we included macroeconomic data ([GDP per capita](https://data.worldbank.org/indicator/NY.GDP.PCAP.CD)) and [population](https://data.worldbank.org/indicator/SP.POP.TOTL) data from the World Bank.
 
 Aside from being able to download the data in csv format from the LinkedIn-World Bank partnership webpage, simple data visualisations are available. However, they are limited in their variety and interactivity because they only allow one parameter of choice. Information is presented in one default way with no other option and the user cannot conduct comparisons "at one glance".
 
-* Talent Migration: The available visualisation only shows top 10 countries on the map, and top 5 countries, industries and skills in the table. A user may want to know more than just the top N for these metrics. The use of a map and table makes it difficult to visualise the inflow vs outflow of the selected country. A visualisation that allows for comparison between inflow and outflow will be useful to understand if a country is gaining or losing talent.
+-   Talent Migration: The available visualisation only shows top 10 countries on the map, and top 5 countries, industries and skills in the table. A user may want to know more than just the top N for these metrics. The use of a map and table makes it difficult to visualise the inflow vs outflow of the selected country. A visualisation that allows for comparison between inflow and outflow will be useful to understand if a country is gaining or losing talent.
 
 \<Figure 1: Insert screenshot showing "Talent Migration"\>
 
-* Industry Skills Needs: The interactive visualisation in Industry Skills Needs panel allows users to pick an industry group and industry, but only the skills valued in Year 2019 are shown. No option to change the year is provided. One is hence unable to see the change in skills over the years in an industry. By presenting the changes over the years, the user is able to review trends and gather insights to the industry skills shift and sought-after skills in a particular industry.
+-   Industry Skills Needs: The interactive visualisation in Industry Skills Needs panel allows users to pick an industry group and industry, but only the skills valued in Year 2019 are shown. No option to change the year is provided. One is hence unable to see the change in skills over the years in an industry. By presenting the changes over the years, the user is able to review trends and gather insights to the industry skills shift and sought-after skills in a particular industry.
 
 \<Figure 2: Insert screenshot showing "Industry Skills Needs"\>
 
@@ -59,14 +59,14 @@ As mentioned in Section 1, instead of static charts that highlight observations 
 
 The VISTAS application supports various analytical techniques that will produce the visualisations listed below. As mentioned earlier, this will enable users to discover deeper insights on the labour market.
 
-1. Regression Plot: The regression plot and histogram visualise the relationship between two variables (among GDP per capita growth, employment growth, industry migration or skill migration) and their marginal distributions.
-2. Scatter Plot: The interactive scatter plot visualises the values for two variables (among GDP per capita growth, employment growth, industry migration or skill migration) and is coloured by year.
-3. Correlation Matrix: The correlation matrix visualises the strength of relationship between pairs of variables. Four variables are used i.e. GDP per capita growth, employment growth, industry migration and skill migration.
-4. Choropleth Map: The choropleth visualisation is a thematic map where countries are coloured by country, industry or skill migration values.
-5. Chord Diagram: The chord diagram is a graphical method of displaying the inter-relationships between data in a matrix. The data are arranged radially around a circle with the relationships between the data points drawn as arcs connecting the data. In this case, the relationship is the net migration between two countries.
-6. Slope Graph: The slope graph allows users to compare changes usually over time for a list of categorical variables. The change in country, industry or skill migration for various countries over the years are shown.
-7. Treemap: The treemap displays hierarchical data as a set of nested rectangles. Each group is represented by a rectangle, which area is proportional to its value. It shows the net country, industry or skill migration by the colour of the rectangles, and either the population or GDP per Capita by the size of the rectangles. The rectangles can be nested by region or income group of the countries, and clicking on a rectangle will show the individual countries within that rectangle.
-8. Geofacet Plot: The geofacet plot takes data representing different geographic entities and apply a visualisation method to the data for each entity, with the resulting set of visualisations being laid out in a grid that mimics the original geographic topology as closely as possible. It shows the net country, industry or skill migration. If it is based on industry or skill migration and multiple industries or skills are selected, bar charts will be shown for each country.
+1.  Regression Plot: The regression plot and histogram visualise the relationship between two variables (among GDP per capita growth, employment growth, industry migration or skill migration) and their marginal distributions.
+2.  Scatter Plot: The interactive scatter plot visualises the values for two variables (among GDP per capita growth, employment growth, industry migration or skill migration) and is coloured by year.
+3.  Correlation Matrix: The correlation matrix visualises the strength of relationship between pairs of variables. Four variables are used i.e. GDP per capita growth, employment growth, industry migration and skill migration.
+4.  Choropleth Map: The choropleth visualisation is a thematic map where countries are coloured by country, industry or skill migration values.
+5.  Chord Diagram: The chord diagram is a graphical method of displaying the inter-relationships between data in a matrix. The data are arranged radially around a circle with the relationships between the data points drawn as arcs connecting the data. In this case, the relationship is the net migration between two countries.
+6.  Slope Graph: The slope graph allows users to compare changes usually over time for a list of categorical variables. The change in country, industry or skill migration for various countries over the years are shown.
+7.  Treemap: The treemap displays hierarchical data as a set of nested rectangles. Each group is represented by a rectangle, which area is proportional to its value. It shows the net country, industry or skill migration by the colour of the rectangles, and either the population or GDP per Capita by the size of the rectangles. The rectangles can be nested by region or income group of the countries, and clicking on a rectangle will show the individual countries within that rectangle.
+8.  Geofacet Plot: The geofacet plot takes data representing different geographic entities and apply a visualisation method to the data for each entity, with the resulting set of visualisations being laid out in a grid that mimics the original geographic topology as closely as possible. It shows the net country, industry or skill migration. If it is based on industry or skill migration and multiple industries or skills are selected, bar charts will be shown for each country.
 
 # User Interface Design
 
@@ -80,29 +80,95 @@ On the side panel in each tab, users may select different variables, filters, gr
 
 Next, we will explain the R packages used to build each function of the application and element of the visualisations. Comprehensive evaluation was done to decide on the selected R packages for the VISTAS application. However, we also noted some limitations of the packages.
 
+Our application was built around the tidyverse universe of packages and shiny package. [tidyverse](https://www.tidyverse.org/) is an opinionated collection of R packages designed for data science. [shiny](https://shiny.rstudio.com/) is an R package that makes it easy to build interactive web apps straight from R.
+
 ## System Architecture
 
-### (Insert package used for system architecture e.g. shiny, tabs, tooltip, variable, filter, multi-select, action button)
+The following packages were used for the system architecture and data wrangling.
 
-(Explain reasons for choosing packages and highlight any alternative packages that were considered but not chosen)
+### tidyverse (with readxl)
 
-### (Insert package used for system architecture e.g. shiny, tabs, tooltip, variable, filter, multi-select, action button)
+The tidyverse universe of packages was used extensively throughout the project. It was mainly used for data wrangling operations as it provided a grammar for data manipulation that was easy to comprehend and use.
 
-(Explain reasons for choosing packages and highlight any alternative packages that were considered but not chosen)
+readxl, also part of the universe but not loaded automatically, was used to read our data files which were in Excel format.
 
+### shiny (with shinydashboard, shinydashboardPlus, dashboardthemes, shinyWidgets, shinyjs, shinycssloaders, shinyBS)
+
+The application was built using shiny. Other packages were used to extend the functionality of the base shiny package. We will elaborate on these below:
+
+-   **shinydashboard** allowed us to have a dashboard layout for our application, providing an easy way for users to navigate around our application.
+-   **shinydashboardPlus** extended shinydashboard and was used in our application for the flipBox, a box which would flip over when the user hovered it. This allowed us to show the individual visualisations in our introduction page, while providing further description when a user hovered over the image of the visualisations.
+-   **dashboardthemes** was used to theme our application from the default dashboard colour scheme.
+-   **shinyWidgets** was used mainly for its pickerInput. The picketInput is a drop-down selection input with more features.
+-   **shinyjs** was used for us to call javascript functions in our application. The ability to use javascript allowed more advanced manipulation. For example, it allowed us to disable the zoom function of our choropleth map, which was not easily achievable by the leaflet package.
+-   **shinycssloaders** was used to provide loading animations on some of our visualisations that took longer to load.
+-   **shinyBS** allowed us to include Bootstrap-like popovers into our application. These popovers provide users with helpful hints on most of the inputs throughout our application when they hover over them.
 
 ## Data Visualisation
 
-### (Insert package used for data visualisation)
+The following packages were used for our visualisations in the application.
+
+### ggplot2 (from tidyverse)
+
+**ggplot2** was the main package for plotting of graphics. It provides a user-friendly way of mapping data variables to aesthetics.
+
+### parameters
 
 (Explain reasons for choosing packages and highlight any alternative packages that were considered but not chosen)
 
-### (Insert package used for data visualisation)
+### plotly
 
 (Explain reasons for choosing packages and highlight any alternative packages that were considered but not chosen)
 
+### ggstatsplot
 
-## Limitations of Packages
+(Explain reasons for choosing packages and highlight any alternative packages that were considered but not chosen)
+
+### leaflet
+
+**Leaflet** is a javascript library used to create interactive maps. The R package named **leaflet** makes it easy to use Leaflet in R. Leaflet was used in
+
+While there are many other ways to plot interactive maps in R such as tmap, we chose leaflet as it had more features and provided a way to manipulate the layers without re-rendering the base map.
+
+### chorddiag
+
+**chorddiag** is a package that allowed the generation of chord diagrams. It provides an interface to the d3 library's chord diagram, allowing us to generate d3.js chord diagrams easily.
+
+**circlize** is another package that allowed the generation of chord diagrams. However, we chose the chorddiag package over this as chorddiag allowed mouseover of the chords to display label values. This functionality was important as our chord diagram may be too cluttered if a user chooses too many countries to display.
+
+### CGPfunctions with ggallin
+
+**CGPfunctions** provides us with the **newggslopegraph** function. This function provides an easy way for us to plot slope graphs using ggplot2. As an extension of ggplot2, we are able to manipulate the output easily using ggplot2 grammar.
+
+**ggallin** provides us with the pseudolog10_trans function, a log-like function that works with positive and negative values. This allowed us to apply a log-like transformation for our slope graph if the range of values are too wide.
+
+### treemap and d3treeR
+
+**treemap** allowed us to easily generate treemaps by providing our data and columns to index by.
+
+**d3treeR** extended the treemap package to allow us to plot treemap objects in a d3.js treemap. Using d3.js treemaps allowed interactivity, where the user can click on the map to go down the hierarchy.
+
+We also considered using plotly for generating of our treemaps. However, extensive data manipulation to format the data in a parent-child relationship structure before we can draw treemaps in plotly. The treemap package did not require this manipulation, as it allowed us to specify column names to provide hierarchy to our data e.g. region followed by country.
+
+### geofacet
+
+**geofacet** extends ggplot2 to allow us to create geographically faceted visualisations in R. This allowed us to plot subplots for each country that are arranged in a grid that mimics geographical topology.
+
+As an extension of ggplot2, we are able to manipulate individual plots in a similar function, thus providing a lot of flexibility on the type of plots we would like to show.
+
+## Other packages used outside our application
+
+The following are the packages we used outside of our application e.g. for data wrangling.
+
+### rnaturalearth
+
+**rnaturalearth** was used to generate spatial data for our world map. As these spatial data had to be downloaded, we first downloaded and saved the files into rds format for loading into our application. This allowed our application to load faster, as compared to if we had to download the spatial data every time the application loads.
+
+### sf
+
+The simple feature (**sf**) package was used to manipulate the spatial data we downloaded for our world map. This allowed us to perform sanity checks on the downloaded data and fix it accordingly. For example, the names of certain countries downloaded using rnaturalearth did not correspond to those in our datasets. We had to rename some of these countries to ensure the names matched up.
+
+## Limitations of Certain Packages
 
 ### d3treeR
 
@@ -120,42 +186,68 @@ What has the audience learned from your work? What new insights or practices has
 
 Future work - ....
 
-We have identified two main limitations of our project which arise due to the LinkedIn dataset:
-Our data does not capture all the countries due to the penetration rate of LinkedIn; some countries do not use LinkedIn.
-Our data is not representative of the entire migration landscape as LinkedIn data has better coverage fo white-collar workers in knowledge-intensive sectors.
+We have identified two main limitations of our project which arise due to the LinkedIn dataset: Our data does not capture all the countries due to the penetration rate of LinkedIn; some countries do not use LinkedIn. Our data is not representative of the entire migration landscape as LinkedIn data has better coverage fo white-collar workers in knowledge-intensive sectors.
 
 # Acknowledgement
 
-Prof Kam
+The authors wish to thank Professor Kam Tin Seong for his guidance throughout the tenure of the project.
 
 # References
 
----
-references:
-- id: meier2012
-  title: Professinal Android 4 Application Development
-  author: 
-  - family: Meier
-    given: Reto
-  type: book
-  publisher: John Wiley & Sons, Inc.
-  issued:
-    year: 2012
-    month: 5
-- id: fenner2012a
-  title: One-click science marketing
-  author:
-  - family: Fenner
-    given: Martin
-  container-title: Nature Materials
-  volume: 11
-  URL: 'https://doi.org/10.1038/nmat3283'
-  DOI: 10.1038/nmat3283
-  issue: 4
-  publisher: Nature Publishing Group
-  page: 261-263
-  type: article-journal
-  issued:
-    year: 2012
-    month: 3
----
+<!-- --- -->
+
+<!-- references: -->
+
+<!-- - id: meier2012 -->
+
+<!--   title: Professinal Android 4 Application Development -->
+
+<!--   author:  -->
+
+<!--   - family: Meier -->
+
+<!--     given: Reto -->
+
+<!--   type: book -->
+
+<!--   publisher: John Wiley & Sons, Inc. -->
+
+<!--   issued: -->
+
+<!--     year: 2012 -->
+
+<!--     month: 5 -->
+
+<!-- - id: fenner2012a -->
+
+<!--   title: One-click science marketing -->
+
+<!--   author: -->
+
+<!--   - family: Fenner -->
+
+<!--     given: Martin -->
+
+<!--   container-title: Nature Materials -->
+
+<!--   volume: 11 -->
+
+<!--   URL: 'https://doi.org/10.1038/nmat3283' -->
+
+<!--   DOI: 10.1038/nmat3283 -->
+
+<!--   issue: 4 -->
+
+<!--   publisher: Nature Publishing Group -->
+
+<!--   page: 261-263 -->
+
+<!--   type: article-journal -->
+
+<!--   issued: -->
+
+<!--     year: 2012 -->
+
+<!--     month: 3 -->
+
+<!-- --- -->
