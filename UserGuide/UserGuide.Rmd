@@ -5,16 +5,21 @@ author:
   - Cheryl Pay
   - Louis Chong
 date: "4/12/2021"
-output: pdf_document
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 2
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## User Guide for VISTAS (Visualising Industry Skill TAlent Shifts)
+\newpage
 
-### 1. Introduction Page
+# User Guide for VISTAS (Visualising Industry Skill TAlent Shifts)
+
+# 1. Introduction Page
 
 On this page, there is a description of the application and cards that link to the various visualisation tabs.
 
@@ -23,6 +28,8 @@ On this page, there is a description of the application and cards that link to t
 When you hover over a card, the card flips to show a description and link to the visualisation. Below, the card for the choropleth map is flipped.
 
 ![](images/02_hover.png){width="80%"}
+
+\newpage
 
 On the side panel, a tooltip also appears when you hover over each sub-tabs. Below, the tooltip for scatter plot is shown when you move your cursor to Scatter Plot.
 
@@ -48,11 +55,13 @@ Across each tab, there are two help buttons and many tooltips.
 
     ![](images/06-regression-input-tooltip.png){width="80%"}
 
-### 2. Statistical Analysis
+\newpage
+
+# 2. Statistical Analysis
 
 This tab has three sub-tabs for regression, scatter plot and correlation matrix. Each sub-tab has their own set of user inputs available.
 
-#### 2.1 Regression
+## 2.1 Regression
 
 ![](images/06-reg.png){width="80%"}
 
@@ -72,7 +81,9 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 
     *The spinning wheel indicates that the correlation matrix is being generated.* Once completed, the visualisation will be shown.
 
-#### 2.2 Scatterplot
+\newpage
+
+## 2.2 Scatterplot
 
 ![](images/08-scatter.png){width="80%"}
 
@@ -95,8 +106,10 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 8.  There are buttons on the interactive scatter plot to carry out actions e.g. download plot as png, zoom, select.
 
     *The spinning wheel indicates that the correlation matrix is being generated.* Once completed, the visualisation will be shown.
+    
+\newpage
 
-#### 2.3 Correlation Matrix
+## 2.3 Correlation Matrix
 
 ![](images/09-correlation.png){width="80%"}
 
@@ -114,9 +127,11 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 
     *The spinning wheel indicates that the correlation matrix is being generated.* Once completed, the visualisation will be shown.
 
-### 3. Migration Analysis
+\newpage
 
-#### 3.1 Choropleth Map
+# 3. Migration Analysis
+
+## 3.1 Choropleth Map
 
 ![](images/10-choropleth.png){width="80%"}
 
@@ -142,7 +157,9 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 
 5.  Select Colour Palette to watch the colours of the choropleth map change.
 
-#### 3.2 Chord Diagram
+\newpage
+
+## 3.2 Chord Diagram
 
 ![](images/11-chord.png){width="80%"}
 
@@ -152,7 +169,9 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 4.  Select Order by Income Group or Region.
 5.  Select Migration Perspective inwards or outwards.
 
-#### 3.3 Slope Graph
+\newpage
+
+## 3.3 Slope Graph
 
 ![](images/12-slope.png){width="80%"}
 
@@ -176,7 +195,9 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 
 6.  Check Pseudolog Y-Axis to transform the y-axis. Pseudolog allows for a log-like transformation for both negative and positive values on the slope graph; visually, this feature results in lines on the slope graph being less cluttered.
 
-#### 3.4 Treemap
+\newpage
+
+## 3.4 Treemap
 
 ![](Images/14-tree.png){width="80%"}
 
@@ -198,7 +219,9 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 
 6.  Select Colour Palette to watch the colours of the choropleth map change.
 
-#### 3.5 Geofacet
+\newpage
+
+## 3.5 Geofacet
 
 The geofacet has two types of visualisations, line graph and bar graphs. These graphs are shown based on the user inputs, specifically the number of countries, industries or skills they select.
 
@@ -215,6 +238,8 @@ The geofacet has two types of visualisations, line graph and bar graphs. These g
     If one country, industry or skill is selected, a line chart will show the migration trend over the years.
 
     ![](Images/13-facet-line.png){width="80%"}
+    
+\newpage
 
     If more than one country, industry or skills are selected, the bar chart will display the migration for them for a selected year.
 
