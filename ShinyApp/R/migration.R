@@ -440,33 +440,62 @@ migrationServer <- function(id = "migration") {
                    quickAlert("Choropleth Map Help",
                               withTags({
                                 div(ol(
-                                  li("Click on Choropleth Map in the navigation bar."),
                                   li(
-                                    "Select Type of Migration to View from the dropdown – Country, Industry or Skill."
-                                  ),
-                                  li(
-                                    "Select Base Country i.e. the country you want to see the net migration for. The dropdown list is sorted by Region then alphabetical order."
-                                  ),
-                                  li(
-                                    "Select Year on the slider as the data covers years 2015 – 2019 (both years included)."
-                                  ),
-                                  li(
-                                    "Select Colour by from the dropdown. This variable determines the shades you see on the map."
+                                    "Select ",
+                                    b("Type of Migration to View"),
+                                    " from the dropdown – Country, Industry or Skill."
                                   ),
                                   ol(
                                     style = "list-style-type: lower-alpha;",
                                     li(
-                                      "When Bins is selected, you can further indicate the number of bins."
+                                      "When Country is selected, you must further select ",
+                                      b("Base Country"),
+                                      " i.e. the country you want to see the net migration for. The dropdown list is sorted by Region then alphabetical order."
                                     ),
                                     li(
-                                      "When Quantile is selected, you can further indicate the number of quantiles."
-                                    ),
+                                      "When Industry is selected, you must further select the ",
+                                      b("Industries"),
+                                      " you want to see the net migration for."
+                                    )
+                                    ,
                                     li(
-                                      "When Numeric is selected, no further options are available."
+                                      "c.	When Skills is selected, you must further select the ",
+                                      b("Skills"),
+                                      " you want to see the net migration for."
                                     )
                                   ),
                                   li(
-                                    "Select Colour Palette to watch the colours of the choropleth map change."
+                                    "Select ",
+                                    b("Year"),
+                                    " on the slider as the data covers years 2015 – 2019 (both years included)."
+                                  ),
+                                  li(
+                                    "Select ",
+                                    b("Colour by"),
+                                    " from the dropdown. This variable determines the shades you see on the map."
+                                  ),
+                                  ol(
+                                    style = "list-style-type: lower-alpha;",
+                                    li(
+                                      "When ",
+                                      b("Bins"),
+                                      " is selected, you can further indicate the number of bins."
+                                    ),
+                                    li(
+                                      "When ",
+                                      b("Quantile"),
+                                      " is selected, you can further indicate the number of quantiles."
+                                    ),
+                                    li(
+                                      "When ",
+                                      b("Numeric"),
+                                      " is selected, no further options are available."
+                                    )
+                                  ),
+                                  li(
+                                    "Select ",
+                                    b("Colour Palette"),
+                                    " to watch the colours of the choropleth map change."
                                   )
                                 ))
                               }))
@@ -489,17 +518,26 @@ migrationServer <- function(id = "migration") {
                  
                  observeEvent(input$chordHelp, {
                    quickAlert("Chord Diagram Help",
-                              div(
-                                p(
-                                  "The choropleth visualisation is a thematic map where countries are coloured by migration values. You can view migration by Country, Industry or Skill and select a country, industry or skill to view. You may also select the year you want to view."
-                                ),
-                                p(
-                                  "The visualisation can be coloured by Bins, Numeric or Quantile, and additional options such as Number of Bins or Quantiles will be displayed accordingly."
-                                ),
-                                p(
-                                  "Finally, you can choose the colour palette for colouring the choropleth map. You may choose from diverging colour palettes when colouring by Bins and Numeric, and sequential colour palettes when colouring by Quantiles."
-                                )
-                              ))
+                              withTags({
+                                div(ol(
+                                  li(
+                                    "Select at least three countries from the dropdown list for ",
+                                    b("Countries"),
+                                    "."
+                                  ),
+                                  li(
+                                    "Select ",
+                                    b("Year"),
+                                    " on the slider as the data covers years 2015 – 2019 (both years included)."
+                                  ),
+                                  li("Select ", b("Order"), " by Income Group or Region."),
+                                  li(
+                                    "Select ",
+                                    b("Migration Perspective"),
+                                    " inwards or outwards."
+                                  )
+                                ))
+                              }))
                  })
                  
                  observeEvent(input$slopeInfo, {
@@ -519,17 +557,57 @@ migrationServer <- function(id = "migration") {
                  
                  observeEvent(input$slopeHelp, {
                    quickAlert("Slope Graph Help",
-                              div(
-                                p(
-                                  "The choropleth visualisation is a thematic map where countries are coloured by migration values. You can view migration by Country, Industry or Skill and select a country, industry or skill to view. You may also select the year you want to view."
-                                ),
-                                p(
-                                  "The visualisation can be coloured by Bins, Numeric or Quantile, and additional options such as Number of Bins or Quantiles will be displayed accordingly."
-                                ),
-                                p(
-                                  "Finally, you can choose the colour palette for colouring the choropleth map. You may choose from diverging colour palettes when colouring by Bins and Numeric, and sequential colour palettes when colouring by Quantiles."
-                                )
-                              ))
+                              withTags({
+                                div(ol(
+                                  li(
+                                    "Select ",
+                                    b("Type of Migration to View"),
+                                    " from the dropdown – Country, Industry or Skill."
+                                  ),
+                                  ol(
+                                    style = "list-style-type: lower-alpha;",
+                                    li(
+                                      "When Country is selected, you must further select ",
+                                      b("Base Country"),
+                                      " i.e. the country you want to see the net migration for. The dropdown list is sorted by Region then alphabetical order."
+                                    ),
+                                    li(
+                                      "When Industry is selected, you must further select the ",
+                                      b("Industries"),
+                                      " you want to see the net migration for."
+                                    )
+                                    ,
+                                    li(
+                                      "c.	When Skills is selected, you must further select the ",
+                                      b("Skills"),
+                                      " you want to see the net migration for."
+                                    )
+                                  ),
+                                  li("Select Top, Bottom or Top and Bottom."),
+                                  ol(
+                                    style = "list-style-type: lower-alpha;",
+                                    li(
+                                      "Indicate the number of countries (N) you want to see on your slope graph."
+                                    ),
+                                    li(
+                                      "When “Top and Bottom” is selected, Top N and Bottom N countries are shown."
+                                    )
+                                  ),
+                                  li(
+                                    "Select ",
+                                    b("Colour by"),
+                                    " Region or Income Group. This variable determines the colors of the lines on the slope graph."
+                                  ),
+                                  li(
+                                    "Check ",
+                                    b("Pseudolog Y-Axis"),
+                                    " to transform the y-axis."
+                                  ),
+                                  p(
+                                    "Pseudolog allows for a log-like transformation for both negative and positive values on the slope graph; visually, this feature may result in lines on the slope graph being less cluttered if the values are of a wide range."
+                                  )
+                                ))
+                              }))
                  })
                  
                  observeEvent(input$treeInfo, {
@@ -549,20 +627,56 @@ migrationServer <- function(id = "migration") {
                  
                  observeEvent(input$treeHelp, {
                    quickAlert("Treemap Help",
-                              div(
-                                p(
-                                  "A Treemap displays hierarchical data as a set of nested rectangles. Each group is represented by a rectangle, which area is proportional to its value."
-                                ),
-                                p(
-                                  "This visualisation shows the net country, industry or skill migration by the colour of the rectangles, and either the population or GDP per Capita by the size of the rectangles."
-                                ),
-                                p(
-                                  "The rectangles can be nested by Region or Income Group of the countries, and clicking on a rectangle will show the individual countries within that rectangle."
-                                ),
-                                p(
-                                  "Clicking on the top of the plot allows going up the hierarchy."
-                                )
-                              ))
+                              withTags({
+                                div(ol(
+                                  li(
+                                    "Select ",
+                                    b("Type of Migration to View"),
+                                    " from the dropdown – Country, Industry or Skill."
+                                  ),
+                                  ol(
+                                    style = "list-style-type: lower-alpha;",
+                                    li(
+                                      "When Country is selected, you must further select ",
+                                      b("Base Country"),
+                                      " i.e. the country you want to see the net migration for. The dropdown list is sorted by Region then alphabetical order."
+                                    ),
+                                    li(
+                                      "When Industry is selected, you must further select the ",
+                                      b("Industries"),
+                                      " you want to see the net migration for."
+                                    )
+                                    ,
+                                    li(
+                                      "c.	When Skills is selected, you must further select the ",
+                                      b("Skills"),
+                                      " you want to see the net migration for."
+                                    )
+                                  ),
+                                  li(
+                                    "Select ",
+                                    b("Year"),
+                                    " on the slider as the data covers years 2015 – 2019 (both years included)."
+                                  ),
+                                  li(
+                                    "Select ",
+                                    b("Group by"),
+                                    " Region or Income Group to see the hierarchy in the treemap. Click on the rectangles to go down a level in the hierarchy, click on the top header to go up a level in the hierarchy."
+                                  ),
+                                  li(
+                                    "Select ",
+                                    b("Size By"),
+                                    " Population or GDP Per Capita. This determines the size of the rectangles in the treemap."
+                                  ),
+                                  li(
+                                    "Select ",
+                                    b("Colour Palette"),
+                                    " to watch the colours of the choropleth map change."
+                                  )
+                                ))
+                              }))
+                   
+                   
                  })
                  
                  observeEvent(input$geofacetInfo, {
@@ -582,17 +696,45 @@ migrationServer <- function(id = "migration") {
                  
                  observeEvent(input$geofacetHelp, {
                    quickAlert("Geofacet Help",
-                              div(
-                                p(
-                                  "The choropleth visualisation is a thematic map where countries are coloured by migration values. You can view migration by Country, Industry or Skill and select a country, industry or skill to view. You may also select the year you want to view."
-                                ),
-                                p(
-                                  "The visualisation can be coloured by Bins, Numeric or Quantile, and additional options such as Number of Bins or Quantiles will be displayed accordingly."
-                                ),
-                                p(
-                                  "Finally, you can choose the colour palette for colouring the choropleth map. You may choose from diverging colour palettes when colouring by Bins and Numeric, and sequential colour palettes when colouring by Quantiles."
-                                )
-                              ))
+                              withTags({
+                                div(ol(
+                                  li(
+                                    "Select ",
+                                    b("Type of Migration to View"),
+                                    " from the dropdown – Country, Industry or Skill."
+                                  ),
+                                  ol(
+                                    style = "list-style-type: lower-alpha;",
+                                    li(
+                                      "When Country is selected, you must further select ",
+                                      b("Base Country"),
+                                      " i.e. the country you want to see the net migration for. The dropdown list is sorted by Region then alphabetical order."
+                                    ),
+                                    li(
+                                      "When Industry is selected, you must further select the ",
+                                      b("Industries"),
+                                      " you want to see the net migration for."
+                                    )
+                                    ,
+                                    li(
+                                      "c.	When Skills is selected, you must further select the ",
+                                      b("Skills"),
+                                      " you want to see the net migration for."
+                                    )
+                                  ),
+                                  li(
+                                    "Select the Region(s) you would like to see geofacets for. The select region(s) will show on the visualisation."
+                                  ),
+                                  li(
+                                    "Once you have selected the above, click on “Render!”. The spinning wheel indicates that the geofacets are loading. Once completed, the visualisation will show."
+                                  ),
+                                  li(
+                                    "To reset your selections for Industry migration and Skills migration, go to ",
+                                    b("Type of Migration to View"),
+                                    ", select country, then the industries and skills that you’ve selected will reset. Then repeat Steps 1-3 again."
+                                  )
+                                ))
+                              }))
                  })
                  
                  #######################################
@@ -709,7 +851,7 @@ migrationServer <- function(id = "migration") {
                    leaflet(options = leafletOptions(zoomControl = FALSE,
                                                     dragging = FALSE)) %>%
                      addTiles() %>%
-                     fitBounds(-170, 85, 170,-75) %>%
+                     fitBounds(-170, 85, 170, -75) %>%
                      htmlwidgets::onRender(
                        "
     function(el, x) {
@@ -859,7 +1001,7 @@ migrationServer <- function(id = "migration") {
                          decreasing = TRUE,
                          title = "Net migration<br>(per 10K LinkedIn users of country)"
                        ) %>%
-                       fitBounds(-170, 85, 170,-75)
+                       fitBounds(-170, 85, 170, -75)
                      
                      output$choroplethTitle <- renderText({
                        paste(
@@ -909,10 +1051,10 @@ migrationServer <- function(id = "migration") {
                        base_country_name %in% input$chordCountries,
                        target_country_name %in% input$chordCountries
                      ) %>%
-                     distinct(base_country_name,!!sym(input$chordOrder)) %>%
-                     select(base_country_name,!!sym(input$chordOrder)) %>%
+                     distinct(base_country_name, !!sym(input$chordOrder)) %>%
+                     select(base_country_name, !!sym(input$chordOrder)) %>%
                      arrange(!!sym(input$chordOrder), base_country_name) %>%
-                     mutate(tooltip = paste0(base_country_name, " (", !!sym(input$chordOrder), ")"))
+                     mutate(tooltip = paste0(base_country_name, " (",!!sym(input$chordOrder), ")"))
                    
                    tooltipNames <- countriesOrder$tooltip
                    
@@ -1550,7 +1692,7 @@ migrationServer <- function(id = "migration") {
                                     linetype = "dashed",
                                     color = "black") +
                          scale_alpha_discrete(range = c(0.5, 1.0)) +
-                         facet_geo( ~ country_name, grid = geofacetGrid) +
+                         facet_geo(~ country_name, grid = geofacetGrid) +
                          coord_flip() +
                          theme(legend.position = "none")
                      }
@@ -1565,7 +1707,7 @@ migrationServer <- function(id = "migration") {
                                     color = "black") +
                          theme_bw() +
                          theme(axis.text.x = element_blank()) +
-                         facet_geo( ~ country_name, grid = geofacetGrid)
+                         facet_geo(~ country_name, grid = geofacetGrid)
                      }
                    })
                  })
