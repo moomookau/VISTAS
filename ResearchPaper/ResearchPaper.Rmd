@@ -177,9 +177,17 @@ We were unable to get d3treeR working with other packages such as chorddiag due 
 
 We used the ggnewslopegraph function of CGPfunctions to draw slope graphs in our application. While not really a limitation, we were unable to colour the slope graphs by a grouping variable e.g. Income Group or Region. We had to fork this package from github and make changes to enhance the existing package to achieve this. The forked package with additional functionality can be found at <https://github.com/moomookau/CGPfunctions>.
 
-# Insights
+# Insights for Case Study
 
-What has the audience learned from your work? What new insights or practices has your system enabled? A full blown user study is not expected, but informal observations of use that help evaluate your system are encouraged.
+Using the VISTAS application, we will have a case study in 2019 on countries in East Asia and Pacific, in particular Singapore. The focus will be on the Information Technology and Services industry and Data Science skill, as it is of interest to SMU MITB students.
+
+## Higher Net Migration Per 10k LinkedIn Users from India and Malaysia to Singapore
+
+Using Singapore as the base country and setting 4 bins for the Choropleth Map (Figure 5), we observe that there is higher net migration per 10k LinkedIn users from India (21.57) and Malaysia (15.73), as compared to other countries. This is similarly seen in the Slope Graph (Figure 6), where India and Malaysia consistently contribute higher net migration (top 2) from 2015 to 2019. Using the Chord Diagram (Figure 7), we can also see that there is higher net migration from Malaysia than other countries in East Asia and Pacific.
+
+## Higher Net Migration Per 10k LinkedIn Users for Singapore and Austrlia in Information Technology and Services Industry and for Data Science Skill
+
+Within the Information Technology and Services industry, we observe from the Slope Graph (Figure 8) that Singapore (365.47) and Australia (415.2) are among the top 20 in terms of net industry migration per 10k LinkedIn users. Similarly, the Geofacet Plot (Figure 9) and Treemap (Figure 10) show Singapore and Australia to be among the top within East Asia and Pacific. In addition, we can size the countries on the Treemap by GDP per capita and observe that countries with higher GDP per capita tend to have higher net migration for the Information Technology and Services industry. Similar trend is observed for net skill migration per 10k LinkedIn users for Data Science skill (Figure 11-13), which may indicate booming market in these fields in Singapore and Australia.
 
 
 The relationship between GDP per capita growth vs industry employment growth, industry migration or skill migration is not strong. This is shown in the low R-squared values (below 0.02) in Section 3.3. Even when multiple variables are used to build a multiple regression model with GDP per capita growth and the less important variables (by p-value) as well as the correlated variables are removed in Section 3.5-3.6, the R-squared values are still low. Furthermore, in Section 3.4, we can see the weak correlation between GDP per capita growth and the other variables. Hence, even though we observe a slight negative relationship between GDP per capita growth and the other variables in Section 3.3 i.e. lower GDP per capita growth with higher employment growth and migration, we are unable to provide a firm conclusion on how GDP per capita growth is impacted by migration and employment growth in a country. Further study can be done to understand how GDP per capita growth is influenced by a combination of many other variables or how different filters used (e.g. year, industry) can change the results.
