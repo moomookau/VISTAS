@@ -185,9 +185,27 @@ Using the VISTAS application, we will have a case study in 2019 on countries in 
 
 Using Singapore as the base country and setting 4 bins for the Choropleth Map (Figure 5), we observe that there is higher net migration per 10k LinkedIn users from India (21.57) and Malaysia (15.73), as compared to other countries. This is similarly seen in the Slope Graph (Figure 6), where India and Malaysia consistently contribute higher net migration (top 2) from 2015 to 2019. Using the Chord Diagram (Figure 7), we can also see that there is higher net migration from Malaysia than other countries in East Asia and Pacific.
 
+![Figure 5: Choropleth Map](Images/Picture3.png)
+
+![Figure 6: Slope Graph](Images/Picture4.png)
+
+![Figure 7: Chord Diagram](Images/Picture5.png)
+
 ## Higher Net Migration Per 10k LinkedIn Users for Singapore and Austrlia in Information Technology and Services Industry and for Data Science Skill
 
 Within the Information Technology and Services industry, we observe from the Slope Graph (Figure 8) that Singapore (365.47) and Australia (415.2) are among the top 20 in terms of net industry migration per 10k LinkedIn users. Similarly, the Geofacet Plot (Figure 9) and Treemap (Figure 10) show Singapore and Australia to be among the top within East Asia and Pacific. In addition, we can size the countries on the Treemap by GDP per capita and observe that countries with higher GDP per capita tend to have higher net migration for the Information Technology and Services industry. Similar trend is observed for net skill migration per 10k LinkedIn users for Data Science skill (Figure 11-13), which may indicate booming market in these fields in Singapore and Australia.
+
+![Figure 8: Slope Graph](Images/Picture6.png)
+
+![Figure 9: Geofacet Plot](Images/Picture7.png)
+
+![Figure 10: Treemap](Images/Picture8.png)
+
+![Figure 11: Slope Graph](Images/Picture9.png)
+
+![Figure 12: Geofacet Plot](Images/Picture10.png)
+
+![Figure 13: Treemap](Images/Picture11.png)
 
 
 The relationship between GDP per capita growth vs industry employment growth, industry migration or skill migration is not strong. This is shown in the low R-squared values (below 0.02) in Section 3.3. Even when multiple variables are used to build a multiple regression model with GDP per capita growth and the less important variables (by p-value) as well as the correlated variables are removed in Section 3.5-3.6, the R-squared values are still low. Furthermore, in Section 3.4, we can see the weak correlation between GDP per capita growth and the other variables. Hence, even though we observe a slight negative relationship between GDP per capita growth and the other variables in Section 3.3 i.e. lower GDP per capita growth with higher employment growth and migration, we are unable to provide a firm conclusion on how GDP per capita growth is impacted by migration and employment growth in a country. Further study can be done to understand how GDP per capita growth is influenced by a combination of many other variables or how different filters used (e.g. year, industry) can change the results.
