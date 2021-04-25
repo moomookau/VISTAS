@@ -1,0 +1,26 @@
+---
+title: "VISTAS Blog"
+author: "put author here"
+date: "insert date here"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Proposal
+
+This post https://va.moomookau.org/posts/2021-02-21-visual-analytics-project-proposal/ contains the proposal for VISTAS - Visualising Industry Skill TAlent Shifts.
+
+In the post, you can find the background, project motivation and earlier sketches of our project. The final shiny dashboard differs as we explore more R packages with greater interactivity and work towards creating a user-friendly analytical tool.
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
