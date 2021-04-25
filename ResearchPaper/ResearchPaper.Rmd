@@ -45,7 +45,7 @@ Figure 4 shows the relationship between GDP per capita and share of employment i
 
 <!-- ![Figure 4: GDP per capita vs Share of employment in business services in Europe in 2000](https://raw.githubusercontent.com/louischong1990/blog/master/Assignment/Images/Picture2.png) -->
 
-As such, we have developed a dynamic, interactive and user-friendly visual analytics dashboard as a R Shiny appplication, titled VISTAS (Visualising Industry Skill TAlent Shifts). It allows individuals and countries to view their competitive advantage and understand the evolving labour market across the world. Comparisons can be done at both country-level and industry-level.
+As such, we have developed a dynamic, interactive and user-friendly visual analytics dashboard as a R Shiny application, titled VISTAS (Visualising Industry Skill TAlent Shifts). It allows individuals and countries to view their competitive advantage and understand the evolving labour market across the world. Comparisons can be done at both country-level, industry-level and skill-level.
 
 This paper reports on the effort to design the VISTAS application and consists of six sections. Section 1 provides a general introduction of the paper. Section 2 provides the motivation and objectives. Section 3 provides a review of analytical techniques for visualising and analysing the data. This includes scatterplots, slope graphs, treemap and more. The interface design and R package selection of VISTAS are discussed in Section 4 and 5 respectively. Section 6 demonstrates and discuss the insights from the use of VISTAS for analysis. Lastly, the paper concludes by highlighting the future direction of research.
 
