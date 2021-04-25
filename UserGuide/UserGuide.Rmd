@@ -72,7 +72,7 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 
     *The spinning wheel indicates that the correlation matrix is being generated.* Once completed, the visualisation will be shown.
 
-## Scatterplot
+#### 2.2 Scatterplot
 
 ![](images/08-scatter-01.png)
 
@@ -96,7 +96,7 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 
     *The spinning wheel indicates that the correlation matrix is being generated.* Once completed, the visualisation will be shown.
 
-## Correlation Matrix
+#### 2.3 Correlation Matrix
 
 ![](images/09-correlation.png)
 
@@ -114,7 +114,9 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 
     *The spinning wheel indicates that the correlation matrix is being generated.* Once completed, the visualisation will be shown.
 
-## Choropleth Map
+### 3. Migration Analysis
+
+#### 3.1 Choropleth Map
 
 ![](images/10-choropleth.png)
 
@@ -140,7 +142,7 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 
 5.  Select Colour Palette to watch the colours of the choropleth map change.
 
-## Chord Diagram
+#### 3.2 Chord Diagram
 
 ![](images/11-chord.png)
 
@@ -150,7 +152,7 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 4.  Select Order by Income Group or Region.
 5.  Select Migration Perspective inwards or outwards.
 
-## Slope Graph
+#### 3.3 Slope Graph
 
 ![](images/12-slope.png)
 
@@ -174,7 +176,7 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 
 6.  Check Pseudolog Y-Axis to transform the y-axis. Pseudolog allows for a log-like transformation for both negative and positive values on the slope graph; visually, this feature results in lines on the slope graph being less cluttered.
 
-## Treemap
+#### 3.4 Treemap
 
 ![](Images/14-tree.png)
 
@@ -196,7 +198,7 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 
 6.  Select Colour Palette to watch the colours of the choropleth map change.
 
-## Geofacet
+#### 3.5 Geofacet
 
 The geofacet has two types of visualisations, line graph and bar graphs. These graphs are shown based on the user inputs.
 
