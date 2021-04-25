@@ -224,4 +224,4 @@ The geofacet has two types of visualisations, line graph and bar graphs. These g
 
 4.  Once you have selected the above, click on "Render!". The spinning wheel indicates that the geofacets are loading. Once completed, the visualization will show.
 
-5.  To reset your selections for Industry migration and Skills migration, go to Type of Migration to View, select country, then the industries and skills that you've selected will reset. Then repeat Steps 2-4 again.
+    To reset your selections for Industry migration and Skills migration, go to Type of Migration to View, select country, then the industries and skills that you've selected will reset. Then repeat Steps 2-4 again.
