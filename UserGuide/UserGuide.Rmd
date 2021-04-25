@@ -18,19 +18,19 @@ knitr::opts_chunk$set(echo = TRUE)
 
 On this page, there is a description of the application and cards that link to the various visualisation tabs.
 
-![](images/01_introduction.png){width="100%"}
+![](images/01_introduction.png){width="80%"}
 
 When you hover over a card, the card flips to show a description and link to the visualisation. Below, the card for the choropleth map is flipped.
 
-![](images/02_hover-01.png)
+![](images/02_hover.png){width="80%"}
 
 On the side panel, a tooltip also appears when you hover over each sub-tabs. Below, the tooltip for scatter plot is shown when you move your cursor to Scatter Plot.
 
-![](images/03-tooltip.png)
+![](images/03-tooltip.png){width="80%"}
 
 Across each tab, there are two help buttons and many tooltips.
 
-![](images/04-info-user-guide.png)
+![](images/04-info-user-guide.png){width="80%"}
 
 1.  When the **i** button is clicked, a description of the visualisation will pop up.
 
@@ -42,7 +42,7 @@ Across each tab, there are two help buttons and many tooltips.
 
 3.  Spinning wheels are added to signify that the visualisations are being generated.
 
-    ![](images/07-spinning%20wheel-01.png){width="80%"}![]()
+    ![](images/07-spinning%20wheel.png){width="80%"}
 
 4.  When you hover over the input labels, a tooltip will appear to describe its significance.
 
@@ -54,7 +54,7 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 
 #### 2.1 Regression
 
-![](images/06-reg-01.png){width="100%"}
+![](images/06-reg.png){width="80%"}
 
 1.  Click on Regression in the navigation bar.
 
@@ -74,7 +74,7 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 
 #### 2.2 Scatterplot
 
-![](images/08-scatter-01.png)
+![](images/08-scatter.png){width="80%"}
 
 1.  Click on Scatter Plot in the navigation bar.
 
@@ -98,7 +98,7 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 
 #### 2.3 Correlation Matrix
 
-![](images/09-correlation.png)
+![](images/09-correlation.png){width="80%"}
 
 1.  Click on Correlation Matrix in the navigation bar.
 
@@ -118,7 +118,7 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 
 #### 3.1 Choropleth Map
 
-![](images/10-choropleth.png)
+![](images/10-choropleth.png){width="80%"}
 
 1.  Click on Choropleth Map in the navigation bar.
 
@@ -144,7 +144,7 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 
 #### 3.2 Chord Diagram
 
-![](images/11-chord.png)
+![](images/11-chord.png){width="80%"}
 
 1.  Click on the Chord Diagram in the navigation bar.
 2.  Select at least three countries from the dropdown list for Countries.
@@ -154,7 +154,7 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 
 #### 3.3 Slope Graph
 
-![](images/12-slope.png)
+![](images/12-slope.png){width="80%"}
 
 1.  Click on Slope Graph in the navigation bar.
 
@@ -178,7 +178,7 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 
 #### 3.4 Treemap
 
-![](Images/14-tree.png)
+![](Images/14-tree.png){width="80%"}
 
 1.  Click on Treemap in the navigation bar.
 
@@ -202,7 +202,7 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 
 The geofacet has two types of visualisations, line graph and bar graphs. These graphs are shown based on the user inputs, specifically the number of countries, industries or skills they select.
 
-![](Images/13-facet-bar.png){width="100%"}
+![](Images/13-facet-bar.png){width="80%"}
 
 1.  Click on Geofacet in the navigation bar.
 
