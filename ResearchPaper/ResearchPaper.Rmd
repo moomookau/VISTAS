@@ -94,10 +94,10 @@ readxl, also part of the universe but not loaded automatically, was used to read
 
 ### shiny (with shinydashboard, shinydashboardPlus, dashboardthemes, shinyWidgets, shinyjs, shinycssloaders, shinyBS)
 
-The application was built using shiny. Other packages were used to extend the functionality of the base shiny package. We will elaborate on these below:
+The application was built using shiny. Other packages were used to extend the functionality of the base shiny package, as elaborated below:
 
 -   **shinydashboard** allowed us to have a dashboard layout for our application, providing an easy way for users to navigate around our application.
--   **shinydashboardPlus** extended shinydashboard and was used in our application for the flipBox, a box which would flip over when the user hovered it. This allowed us to show the individual visualisations in our introduction page, while providing further description when a user hovered over the image of the visualisations.
+-   **shinydashboardPlus** extended shinydashboard and was used in our application for the flipBox, a box which would flip over when the user hovered over it. This allowed us to show the individual visualisations in our introduction page, while providing further description when a user hovered over the image of the visualisations.
 -   **dashboardthemes** was used to theme our application from the default dashboard colour scheme.
 -   **shinyWidgets** was used mainly for its pickerInput. The picketInput is a drop-down selection input with more features.
 -   **shinyjs** was used for us to call javascript functions in our application. The ability to use javascript allowed more advanced manipulation. For example, it allowed us to disable the zoom function of our choropleth map, which was not easily achievable by the leaflet package.
@@ -110,25 +110,23 @@ The following packages were used for our visualisations in the application.
 
 ### ggplot2 (from tidyverse)
 
-**ggplot2** was the main package for plotting of graphics. It provides a user-friendly way of mapping data variables to aesthetics.
-
-### parameters
-
-(Explain reasons for choosing packages and highlight any alternative packages that were considered but not chosen)
+**ggplot2** was the main package for plotting of graphics, including scatter plot. It provides a user-friendly way of mapping data variables to aesthetics.
 
 ### plotly
 
-(Explain reasons for choosing packages and highlight any alternative packages that were considered but not chosen)
+**plotly** makes highly interactive, graphically appealing, web-based graphs and can be used together with ggplot2 to show the value of each point on the scatter plot.
 
-### ggstatsplot
+### ggstatsplot (with ggscatterstats, ggcorrmat)
 
-(Explain reasons for choosing packages and highlight any alternative packages that were considered but not chosen)
+**ggstatsplot** was used to create graphics with details from statistical tests included in the information-rich plots themselves. It is an extension of ggplot2 package and preferred over ggplot2 package to create regression plot with statistical results and marginal distributions for its simpler and faster data exploration. As there are very few variables (only 4), it is also preferred over **corrplot** package to create a simple correlation matrix.
+
+### parameters
+
+**parameters** was used to process the parameters of statistical models e.g. compute p values, confidence intervals and coefficients. Given that some of the statistical results are already shown via the ggstatsplot package, parameters package is preferred over the **olsrr** package for its simple and streamlined report of statistical results.
 
 ### leaflet
 
-**Leaflet** is a javascript library used to create interactive maps. The R package named **leaflet** makes it easy to use Leaflet in R. Leaflet was used in
-
-While there are many other ways to plot interactive maps in R such as tmap, we chose leaflet as it had more features and provided a way to manipulate the layers without re-rendering the base map.
+**Leaflet** is a javascript library used to create interactive maps. The R package named **leaflet** makes it easy to use Leaflet in R. While there are many other ways to plot interactive maps in R such as tmap, we chose leaflet as it had more features and provided a way to manipulate the layers without re-rendering the base map.
 
 ### chorddiag
 
@@ -148,7 +146,7 @@ While there are many other ways to plot interactive maps in R such as tmap, we c
 
 **d3treeR** extended the treemap package to allow us to plot treemap objects in a d3.js treemap. Using d3.js treemaps allowed interactivity, where the user can click on the map to go down the hierarchy.
 
-We also considered using plotly for generating of our treemaps. However, extensive data manipulation to format the data in a parent-child relationship structure before we can draw treemaps in plotly. The treemap package did not require this manipulation, as it allowed us to specify column names to provide hierarchy to our data e.g. region followed by country.
+We also considered using plotly for generating of our treemaps. However, extensive data manipulation is required to format the data in a parent-child relationship structure before we can draw treemaps in plotly. The treemap package did not require this manipulation, as it allowed us to specify column names to provide hierarchy to our data e.g. region followed by country.
 
 ### geofacet
 
