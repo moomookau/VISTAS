@@ -180,6 +180,10 @@ We used the ggnewslopegraph function of CGPfunctions to draw slope graphs in our
 
 What has the audience learned from your work? What new insights or practices has your system enabled? A full blown user study is not expected, but informal observations of use that help evaluate your system are encouraged.
 
+
+The relationship between GDP per capita growth vs industry employment growth, industry migration or skill migration is not strong. This is shown in the low R-squared values (below 0.02) in Section 3.3. Even when multiple variables are used to build a multiple regression model with GDP per capita growth and the less important variables (by p-value) as well as the correlated variables are removed in Section 3.5-3.6, the R-squared values are still low. Furthermore, in Section 3.4, we can see the weak correlation between GDP per capita growth and the other variables. Hence, even though we observe a slight negative relationship between GDP per capita growth and the other variables in Section 3.3 i.e. lower GDP per capita growth with higher employment growth and migration, we are unable to provide a firm conclusion on how GDP per capita growth is impacted by migration and employment growth in a country. Further study can be done to understand how GDP per capita growth is influenced by a combination of many other variables or how different filters used (e.g. year, industry) can change the results.
+The relationship between industry employment growth vs industry or skill migration is stronger, as seen in the R-squared values in Section 3.3 i.e. 0.429 (industry employment growth vs industry migration) and 0.248 (industry employment growth vs skill migration). There is also moderate correlation between industry employment growth vs industry or skill migration, as seen in Section 3.4 i.e. ~0.6 (industry employment growth vs industry migration) and ~0.5 (industry employment growth vs skill migration). Even though the R-squared and correlation results are still not ideal, the results are able to give a glimpse of how much employment growth changes with industry or skill migration. Ideally, the employment growth to industry or skill migration ratio should be positive (i.e. higher employment growth with higher migration, as seen in Section 3.3) and high value to give job seekers confidence that they are more likely to find a job in certain industry and country if they have certain skill. Further study can be done to compare the ratio for different industries and skills. This will give job seekers knowledge of which industries and skills to focus on.
+
 # Conclusion
 
 Future work - ....
@@ -191,6 +195,12 @@ We have identified two main limitations of our project which arise due to the Li
 The authors wish to thank Professor Kam Tin Seong for his guidance throughout the tenure of the project.
 
 # References
+
+1.  Duca, D. (2019, July 9). Using LinkedIn for social research. Retrieved February 28, 2021, from <https://blogs.lse.ac.uk/impactofsocialsciences/2019/07/09/using-linkedin-for-social-research/>
+
+2.  World talent migration trends. (2019, August 22). Retrieved February 28, 2021, from <https://www.bayut.com/mybayut/world-talent-migration-trends/>
+
+3.  *People on the move: Global migration's impact and opportunity* (2016, December). Retrieved February 28, 2021, from McKinsey Global Institute website: <https://www.mckinsey.com/~/media/McKinsey/Industries/Public%20and%20Social%20Sector/Our%20Insights/Global%20migrations%20impact%20and%20opportunity/MGI-People-on-the-Move-Full-report.pdf>
 
 <!-- --- -->
 
