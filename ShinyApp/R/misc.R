@@ -157,3 +157,21 @@ clearPops <- function(timeout = 200) {
     ");"
   ))
 }
+
+# Helper function to create alerts
+quickAlert <- function(title, text) {
+  shinyalert(
+    title = title,
+    text = text,
+    size = "l",
+    closeOnEsc = TRUE,
+    closeOnClickOutside = TRUE,
+    html = TRUE,
+    type = "info",
+    showConfirmButton = FALSE,
+    showCancelButton = FALSE,
+    timer = 0,
+    imageUrl = "",
+    animation = TRUE
+  )
+}

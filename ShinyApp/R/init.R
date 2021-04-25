@@ -7,6 +7,7 @@ library(shinyWidgets) # Used for advanced Shiny Widgets
 library(shinyjs) # Used for jQuery manipulation of dom objects
 library(shinycssloaders) # For loading animation of plots
 library(shinyBS) # For popover tooltips
+library(shinyalert) # For modal dialogs for help and description of visualisations
 library(tidyverse) # Tidy universe of libraries
 library(readxl) # Used to read excel files
 library(plotly) # Interactive scatter plot

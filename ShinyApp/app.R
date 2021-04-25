@@ -16,14 +16,8 @@ ui <- dashboardPage(
                 "Statistical Analysis",
                 icon = icon("chart-line"),
                 quickPop(
-                    menuSubItem("Usage Guide",
-                                tabName = "statisticalUsage",
-                                icon = icon("info")),
-                    "Click here for a guide for statistical analysis"
-                ),
-                quickPop(
                     menuSubItem(
-                        "Regression",
+                        "Regression Plot",
                         tabName = "statisticalRegression",
                         icon = icon("chart-line")
                     ),
@@ -50,12 +44,6 @@ ui <- dashboardPage(
             menuItem(
                 "Migration Analysis",
                 icon = icon("exchange"),
-                quickPop(
-                    menuSubItem("Usage Guide",
-                                tabName = "migrationUsage",
-                                icon = icon("info")),
-                    "Click here for a guide for migration analysis"
-                ),
                 quickPop(
                     menuSubItem(
                         "Choropleth Map",
@@ -99,10 +87,11 @@ ui <- dashboardPage(
     dashboardBody(
         # Change the theme
         shinyDashboardThemes(theme = "grey_light"),
+        useShinyjs(),
+        useShinyalert(),
         tags$head(
             tags$link(rel = "stylesheet", type = "text/css", href = "css/vistas.css")
         ),
-        useShinyjs(),
         tags$script(
             HTML(
                 "
@@ -121,8 +110,6 @@ ui <- dashboardPage(
                     introUI()),
             
             # Create tabs for Statistical Analysis
-            tabItem(tabName = "statisticalUsage",
-                    statisticalUsageUI()),
             tabItem(tabName = "statisticalRegression",
                     statisticalRegressionUI()),
             tabItem(tabName = "statisticalScatter",
@@ -131,8 +118,6 @@ ui <- dashboardPage(
                     statisticalCorrelationUI()),
             
             # Create tabs for Migration Analysis
-            tabItem(tabName = "migrationUsage",
-                    migrationUsageUI()),
             tabItem(tabName = "migrationChoropleth",
                     migrationChoroplethUI()),
             tabItem(tabName = "migrationChord",

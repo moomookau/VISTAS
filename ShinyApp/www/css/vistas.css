@@ -37,3 +37,8 @@
 .skin-blue .sidebar-menu > li > .treeview-menu {
 	background: white !important;
 }
+
+.sweet-alert p {
+	padding: 5px 0px;
+	text-align: justify;
+}
