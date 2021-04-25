@@ -11,15 +11,11 @@ author:
     email: amos.lau.2019@mitb.smu.edu.sg
     affiliation: Singapore Management University
 abstract: |
-  [write abstract for research paper such as data viz methods, evals, user interface design] VISTAS - Visualising Industry Skill TAlent Shifts is a shiny app that aims to provide insights to talent, migration and skill trends in an interactive and user-friendly way... (no more than 300 words)
+  Numerous studies have been conducted to analyse the impact of employment growth and migration on GDP per capita. However, these studies usually use datasets aggregated at country level. More can be done to deep dive into the relationship between GDP per capita, employment growth and migration within each industry to help individuals and countries better understand the rapidly evolving labour market and its impact on country's economic growth. LinkedIn and World Bank Group have partnered to release a useful set of data from 2015 to 2019 on the employment growth and migration for different industries and skills in various countries. Together with GDP per capita data for each country, countries can study the impact of employment growth and migration for each industry and skill on GDP per capita, find out which are the key skills and whether they have been gained or lost to other countries. At the same time, individuals can analyse the labour market, identify the highly sought-after skills and countries that hold better employment opportunities for each skill. This boosts the competitive edge of countries and individuals in the labour market. To aid individuals and countries in the study, we have designed and developed VISTAS (Visualising Industry Skill TAlent Shifts), an interactive and user-friendly visual analytics dashboard.
 bibliography: sigproc.bib
 csl: acm-sig-proceedings.csl
 output: rticles::acm_article
 ---
-
-# Abstract {.unnumbered}
-
-Numerous studies have been conducted to analyse the impact of employment growth and migration on GDP per capita. However, these studies usually use datasets aggregated at country level. More can be done to deep dive into the relationship between GDP per capita, employment growth and migration within each industry to help individuals and countries better understand the rapidly evolving labour market and its impact on country's economic growth. LinkedIn and World Bank Group have partnered to release a useful set of data from 2015 to 2019 on the employment growth and migration for different industries and skills in various countries. Together with GDP per capita data for each country, countries can study the impact of employment growth and migration for each industry and skill on GDP per capita, find out which are the key skills and whether they have been gained or lost to other countries. At the same time, individuals can analyse the labour market, identify the highly sought-after skills and countries that hold better employment opportunities for each skill. This boosts the competitive edge of countries and individuals in the labour market. To aid individuals and countries in the study, we have designed and developed VISTAS (Visualising Industry Skill TAlent Shifts), an interactive and user-friendly visual analytics dashboard.
 
 # Introduction
 
@@ -29,21 +25,21 @@ Aside from being able to download the data in csv format from the LinkedIn-World
 
 -   Talent Migration: The available visualisation only shows top 10 countries on the map, and top 5 countries, industries and skills in the table. A user may want to know more than just the top N for these metrics. The use of a map and table makes it difficult to visualise the inflow vs outflow of the selected country. A visualisation that allows for comparison between inflow and outflow will be useful to understand if a country is gaining or losing talent.
 
-\<Figure 1: Insert screenshot showing "Talent Migration"\>
+![Talent Migration](Images/Picture14.png)
 
 -   Industry Skills Needs: The interactive visualisation in Industry Skills Needs panel allows users to pick an industry group and industry, but only the skills valued in Year 2019 are shown. No option to change the year is provided. One is hence unable to see the change in skills over the years in an industry. By presenting the changes over the years, the user is able to review trends and gather insights to the industry skills shift and sought-after skills in a particular industry.
 
-\<Figure 2: Insert screenshot showing "Industry Skills Needs"\>
+![Industry Skills Needs](Images/Picture15.png)
 
 In addition, studies on GDP per capita, employment growth and migration are usually done at country level and there are limited studies to analyse the relationship between GDP per capita growth and employment growth or migration in each industry. These analyses are also shown as static charts in reports, lacking interactivity.
 
 Figure 3 shows the relationship between employment growth and interstate migration ([Tunny, G., 2015](https://queenslandeconomywatch.com/2015/03/29/feedback-between-interstate-migration-and-employment-growth/)). Here, analysis is done at state level, but not industry level.
 
-![Figure 3: Employment Growth vs Interstate Migration](Images/Picture1.png)
+![Employment Growth vs Interstate Migration](Images/Picture1.png)
 
 Figure 4 shows the relationship between GDP per capita and share of employment in business services in 2000 for countries in Europe ([Kox, H. & Rubalcaba, L., 2007](https://www.researchgate.net/publication/5007988_Business_services_and_the_changing_structure_of_European_economic_growth)). However, this does not show how a change in migration or employment growth in an industry will cause the change in GDP per capita.
 
-![Figure 4: GDP per capita vs Share of employment in business services in Europe in 2000](Images/Picture2.png)
+![GDP per capita vs Share of employment in business services in Europe in 2000](Images/Picture2.png)
 
 As such, we have developed a dynamic, interactive and user-friendly visual analytics dashboard as a R Shiny application, titled VISTAS (Visualising Industry Skill TAlent Shifts). It allows individuals and countries to view their competitive advantage and understand the evolving labour market across the world. Comparisons can be done at both country-level, industry-level and skill-level.
 
@@ -185,35 +181,35 @@ Using the VISTAS application, we will have a case study in 2019 on countries in 
 
 Using Singapore as the base country and setting 4 bins for the Choropleth Map (Figure 5), we observe that there is higher net migration per 10k LinkedIn users from India (21.57) and Malaysia (15.73), as compared to other countries. This is similarly seen in the Slope Graph (Figure 6), where India and Malaysia consistently contribute higher net migration (top 2) from 2015 to 2019. Using the Chord Diagram (Figure 7), we can also see that there is higher net migration from Malaysia than other countries in East Asia and Pacific.
 
-![Figure 5: Choropleth Map](Images/Picture3.png)
+![Choropleth Map](Images/Picture3.png)
 
-![Figure 6: Slope Graph](Images/Picture4.png)
+![Slope Graph](Images/Picture4.png)
 
-![Figure 7: Chord Diagram](Images/Picture5.png)
+![Chord Diagram](Images/Picture5.png)
 
 ## Higher Net Migration Per 10k LinkedIn Users for Singapore and Australia in Information Technology and Services Industry and for Data Science Skill
 
 Within the Information Technology and Services industry, we observe from the Slope Graph (Figure 8) that Singapore (365.47) and Australia (415.2) are among the top 20 in terms of net industry migration per 10k LinkedIn users. Similarly, the Geofacet Plot (Figure 9) and Treemap (Figure 10) show Singapore and Australia to be among the top within East Asia and Pacific. In addition, we can size the countries on the Treemap by GDP per capita and observe that countries with higher GDP per capita tend to have higher net migration for the Information Technology and Services industry. Similar trend is observed for net skill migration per 10k LinkedIn users for Data Science skill (Figure 11-13), which may indicate booming market in these fields in Singapore and Australia.
 
-![Figure 8: Slope Graph](Images/Picture6.png)
+![Slope Graph](Images/Picture6.png)
 
-![Figure 9: Geofacet Plot](Images/Picture7.png)
+![Geofacet Plot](Images/Picture7.png)
 
-![Figure 10: Treemap](Images/Picture8.png)
+![Treemap](Images/Picture8.png)
 
-![Figure 11: Slope Graph](Images/Picture9.png)
+![Slope Graph](Images/Picture9.png)
 
-![Figure 12: Geofacet Plot](Images/Picture10.png)
+![Geofacet Plot](Images/Picture10.png)
 
-![Figure 13: Treemap](Images/Picture11.png)
+![Treemap](Images/Picture11.png)
 
 ## Strong Relationship Between Employment Growth and Industry Migration in Singapore for Information Technology and Services Industry
 
 Lastly, using statistical analysis, we observe a strong correlation (0.91) between employment growth and industry migration in 2019 in Singapore for the Information Technology and Services industry (Figure 14). The R-squared value (0.82) for the corresponding regression plot is also high (Figure 15), which shows a strong relationship. This can give an indication of how employment growth moves with industry migration for the information technology and services industry in Singapore and how likely job seekers can find a job.
 
-![Figure 14: Correlation Matrix](Images/Picture12.png)
+![Correlation Matrix](Images/Picture12.png)
 
-![Figure 15: Regression Plot](Images/Picture13.png)
+![Regression Plot](Images/Picture13.png)
 
 # Conclusion
 
@@ -233,60 +229,4 @@ The authors wish to thank Professor Kam Tin Seong for his guidance throughout th
 
 3.  *People on the move: Global migration's impact and opportunity* (2016, December). Retrieved February 28, 2021, from McKinsey Global Institute website: <https://www.mckinsey.com/~/media/McKinsey/Industries/Public%20and%20Social%20Sector/Our%20Insights/Global%20migrations%20impact%20and%20opportunity/MGI-People-on-the-Move-Full-report.pdf>
 
-<!-- --- -->
 
-<!-- references: -->
-
-<!-- - id: meier2012 -->
-
-<!--   title: Professinal Android 4 Application Development -->
-
-<!--   author:  -->
-
-<!--   - family: Meier -->
-
-<!--     given: Reto -->
-
-<!--   type: book -->
-
-<!--   publisher: John Wiley & Sons, Inc. -->
-
-<!--   issued: -->
-
-<!--     year: 2012 -->
-
-<!--     month: 5 -->
-
-<!-- - id: fenner2012a -->
-
-<!--   title: One-click science marketing -->
-
-<!--   author: -->
-
-<!--   - family: Fenner -->
-
-<!--     given: Martin -->
-
-<!--   container-title: Nature Materials -->
-
-<!--   volume: 11 -->
-
-<!--   URL: 'https://doi.org/10.1038/nmat3283' -->
-
-<!--   DOI: 10.1038/nmat3283 -->
-
-<!--   issue: 4 -->
-
-<!--   publisher: Nature Publishing Group -->
-
-<!--   page: 261-263 -->
-
-<!--   type: article-journal -->
-
-<!--   issued: -->
-
-<!--     year: 2012 -->
-
-<!--     month: 3 -->
-
-<!-- --- -->
