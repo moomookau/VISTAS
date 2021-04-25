@@ -65,7 +65,7 @@ introUI <- function(id = "intro") {
           ),
           back = div(
             class = "intro-description",
-            "The regression plot and histogram visualise the relationship between two variables (among GDP per capita growth, employment growth, industry migration or skill migration) and their marginal distributions.",
+            "The regression plot and histogram visualise the relationship between two variables (among GDP per capita growth, employment growth, industry or skill migration) and their marginal distributions.",
             br(),
             br(),
             a("Take me to Regression", onclick = "openTab('StatisticalAnalysis', 'statisticalRegression');", href =
@@ -88,7 +88,7 @@ introUI <- function(id = "intro") {
           ),
           back = div(
             class = "intro-description",
-            "The interactive scatter plot visualises the values for two variables (among GDP per capita growth, employment growth, industry migration or skill migration) and is coloured by year.",
+            "The interactive scatter plot visualises the values for two variables (among GDP per capita growth, employment growth, industry or skill migration) and is coloured by year.",
             br(),
             br(),
             a("Take me to Scatter Plot", onclick = "openTab('StatisticalAnalysis', 'statisticalScatter');", href =
@@ -111,7 +111,7 @@ introUI <- function(id = "intro") {
           ),
           back = div(
             class = "intro-description",
-            "The correlation matrix visualises the strength of relationship between pairs of variables. Four variables are used i.e. GDP per capita growth, employment growth, industry migration and skill migration.",
+            "The correlation matrix visualises the strength of relationship between pairs of variables. Four variables are used - GDP per capita growth, employment growth, industry and skill migration.",
             br(),
             br(),
             a(
@@ -297,16 +297,16 @@ introUI <- function(id = "intro") {
             div(
               span(class = "intro-author-person", "Louis Chong"),
               span(
-                a(href = "#",
-                  #target = "_blank",
+                a(href = "https://www.linkedin.com/in/louis-chong-jia-jun/",
+                  target = "_blank",
                   title = "LinkedIn",
                   icon("linkedin")),
-                a(href = "#",
-                  #target = "_blank",
+                a(href = "https://github.com/louischong1990/",
+                  target = "_blank",
                   title = "Github",
                   icon("github")),
-                a(href = "#",
-                  #target = "_blank",
+                a(href = "https://affectionate-dijkstra-f71bd4.netlify.app/",
+                  target = "_blank",
                   title = "Blog",
                   icon("blog"))
               )
