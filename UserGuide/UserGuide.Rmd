@@ -176,13 +176,25 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 
 ## Treemap
 
+![](Images/14-tree.png)
+
 1.  Click on Treemap in the navigation bar.
+
 2.  Select Type of Migration to View from the dropdown -- Country, Industry or Skill.
-3.  Select Base Country i.e. the country you want to see the net migration for. The dropdown list is sorted by Region then alphabetical order.
-4.  Select Year on the slider as the data covers years 2015 -- 2019 (both years included).
-5.  Select Group by Region or Income Group to see the hierarchy in the treemap. Click on the rectangles to go down a level in the hierarchy, click on the top header to go up a level in the hierarchy.
-6.  Select Size By Population or GDP Per Capita. This determines the size of the rectangles in the treemap.
-7.  Select Colour Palette to watch the colours of the choropleth map change.
+
+    -   When Country is selected, you must further select Base Country i.e. the country you want to see the net migration for. The dropdown list is sorted by Region then alphabetical order.
+
+    -   When Industry is selected, you must further select the Industries you want to see the net migration for.
+
+    -   When Skills is selected, you must further select the Skills you want to see the net migration for.
+
+3.  Select Year on the slider as the data covers years 2015 -- 2019 (both years included).
+
+4.  Select Group by Region or Income Group to see the hierarchy in the treemap. Click on the rectangles to go down a level in the hierarchy, click on the top header to go up a level in the hierarchy.
+
+5.  Select Size By Population or GDP Per Capita. This determines the size of the rectangles in the treemap.
+
+6.  Select Colour Palette to watch the colours of the choropleth map change.
 
 ## Geofacet
 
