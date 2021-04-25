@@ -213,12 +213,7 @@ Lastly, using statistical analysis, we observe a strong correlation (0.91) betwe
 
 # Conclusion
 
-
-
-Future work - ....
-
-Net migration, not actual migration
-We have identified two main limitations of our project which arise due to the LinkedIn dataset: Our data does not capture all the countries due to the penetration rate of LinkedIn; some countries do not use LinkedIn. Our data is not representative of the entire migration landscape as LinkedIn data has better coverage fo white-collar workers in knowledge-intensive sectors.
+The potential of the VISTAS application was illustrated through the case study, where users can understand the migration trends and discover its relationship with employment growth. Individuals and countries can use the application for further study on the labour market. Through the course of developing the application, we identified a few limitations of the dataset. The dataset does not capture all countries due to the penetration rate of LinkedIn and is not representative of the entire migration landscape, as LinkedIn may have better coverage for white-collar workers in knowledge-intensive sectors. The data values are net migration per 10k LinkedIn users instead of actual migration values. Hence, the application can be enhanced with the additional datasets e.g. the number of LinkedIn users in each country.
 
 # Acknowledgement
 
@@ -226,10 +221,14 @@ The authors wish to thank Professor Kam Tin Seong for his guidance throughout th
 
 # References
 
-1.  Duca, D. (2019, July 9). Using LinkedIn for social research. Retrieved February 28, 2021, from <https://blogs.lse.ac.uk/impactofsocialsciences/2019/07/09/using-linkedin-for-social-research/>
+[1] Duca, D. (2019, July 9). Using LinkedIn for social research. Retrieved February 28, 2021, from <https://blogs.lse.ac.uk/impactofsocialsciences/2019/07/09/using-linkedin-for-social-research/>
 
-2.  World talent migration trends. (2019, August 22). Retrieved February 28, 2021, from <https://www.bayut.com/mybayut/world-talent-migration-trends/>
+[2] World talent migration trends. (2019, August 22). Retrieved February 28, 2021, from <https://www.bayut.com/mybayut/world-talent-migration-trends/>
 
-3.  *People on the move: Global migration's impact and opportunity* (2016, December). Retrieved February 28, 2021, from McKinsey Global Institute website: <https://www.mckinsey.com/~/media/McKinsey/Industries/Public%20and%20Social%20Sector/Our%20Insights/Global%20migrations%20impact%20and%20opportunity/MGI-People-on-the-Move-Full-report.pdf>
+[3] People on the move: Global migration's impact and opportunity (2016, December). Retrieved February 28, 2021, from McKinsey Global Institute website: <https://www.mckinsey.com/~/media/McKinsey/Industries/Public%20and%20Social%20Sector/Our%20Insights/Global%20migrations%20impact%20and%20opportunity/MGI-People-on-the-Move-Full-report.pdf>
 
+# Project Links
 
+Our application can be assessed at https://moomookau.shinyapps.io/VISTAS/.
+
+Code for the application and all documents can be found at https://github.com/moomookau/VISTAS/.
