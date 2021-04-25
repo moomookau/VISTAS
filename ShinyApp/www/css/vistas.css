@@ -10,11 +10,12 @@
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 10px 20px;
-  background: #f4f4f440;
+  background: #f4f4f4D0;
 }
 
 .intro-description {
-	padding: 20px;
+	padding: 10px;
+	font-size: 12px;
 }
 
 .intro-author-person {
@@ -31,4 +32,8 @@
 #Choropleth > div, #Chord > div, #Slope > div, #Treemap > div, #Geofacet > div {
 	border-color: red;
 	border-style: solid;
+}
+
+.skin-blue .sidebar-menu > li > .treeview-menu {
+	background: white !important;
 }

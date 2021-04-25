@@ -167,7 +167,7 @@ migrationChoroplethUI <- function(id = "migration") {
             choices = c("Bins", "Numeric", "Quantile"),
             selected = "Bins"
           ),
-          "Slide to choose the number of bins to colour by. The number of bins need to be even to have equal number of bins for positive and negative values."
+          "Select the method to colour the choropleth by. Valid options are by Bins (Fixed Intervals), Numeric (Continuous) and Quantile (Fixed Percentiles)."
         ),
         uiOutput(outputId = ns("choroplethColourOptionsOutput")),
         uiOutput(outputId = ns("choroplethColourPaletteOutput"))
@@ -180,7 +180,7 @@ migrationChoroplethUI <- function(id = "migration") {
         width = 12,
         solidHeader = TRUE,
         title = textOutput(ns('choroplethTitle')),
-        leafletOutput(ns("choroplethOutput"), height = "calc(100vh - 160px)")
+        leafletOutput(ns("choroplethOutput"), height = "calc(100vh - 180px)")
       )
     )
   ))
@@ -267,7 +267,7 @@ migrationChordUI <- function(id = "migration") {
         width = 12,
         solidHeader = TRUE,
         title = textOutput(ns('chordTitle')),
-        chorddiagOutput(ns("chorddiagOutput"), height = "calc(100vh - 160px)") %>% withSpinner(type = 8)
+        chorddiagOutput(ns("chorddiagOutput"), height = "calc(100vh - 180px)") %>% withSpinner(type = 8)
       )
     )
   ))
@@ -313,10 +313,10 @@ migrationSlopeUI <- function(id = "migration") {
           selectInput(
             inputId = ns("slopeTopBottom"),
             label = "Show Top or Bottom N (based on 2019 values):",
-            choices = c("Top", "Bottom", "Top/Bottom"),
+            choices = c("Top", "Bottom", "Top and Bottom"),
             selected = "Top"
           ),
-          "Select to show Top, Bottom or both Top and Bottom N countries. Countries will be chosen by the net migration values of 2019."
+          "Select to show Top and/or Bottom N countries. Countries will be chosen by the net migration values of 2019."
         ),
         quickPop(
           sliderInput(
@@ -350,7 +350,7 @@ migrationSlopeUI <- function(id = "migration") {
       box(
         width = 12,
         solidHeader = TRUE,
-        plotOutput(ns("slopeOutput"), height = "calc(100vh - 120px)") %>% withSpinner(type =
+        plotOutput(ns("slopeOutput"), height = "calc(100vh - 180px)") %>% withSpinner(type =
                                                                                         8)
       )
     )
@@ -442,7 +442,7 @@ migrationTreeUI <- function(id = "migration") {
         width = 12,
         solidHeader = TRUE,
         title = textOutput(ns('treeTitle')),
-        d3tree2Output(ns("treeOutput"), height = "calc(100vh - 160px)") %>% withSpinner(type =
+        d3tree2Output(ns("treeOutput"), height = "calc(100vh - 180px)") %>% withSpinner(type =
                                                                                           8)
       )
     )
@@ -533,7 +533,7 @@ migrationGeofacetUI <- function(id = "migration") {
     box(
       width = 12,
       solidHeader = TRUE,
-      plotOutput(ns("geofacetOutput"), height = "calc(100vh - 200px)") %>% withSpinner(type = 8)
+      plotOutput(ns("geofacetOutput"), height = "calc(100vh - 220px)") %>% withSpinner(type = 8)
     )
   ))
 }

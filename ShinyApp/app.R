@@ -97,6 +97,8 @@ ui <- dashboardPage(
     ),
     # Create a Dashboard Body
     dashboardBody(
+        # Change the theme
+        shinyDashboardThemes(theme = "grey_light"),
         tags$head(
             tags$link(rel = "stylesheet", type = "text/css", href = "css/vistas.css")
         ),
@@ -113,8 +115,6 @@ ui <- dashboardPage(
       "
             )
         ),
-        # Change the theme
-        shinyDashboardThemes(theme = "grey_light"),
         tabItems(
             # Create an Intro Tab
             tabItem(tabName = "intro",

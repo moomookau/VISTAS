@@ -249,7 +249,7 @@ statisticalRegressionUI <- function(id = "statistical") {
       box(
         width = 12,
         solidHeader = TRUE,
-        plotOutput(ns("RegressionOutput")) %>% withSpinner(type =
+        plotOutput(ns("RegressionOutput"), height = "calc(100vh - 280px)") %>% withSpinner(type =
                                                              8),
         verbatimTextOutput(ns("RegResOutput")) %>% withSpinner(type =
                                                                  8)
@@ -399,7 +399,7 @@ statisticalScatterUI <- function(id = "statistical") {
       box(
         width = 12,
         solidHeader = TRUE,
-        plotlyOutput(ns("ScatterPlotOutput")) %>% withSpinner(type = 8)
+        plotlyOutput(ns("ScatterPlotOutput"), height = "calc(100vh - 180px)") %>% withSpinner(type = 8)
       )
     )
   ))
@@ -519,7 +519,7 @@ statisticalCorrelationUI <- function(id = "statistical") {
       box(
         width = 12,
         solidHeader = TRUE,
-        plotOutput(ns("CorrelationOutput")) %>% withSpinner(type =
+        plotOutput(ns("CorrelationOutput"), height = "calc(100vh - 180px)") %>% withSpinner(type =
                                                               8)
       )
     )
