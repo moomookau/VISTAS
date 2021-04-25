@@ -227,4 +227,8 @@ The authors wish to thank Professor Kam Tin Seong for his guidance throughout th
 
 [3] People on the move: Global migration's impact and opportunity (2016, December). Retrieved February 28, 2021, from McKinsey Global Institute website: <https://www.mckinsey.com/~/media/McKinsey/Industries/Public%20and%20Social%20Sector/Our%20Insights/Global%20migrations%20impact%20and%20opportunity/MGI-People-on-the-Move-Full-report.pdf>
 
+# Project Links
 
+Our application can be assessed at https://moomookau.shinyapps.io/VISTAS/.
+
+Code for the application and all documents can be found at https://github.com/moomookau/VISTAS/.
