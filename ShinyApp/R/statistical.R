@@ -150,7 +150,7 @@ statisticalRegressionUI <- function(id = "statistical") {
         width = 12,
         solidHeader = TRUE,
         plotOutput(ns("RegressionOutput"), height = "calc(100vh - 280px)") %>% withSpinner(type =
-                                                             8),
+                                                                                             8),
         verbatimTextOutput(ns("RegResOutput")) %>% withSpinner(type =
                                                                  8)
       )
@@ -168,7 +168,7 @@ statisticalScatterUI <- function(id = "statistical") {
         title = div(
           "Scatter Plot",
           actionButton(ns("scatterInfo"), "", icon = icon("info", class =
-                                                               "fa-fw")),
+                                                            "fa-fw")),
           actionButton(ns("scatterHelp"), "", icon = icon("question", class = "fa-fw"))
         ),
         width = 12,
@@ -399,7 +399,7 @@ statisticalCorrelationUI <- function(id = "statistical") {
         width = 12,
         solidHeader = TRUE,
         plotOutput(ns("CorrelationOutput"), height = "calc(100vh - 180px)") %>% withSpinner(type =
-                                                              8)
+                                                                                              8)
       )
     )
   ))
@@ -549,8 +549,23 @@ statisticalServer <- function(id = "statistical") {
                    
                    if (nrow(filteredMaster1r) > 0)
                    {
-                     shinyjs::enable("apply1")
-                     HTML(paste(nrow(filteredMaster1r), "rows selected."))
+                     if (input$xVar1 != input$yVar1)
+                     {
+                       shinyjs::enable("apply1")
+                       HTML(paste(nrow(filteredMaster1r), "rows selected."))
+                     }
+                     else {
+                       shinyjs::disable("apply1")
+                       HTML(
+                         paste0(
+                           nrow(filteredMaster1r),
+                           " rows selected. ",
+                           "<span style='color: red'>",
+                           "X and Y variables cannot be the same.",
+                           "</span>"
+                         )
+                       )
+                     }
                    }
                    else {
                      shinyjs::disable("apply1")
@@ -567,6 +582,10 @@ statisticalServer <- function(id = "statistical") {
                    req(input$apply1 > 0) # Check that greater than 0 to ensure user has clicked the button once
                    
                    isolate({
+                     validate(need(
+                       input$xVar1 != input$yVar1,
+                       "X and Y variables cannot be the same."
+                     ))
                      filteredMaster1a <- master %>%
                        filter(
                          year %in% input$year1,
@@ -584,7 +603,9 @@ statisticalServer <- function(id = "statistical") {
                      #                     y <- unlist(filteredMaster1a[, input$yVar1])
                      
                      ggscatterstats(
-                       filteredMaster1a,!!input$xVar1,!!input$yVar1,
+                       filteredMaster1a,
+                       !!input$xVar1,
+                       !!input$yVar1,
                        ggplot.component = list(
                          ggplot2::xlim(-2.00, 2.00),
                          ylim(-0.50, 0.50),
@@ -671,8 +692,21 @@ statisticalServer <- function(id = "statistical") {
                    
                    if (nrow(filteredMaster2r) > 0)
                    {
-                     shinyjs::enable("apply2")
-                     HTML(paste(nrow(filteredMaster2r), "rows selected."))
+                     if (input$xVar2 != input$yVar2)
+                     {
+                       shinyjs::enable("apply2")
+                       HTML(paste(nrow(filteredMaster2r), "rows selected."))
+                     }
+                     else {
+                       shinyjs::disable("apply2")
+                       HTML(paste(
+                         nrow(filteredMaster2r),
+                         " rows selected. ",
+                         "<span style='color: red'>",
+                         "X and Y variables cannot be the same.",
+                         "</span>"
+                       ))
+                     }
                    }
                    else {
                      shinyjs::disable("apply2")
@@ -690,6 +724,10 @@ statisticalServer <- function(id = "statistical") {
                    req(input$apply2 > 0)
                    
                    isolate({
+                     validate(need(
+                       input$xVar2 != input$yVar2,
+                       "X and Y variables cannot be the same"
+                     ))
                      filteredMaster2 <- master %>%
                        filter(
                          year %in% input$year2,
