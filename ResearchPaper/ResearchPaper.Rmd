@@ -177,7 +177,9 @@ We were unable to get d3treeR working with other packages such as chorddiag due 
 
 We used the ggnewslopegraph function of CGPfunctions to draw slope graphs in our application. While not really a limitation, we were unable to colour the slope graphs by a grouping variable e.g. Income Group or Region. We had to fork this package from github and make changes to enhance the existing package to achieve this. The forked package with additional functionality can be found at <https://github.com/moomookau/CGPfunctions>.
 
-# Insights
+# Insights for Case Study
+
+Using the VISTAS application, we will have a case study on countries in East Asia and Pacific, in particular Singapore, and we will analyse
 
 What has the audience learned from your work? What new insights or practices has your system enabled? A full blown user study is not expected, but informal observations of use that help evaluate your system are encouraged.
 
