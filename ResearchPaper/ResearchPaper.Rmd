@@ -92,7 +92,7 @@ The tidyverse universe of packages was used extensively throughout the project. 
 
 readxl, also part of the universe but not loaded automatically, was used to read our data files which were in Excel format.
 
-### shiny (with shinydashboard, shinydashboardPlus, dashboardthemes, shinyWidgets, shinyjs, shinycssloaders, shinyBS)
+### shiny (with shinydashboard, shinydashboardPlus, dashboardthemes, shinyWidgets, shinyjs, shinycssloaders, shinyBS, shinyalert)
 
 The application was built using shiny. Other packages were used to extend the functionality of the base shiny package, as elaborated below:
 
@@ -103,6 +103,7 @@ The application was built using shiny. Other packages were used to extend the fu
 -   **shinyjs** was used for us to call javascript functions in our application. The ability to use javascript allowed more advanced manipulation. For example, it allowed us to disable the zoom function of our choropleth map, which was not easily achievable by the leaflet package.
 -   **shinycssloaders** was used to provide loading animations on some of our visualisations that took longer to load.
 -   **shinyBS** allowed us to include Bootstrap-like popovers into our application. These popovers provide users with helpful hints on most of the inputs throughout our application when they hover over them.
+-   **shinyalert** allows us to create modal dialogs to provide useful information such as information on the visualisations and a help guide to the user.
 
 ## Data Visualisation
 
