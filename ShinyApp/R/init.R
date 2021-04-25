@@ -47,7 +47,7 @@ industryMigration <-
 skillMigration <-
   read_excel("data/public_use-talent-migration.xlsx", sheet = "Skill Migration")
 popAndGdpData <-
-  read_excel("data/Population-GDPPerCapita-2015-2019.xlsx")
+  read_excel("data/Population-GDPPerCapita-2015-2019.xlsx", sheet = "Data")
 master <- read.csv("data/master.csv")
 
 # We read the world polygons file we prepared using the rnaturalearth data
@@ -101,7 +101,7 @@ populationDf <- popAndGdpData %>%
 
 gdpPerCapitaDf <- popAndGdpData %>%
   na_if("..") %>%
-  filter(`Series Code` == "NY.GDP.PCAP.KD") %>%
+  filter(`Series Code` == "NY.GDP.PCAP.CD") %>%
   pivot_longer(col = starts_with("201"),
                names_to = "year_text",
                values_to = "value") %>%

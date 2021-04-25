@@ -420,7 +420,7 @@ migrationTreeUI <- function(id = "migration") {
           selectInput(
             inputId = ns("treeSize"),
             label = "Size By:",
-            choices = c("Population", "GDP Per Capita (2010 US$)")
+            choices = c("Population", "GDP Per Capita")
           ),
           "Select the variable to size the treemap by."
         ),
