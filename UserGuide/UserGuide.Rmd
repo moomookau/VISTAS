@@ -186,6 +186,10 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
 
 ## Geofacet
 
+The geofacet has two types of visualisations, line graph and bar graphs. These graphs are shown based on the user inputs.
+
+![](Images/13-facet-bar.png){width="100%"}
+
 1.  Click on Geofacet in the navigation bar.
 
 2.  Select Type of Migration to View from the dropdown -- Country, Industry or Skill.
@@ -193,6 +197,14 @@ This tab has three sub-tabs for regression, scatter plot and correlation matrix.
     -   When Country is selected, you must further select Base Country i.e. the country you want to see the net migration for. The dropdown list is sorted by Region then alphabetical order.
     -   When Industry is selected, you must further select the Industries you want to see the net migration for.
     -   When Skills is selected, you must further select the Skills you want to see the net migration for.
+
+    If one country, industry or skill is selected, a line chart will show the migration trend over the years.
+
+    ![](Images/13-facet-line.png){width="80%"}
+
+    If more than one country, industry or skills are selected, the bar chart will display the migration for them for a selected year.
+
+    ![](Images/13-facet-bar-without-annotations.png){width="80%"}
 
 3.  Select the Region(s) you would like to see geofacets for. The select region(s) will show on the visualization.
 
