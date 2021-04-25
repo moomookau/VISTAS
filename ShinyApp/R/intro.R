@@ -42,6 +42,10 @@ introUI <- function(id = "intro") {
               "_blank", "Research Paper")
         ),
         div(
+          a(href = "https://github.com/moomookau/VISTAS/raw/main/Poster/Poster.pdf", target =
+              "_blank", "Project Poster")
+        ),
+        div(
           a(href = "https://github.com/moomookau/VISTAS/raw/main/UserGuide/UserGuide.pdf", target =
               "_blank", "User Guide")
         ),
