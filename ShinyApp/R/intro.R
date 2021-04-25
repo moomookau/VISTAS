@@ -38,16 +38,20 @@ introUI <- function(id = "intro") {
         solidHeader = TRUE,
         title = "Links",
         div(div(
-          a(href = "https://github.com/moomookau/VISTAS/raw/main/ResearchPaper/ResearchPaper.pdf", target =
+          a(href = "https://va.moomookau.org/files/ResearchPaper.pdf", target =
               "_blank", "Research Paper")
         ),
         div(
-          a(href = "https://github.com/moomookau/VISTAS/raw/main/Poster/Poster.pdf", target =
+          a(href = "https://va.moomookau.org/files/Poster.pdf", target =
               "_blank", "Project Poster")
         ),
         div(
-          a(href = "https://github.com/moomookau/VISTAS/raw/main/UserGuide/UserGuide.pdf", target =
+          a(href = "https://va.moomookau.org/files/UserGuide.pdf", target =
               "_blank", "User Guide")
+        ),
+        div(
+          a(href = "https://va.moomookau.org/posts/2021-04-20-visual-analytics-project/", target =
+              "_blank", "Project Blog")
         ),
         div(
           a(href = "https://va.moomookau.org/posts/2021-02-21-visual-analytics-project-proposal/", target =
