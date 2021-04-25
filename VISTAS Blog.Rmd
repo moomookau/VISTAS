@@ -13,14 +13,18 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This post https://va.moomookau.org/posts/2021-02-21-visual-analytics-project-proposal/ contains the proposal for VISTAS - Visualising Industry Skill TAlent Shifts.
 
-In the post, you can find the background, project motivation and earlier sketches of our project. The final shiny dashboard differs as we explore more R packages with greater interactivity and work towards creating a user-friendly analytical tool.
+In the post, you can find the background, project motivation and earlier sketches of our project. The final shiny dashboard differs as we explored more R packages with greater interactivity and added them into our app to create a user-friendly analytical tool.
 
-## Including Plots
+## Poster
 
-You can also embed plots, for example:
+Our poster, created in R Markdown is available at https://github.com/moomookau/VISTAS/blob/main/Poster/Poster.pdf.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+The poster shows all the visualisation types we have in our app and includes Singapore as a Case Study to showcase insights that can be gathered by using VISTAS.
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## Research Paper
+
+The research report available for download here covers an in-depth introduction to the system architecture of our app and the limitations of certain packages that we have used. Insights for our case study on Singapore are also discussed.
+
+## Application
+
+VISTAS is available at https://moomookau.shinyapps.io/VISTAS/ for you to explore.
