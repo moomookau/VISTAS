@@ -101,6 +101,18 @@ ui <- dashboardPage(
             tags$link(rel = "stylesheet", type = "text/css", href = "css/vistas.css")
         ),
         useShinyjs(),
+        tags$script(
+            HTML(
+                "
+        var openTab = function(parentTab, tabName) {
+            $('ul[data-expanded=\"' + parentTab + '\"][style*=\"display: none\"]').prev().click();
+            setTimeout(function() {
+                $('a[data-value=\"' + tabName + '\"]').click();
+            }, 1000);
+          }
+      "
+            )
+        ),
         # Change the theme
         shinyDashboardThemes(theme = "grey_light"),
         tabItems(
