@@ -12,74 +12,137 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## User Guide for VISTAS (Visualising Industry Skill TAlent Shifts)
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+### 1. Introduction Page
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+On this page, there is a description of the application and cards that link to the various visualisation tabs.
 
-## Regression
+![](images/01_introduction.png){width="100%"}
+
+When you hover over a card, the card flips to show a description and link to the visualisation. Below, the card for the choropleth map is flipped.
+
+![](images/02_hover-01.png)
+
+On the side panel, a tooltip also appears when you hover over each sub-tabs. Below, the tooltip for scatter plot is shown when you move your cursor to Scatter Plot.
+
+![](images/03-tooltip.png)
+
+Across each tab, there are two help buttons and many tooltips.
+
+![](images/04-info-user-guide.png)
+
+1.  When the **i** button is clicked, a description of the visualisation will pop up.
+
+    ![](images/04-regression-info.png){width="80%"}
+
+2.  When the **?** button is clicked, a guide on selecting the inputs for the visualisation will pop up.
+
+    ![](images/05-regression-help.png){width="80%"}
+
+3.  Spinning wheels are added to signify that the visualisations are being generated.
+
+    ![](images/07-spinning%20wheel-01.png){width="80%"}![]()
+
+4.  When you hover over the input labels, a tooltip will appear to describe its significance.
+
+    ![](images/06-regression-input-tooltip.png){width="80%"}
+
+### 2. Statistical Analysis
+
+This tab has three sub-tabs for regression, scatter plot and correlation matrix. Each sub-tab has their own set of user inputs available.
+
+#### 2.1 Regression
+
+![](images/06-reg-01.png){width="100%"}
 
 1.  Click on Regression in the navigation bar.
 
-2.  Select two different variables to be shown on the regression plot, one for y axis and one for x axis e.g. Employment Growth and Industry Migration.
+2.  Select the variable to plot on the y axis e.g. Employment Growth.
 
-3.  Select filters to be applied on the dataset. The filters include year, country, region, income level, industry section and skill group.
+3.  Select the variable to plot on the x axis e.g. Industry Migration.
 
-4.  By default, all options are selected for each filter. On each filter, there are buttons to select all, deselect all or select individual options. Selected options will have a tick next to it.
+4.  Select filters to be applied on the dataset. The filters include year, country, region, income level, industry section and skill group.
 
-5.  If the selected filters produce no data point, '0 rows selected' will be reflected and you will not be able to apply changes to generate the visualisation. Select the appropriate filters to ensure results.
+    By default, all options are selected for each filter. On each filter, there are buttons to select all, deselect all or select individual options. Selected options will have a tick next to it.
 
-6.  Once the variables and filters are selected, click on 'Apply changes'.
+5.  If the selected filters produce no data point, '0 rows selected' will be reflected and you will not be able to apply changes to generate the visualisation. Amend your filters to ensure results.
 
-7.  The spinning wheel indicates that the regression plot and results are being generated. Once completed, the visualisations will be shown.
+6.  Click on 'Apply changes' to generate the Regression Plot.
+
+    *The spinning wheel indicates that the correlation matrix is being generated.* Once completed, the visualisation will be shown.
 
 ## Scatterplot
 
+![](images/08-scatter-01.png)
+
 1.  Click on Scatter Plot in the navigation bar.
 
-2.  Select two different variables to be shown on the interactive scatter plot, one for y axis and one for x axis e.g. Employment Growth and Industry Migration.
+2.  Select the variable to plot on the y axis e.g. Employment Growth.
 
-3.  Select filters to be applied on the dataset. The filters include year, country, region, income level, industry section and skill group.
+3.  Select the variable to plot on the x axis e.g. Industry Migration.
 
-4.  By default, all options are selected for each filter. On each filter, there are buttons to select all, deselect all or select individual options. Selected options will have a tick next to it.
+4.  Select filters to be applied on the dataset. The filters include year, country, region, income level, industry section and skill group.
+
+    By default, all options are selected for each filter. On each filter, there are buttons to select all, deselect all or select individual options. Selected options will have a tick next to it.
 
 5.  If the selected filters produce no data point, '0 rows selected' will be reflected and you will not be able to apply changes to generate the visualisation. Select the appropriate filters to ensure results.
 
 6.  Once the variables and filters are selected, click on 'Apply changes'.
 
-7.  The spinning wheel indicates that the interactive scatter plot is being generated. Once completed, the visualisation will be shown.
+7.  Hover over each point on the interactive scatter plot to find out its values i.e. x variable, y variable, year, country, industry and skill.
 
-8.  Hover over each point on the interactive scatter plot to find out its values i.e. x variable, y variable, year, country, industry and skill.
+8.  There are buttons on the interactive scatter plot to carry out actions e.g. download plot as png, zoom, select.
 
-9.  There are buttons on the interactive scatter plot to carry out actions e.g. download plot as png, zoom, select.
+    *The spinning wheel indicates that the correlation matrix is being generated.* Once completed, the visualisation will be shown.
 
 ## Correlation Matrix
 
+![](images/09-correlation.png)
+
 1.  Click on Correlation Matrix in the navigation bar.
 
-2.  Four variables will be used for the correlation matrix i.e. GDP per capita growth, Employment growth, Industry migration and Skill migration.
+2.  Four variables are used for the correlation matrix i.e. GDP per capita growth, Employment growth, Industry migration and Skill migration.
 
 3.  Select filters to be applied on the dataset. The filters include year, country, region, income level, industry section and skill group.
 
-4.  By default, all options are selected for each filter. On each filter, there are buttons to select all, deselect all or select individual options. Selected options will have a tick next to it.
+    By default, all options are selected for each filter. On each filter, there are buttons to select all, deselect all or select individual options. Selected options will have a tick next to it.
 
-5.  If the selected filters produce no data point, '0 rows selected' will be reflected and you will not be able to apply changes to generate the visualisation. Select the appropriate filters to ensure results.
+4.  If the selected filters produce no data point, '0 rows selected' will be reflected and you will not be able to apply changes to generate the visualisation. Select the appropriate filters to ensure results.
 
-6.  Once the variables and filters are selected, click on 'Apply changes'.
+5.  Once the variables and filters are selected, click on 'Apply changes'.
 
-7.  The spinning wheel indicates that the correlation matrix is being generated. Once completed, the visualisation will be shown.
+    *The spinning wheel indicates that the correlation matrix is being generated.* Once completed, the visualisation will be shown.
 
 ## Choropleth Map
 
+![](images/10-choropleth.png)
+
 1.  Click on Choropleth Map in the navigation bar.
+
 2.  Select Type of Migration to View from the dropdown -- Country, Industry or Skill.
-3.  Select Base Country i.e. the country you want to see the net migration for. The dropdown list is sorted by Region then alphabetical order.
-4.  Select Year on the slider as the data covers years 2015 -- 2019 (both years included).
-5.  Select Colour by from the dropdown. This variable determines the shades you see on the map. When Bins is selected, you can further indicate the number of bins. o When Quantile is selected, you can further indicate the number of quantiles. o When Numeric is selected, no further options are available.
-6.  Select Colour Palette to watch the colours of the choropleth map change.
+
+    -   When Country is selected, you must further select Base Country i.e. the country you want to see the net migration for. The dropdown list is sorted by Region then alphabetical order.
+
+    -   When Industry is selected, you must further select the Industries you want to see the net migration for.
+
+    -   When Skills is selected, you must further select the Skills you want to see the net migration for.
+
+3.  Select Year on the slider as the data covers years 2015 -- 2019 (both years included).
+
+4.  Select Colour by from the dropdown. This variable determines the shades you see on the map.
+
+    -   When Bins is selected, you can further indicate the number of bins.
+
+    -   When Quantile is selected, you can further indicate the number of quantiles.
+
+    -   When Numeric is selected, no further options are available.
+
+5.  Select Colour Palette to watch the colours of the choropleth map change.
 
 ## Chord Diagram
+
+![](images/11-chord.png)
 
 1.  Click on the Chord Diagram in the navigation bar.
 2.  Select at least three countries from the dropdown list for Countries.
@@ -89,16 +152,23 @@ When you click the **Knit** button a document will be generated that includes bo
 
 ## Slope Graph
 
+![](images/12-slope.png)
+
 1.  Click on Slope Graph in the navigation bar.
 
 2.  Select Type of Migration to View from the dropdown -- Country, Industry or Skill.
 
-3.  Select Base Country i.e. the country you want to see the net migration for. The dropdown list is sorted by Region then alphabetical order.
+    -   When Country is selected, you must further select Base Country i.e. the country you want to see the net migration for. The dropdown list is sorted by Region then alphabetical order.
 
-4.  Select Top, Bottom or Top and Bottom.
+    -   When Industry is selected, you must further select the Industries you want to see the net migration for.
 
-    -   Indicate the number of countries (N) you want to see on your slope graph.
-    -   When "Top and Bottom" is selected, Top N and Bottom N countries are shown.
+    -   When Skills is selected, you must further select the Skills you want to see the net migration for.
+
+3.  Select Top, Bottom or Top and Bottom.
+
+    -   When "Top and Bottom" is selected, both the top and bottom ranked countries are shown.
+
+4.  Indicate the number of countries (N) you want to see on your slope graph.
 
 5.  Select Colour by Region or Income Group. This variable determines the colors of the lines on the slope graph.
 
